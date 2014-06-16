@@ -1,5 +1,4 @@
 <?php do_action( 'bp_before_directory_experiments_page' ); ?>
-
 <div id="buddypress">
 
 <?php do_action( 'bp_before_directory_experiments' ); ?>
@@ -11,29 +10,19 @@
 </div><!-- #experiment-dir-search -->
 
 <form action="" method="post" id="experiments-directory-form" class="dir-form">
-
 <?php do_action( 'template_notices' ); ?>
-
 <div class="item-list-tabs" role="navigation">
 <ul>
-<li class="selected" id="experiments-all"><a href="<?php bp_experiments_directory_permalink(); ?>"><?php printf( __( 'All Experiments <span>%s</span>', 'buddypress' ), bp_get_total_experiment_count() ); ?></a></li>
-
 <?php if ( is_user_logged_in() && bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ) : ?>
-<li id="experiments-personal"><a href="<?php echo bp_loggedin_user_domain() . bp_get_experiments_slug() . '/my-experiments/'; ?>"><?php printf( __( 'My Experiments <span>%s</span>', 'buddypress' ), bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ); ?></a></li>
+
+<li id="experiments-all" ><a title='All Experiments' class='all-experiments _button' href="<?php bp_experiments_directory_permalink(); ?>"></a></li>
+<li id="experiments-personal"><a title='My Experiments' class='my-experiments _button' href="<?php echo bp_loggedin_user_domain() . bp_get_experiments_slug() . '/my-experiments/'; ?>"><?php printf( __( '<span>%s</span>', 'buddypress' ),bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ); ?></a></li>
+<li><a class='new-experiment _button' title='Create Experiment' href='create'></a></li>
+
 <?php endif; ?>
-
-<?php do_action( 'bp_experiments_directory_experiment_filter' ); ?>
-
-</ul>
-</div><!-- .item-list-tabs -->
-
-<div class="item-list-tabs" id="subnav" role="navigation">
-<ul>
-<?php do_action( 'bp_experiments_directory_experiment_types' ); ?>
-
 <li id="experiments-order-select" class="last filter">
 
-<label for="experiments-order-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
+<label for="experiments-order-by"><?php _e( 'Order By', 'buddypress' ); ?></label>
 
 <select id="experiments-order-by">
 <option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
@@ -44,6 +33,15 @@
 <?php do_action( 'bp_experiments_directory_order_options' ); ?>
 </select>
 </li>
+<?php do_action( 'bp_experiments_directory_experiment_filter' ); ?>
+
+</ul></div><!-- .item-list-tabs -->
+
+<div class="item-list-tabs" id="subnav" role="navigation">
+<ul>
+<?php do_action( 'bp_experiments_directory_experiment_types' ); ?>
+
+
 </ul>
 </div>
 

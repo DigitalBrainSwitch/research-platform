@@ -1,27 +1,77 @@
+</main>
 <div id="buddypress">
+	<style>
+	#primary{
+		display:none;
+	}
+	#experiment-title{
+		font-size:2.6em;
+		font-family: Raleway, cursive;
+		font-weight: 100;
+		color:white;
+	}
+	.bp_experiment {
+		padding-top:0px!important;
+	}
+	.entry-title{
+		display:none;
+	}
+	#exp-desc{
+		font-size: 1.5em;
+		color: #0b758e;
+	}
+	#dbs-item-header{
+		
+		background-color: #0ea2d1;
+	}
+	.exp-avatar{
+		max-width:300px;
+		border: 5px solid #0b758e;
+		border-radius: 50%;
+		width:100%;
+		height:100%;
+	}
+	#item-actions h3{
+		font-size:1.2em;
+		font-family: Raleway, cursive;
+		font-weight: 100;
+		color:white;
+	}
+	.experiment-button a{
+		margin-top:15px;
+		margin-bottom:15px;
+		display:block;
+		text-align: left!important;
+		height: 46px !important;
+		font-size:1.4em!important;
+		padding-left: 56px !important;
+		padding-top: 8px !important;
+		max-width:100%;
+		background-image:url('http://localhost/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/beaker.png')!important;
+		background-repeat: no-repeat!important;
+	}
+
+	</style>
 
 	<?php if ( bp_has_experiments() ) : while ( bp_experiments() ) : bp_the_experiment(); ?>
 
 	<?php do_action( 'bp_before_experiment_home_content' ); ?>
 
-	<div id="item-header" role="complementary">
-
+	<div id="dbs-item-header" role="complementary">
+		<main class='container clearfix'>
 		<?php bp_get_template_part( 'experiments/single/experiment-header' ); ?>
-
+		</main>
 	</div><!-- #item-header -->
-
-	<div id="item-nav">
+	<main class='container'>
+	<div id="item-nav" style="max-width:1200px; margin:0 auto;">
 		<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
 			<ul>
-
 				<?php bp_get_options_nav(); ?>
-
 				<?php do_action( 'bp_experiment_options_nav' ); ?>
-
 			</ul>
 		</div>
 	</div><!-- #item-nav -->
-
+	
 	<div id="item-body">
 
 		<?php do_action( 'bp_before_experiment_body' );
@@ -115,3 +165,4 @@
 	<?php endwhile; endif; ?>
 
 </div><!-- #buddypress -->
+<main>

@@ -543,7 +543,7 @@ function bp_experiment_avatar( $args = '' ) {
 		extract( $r, EXTR_SKIP );
 
 		/* Fetch the avatar from the folder, if not provide backwards compat. */
-		if ( !$avatar = bp_core_fetch_avatar( array( 'item_id' => $experiments_template->experiment->id, 'object' => 'experiment', 'type' => $type, 'avatar_dir' => 'experiment-avatars', 'alt' => $alt, 'css_id' => $id, 'class' => $class, 'width' => $width, 'height' => $height, 'title' => $experiments_template->experiment->name, 'alt' => $alt ) ) )
+		if ( !$avatar = bp_core_fetch_avatar( array( 'item_id' => $experiments_template->experiment->id, 'object' => 'experiment', 'type' => $type, 'avatar_dir' => 'experiment-avatars', 'alt' => $alt, 'css_id' => $id, 'html' => false, 'class' => $class, 'width' => $width, 'height' => $height, 'title' => $experiments_template->experiment->name, 'alt' => $alt ) ) )
 			$avatar = '<img src="' . esc_url( $experiments_template->experiment->avatar_thumb ) . '" class="avatar" alt="' . esc_attr( $experiments_template->experiment->name ) . '" />';
 
 		return apply_filters( 'bp_get_experiment_avatar', $avatar );
@@ -1968,7 +1968,7 @@ function bp_get_experiment_create_button() {
 			'wrapper'    => false,
 		);
 
-		return bp_get_button( apply_filters( 'bp_get_experiment_create_button', $button_args ) );
+		//return bp_get_button( apply_filters( 'bp_get_experiment_create_button', $button_args ) );
 	}
 
 /**
@@ -2857,8 +2857,8 @@ function bp_directory_experiments_search_form() {
 	$search_value         = !empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : $default_search_value;
 
 	$search_form_html = '<form action="" method="get" id="search-experiments-form">
-		<label><input type="text" name="s" id="experiments_search" placeholder="'. esc_attr( $search_value ) .'" /></label>
-		<input type="submit" id="experiments_search_submit" name="experiments_search_submit" value="'. __( 'Search', 'buddypress' ) .'" />
+		<label><input type="text" name="s" id="experiments_search" placeholder="Search" /></label>
+		<button type="submit" id="experiments_search_submit" name="experiments_search_submit"><span class="glyphicon glyphicon-search"></span></button>
 	</form>';
 
 	echo apply_filters( 'bp_directory_experiments_search_form', $search_form_html );

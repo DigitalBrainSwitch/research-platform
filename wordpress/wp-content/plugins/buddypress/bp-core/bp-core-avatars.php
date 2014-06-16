@@ -13,7 +13,6 @@ if ( !defined( 'ABSPATH' ) ) exit;
 function bp_core_set_avatar_constants() {
 
 	$bp = buddypress();
-
 	if ( !defined( 'BP_AVATAR_THUMB_WIDTH' ) )
 		define( 'BP_AVATAR_THUMB_WIDTH', 50 );
 
@@ -21,13 +20,13 @@ function bp_core_set_avatar_constants() {
 		define( 'BP_AVATAR_THUMB_HEIGHT', 50 );
 
 	if ( !defined( 'BP_AVATAR_FULL_WIDTH' ) )
-		define( 'BP_AVATAR_FULL_WIDTH', 150 );
+		define( 'BP_AVATAR_FULL_WIDTH', 600 );
 
 	if ( !defined( 'BP_AVATAR_FULL_HEIGHT' ) )
-		define( 'BP_AVATAR_FULL_HEIGHT', 150 );
+		define( 'BP_AVATAR_FULL_HEIGHT', 600 );
 
 	if ( !defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) )
-		define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', 450 );
+		define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', 600 );
 
 	if ( !defined( 'BP_AVATAR_ORIGINAL_MAX_FILESIZE' ) ) {
 
@@ -497,9 +496,9 @@ function bp_core_fetch_avatar( $args = '' ) {
 	}
 
 	if ( true === $html ) {
-		return apply_filters( 'bp_core_fetch_avatar', '<img src="' . $gravatar . '" class="' . esc_attr( $class ) . '"' . $css_id . $html_width . $html_height . $html_alt . $title . ' />', $params, $item_id, $avatar_dir, $css_id, $html_width, $html_height, $avatar_folder_url, $avatar_folder_dir );
+		return apply_filters( 'bp_core_fetch_avatar', '<img src="' . 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg' . '" class="' . esc_attr( $class ) . '"' . $css_id . $html_width . $html_height . $html_alt . $title . ' />', $params, $item_id, $avatar_dir, $css_id, $html_width, $html_height, $avatar_folder_url, $avatar_folder_dir );
 	} else {
-		return apply_filters( 'bp_core_fetch_avatar_url', $gravatar, $params );
+		return apply_filters( 'bp_core_fetch_avatar_url', 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg', $params );
 	}
 }
 
@@ -1167,12 +1166,15 @@ function bp_core_avatar_original_max_filesize() {
  */
 function bp_core_avatar_default( $type = 'gravatar' ) {
 	// Local override
+	
+	define ( 'BP_AVATAR_DEFAULT', 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg' );
+	define ( 'BP_AVATAR_DEFAULT_THUMB', 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg' );
 	if ( defined( 'BP_AVATAR_DEFAULT' ) ) {
 		$avatar = BP_AVATAR_DEFAULT;
 
 	// Use the local default image
 	} else if ( 'local' === $type ) {
-		$avatar = buddypress()->plugin_url . 'bp-core/images/mystery-man.jpg';
+		$avatar = 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg';
 
 	// Use Gravatar's mystery man as fallback
 	} else {
@@ -1185,7 +1187,7 @@ function bp_core_avatar_default( $type = 'gravatar' ) {
 		$avatar = $host . '/avatar/00000000000000000000000000000000?d=mm&amp;s=' . bp_core_avatar_full_width();
 	}
 
-	return apply_filters( 'bp_core_avatar_default', $avatar );
+	return apply_filters( 'bp_core_avatar_default', 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg' );
 }
 
 /**
@@ -1208,7 +1210,7 @@ function bp_core_avatar_default_thumb( $type = 'gravatar' ) {
 
 	// Use the local default image
 	} else if ( 'local' === $type ) {
-		$avatar = buddypress()->plugin_url . 'bp-core/images/mystery-man-50.jpg';
+		$avatar ='http://localhost/wp-content/themes/ward-pro/library/images/default.jpg';
 
 	// Use Gravatar's mystery man as fallback
 	} else {
@@ -1221,5 +1223,5 @@ function bp_core_avatar_default_thumb( $type = 'gravatar' ) {
 		$avatar = $host . '/avatar/00000000000000000000000000000000?d=mm&amp;s=' . bp_core_avatar_thumb_width();
 	}
 
-	return apply_filters( 'bp_core_avatar_thumb', $avatar );
+	return apply_filters( 'bp_core_avatar_thumb', 'http://localhost/wp-content/themes/ward-pro/library/images/default.jpg');
 }
