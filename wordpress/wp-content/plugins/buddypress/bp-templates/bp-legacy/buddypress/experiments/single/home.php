@@ -5,9 +5,8 @@
 		display:none;
 	}
 	#experiment-title{
-		font-size:2.6em;
-		font-family: Raleway, cursive;
-		font-weight: 100;
+		font-size:3em;
+		font-weight: 400;
 		color:white;
 	}
 	.bp_experiment {
@@ -21,8 +20,9 @@
 		color: #0b758e;
 	}
 	#dbs-item-header{
-		
 		background-color: #0ea2d1;
+		padding-bottom:10px;
+		margin-bottom:10px;
 	}
 	.exp-avatar{
 		max-width:300px;
@@ -60,10 +60,7 @@
 	<div id="dbs-item-header" role="complementary">
 		<main class='container clearfix'>
 		<?php bp_get_template_part( 'experiments/single/experiment-header' ); ?>
-		</main>
-	</div><!-- #item-header -->
-	<main class='container'>
-	<div id="item-nav" style="max-width:1200px; margin:0 auto;">
+		<div id="item-nav" style="max-width:1200px; margin:0 auto;">
 		<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
 			<ul>
 				<?php bp_get_options_nav(); ?>
@@ -71,6 +68,10 @@
 			</ul>
 		</div>
 	</div><!-- #item-nav -->
+		</main>
+	</div><!-- #item-header -->
+	<main class='container'>
+	
 	
 	<div id="item-body">
 

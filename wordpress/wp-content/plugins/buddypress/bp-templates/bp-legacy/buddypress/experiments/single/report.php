@@ -6,10 +6,14 @@
 <script src="http://digitalbrain-test.lancs.ac.uk/chartjs/Chart.js"></script>
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.css" id="theme_base">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.date.css" id="theme_date">
+<link rel="stylesheet" href="http://localhost/uislider/jquery.nouislider.css">
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.date.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.time.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/legacy.js"></script>
+<script src="http://localhost/uislider/jquery.nouislider.min.js"></script>
+<script src="http://localhost/wp-includes/js/bootstrap.min.js"></script>
+
 
 <script>
 
@@ -52,6 +56,28 @@ font-size:15px;
 font-weight:bold;
 color:#333333;
 }
+.sidebar {
+    display: block;
+    background-color: #444;
+    padding:20px;
+    color:#777;
+    margin-top: -10px;
+    text-align: left;
+
+}
+.sidebar input{
+    width:100%;
+    background-color:#333;
+    color:#ddd;
+    border:0px;
+    padding:10px;
+}
+ .sidebar h1, .sidebar h2 {
+    color:#ddd;
+}
+.sidebar h3{
+    color:#777;
+}
 </style>
 
 
@@ -62,7 +88,8 @@ color:#333333;
 
 
 <div id="message">Your message has been sent.<br /><br /></div>
-<div class="row"><div class="col-md-3">
+<div class="row"><div class="col-md-3 sidebar"><h2>Report</h2>
+
 <?php
     
     global $variable_chart1;
@@ -178,8 +205,6 @@ color:#333333;
     ?>
 
 
-<table>
-
 
 
 
@@ -190,7 +215,6 @@ color:#333333;
         ?>
 
 
-<tr>
 <?php
     //if($result)
     {
@@ -208,15 +232,6 @@ color:#333333;
                 //$img = $row['image_path'];
                 ?>
 
-<td>
-<table>
-<tr valign="top">
-<td width="50%">
-
-<label for="experiment-variable1"><b><?php _e( $row['name'], 'buddypress' ); ?></label>
-</td>
-
-<td>
 
 
 <?php
@@ -225,7 +240,8 @@ color:#333333;
     {
         
         ?>
-<input type="text" name="variable[]" id="$row['id']" aria-required="true"  />
+        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
+        <input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
 
 <?php
     
@@ -235,20 +251,31 @@ color:#333333;
     {
         
         ?>
-
-<select id="$row['id']" name="variable[]">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</select>
-
+    <h3><?php _e( $row['name'], 'buddypress' ); ?>: <span style='color:white' id="<?php echo $row['id']?>">0</span></h3>
+    <div class="slider" id="scoreSlider<?php echo $row['id']?>"></div>
+    <input hidden type="text" name="variable[]" id="scoreText<?php echo $row['id']?>"></input>
+    <script>
+        var sliders = $("#scoreSlider<?php echo $row['id']?>");
+        sliders.noUiSlider({
+            start: 0,
+            connect: "lower",
+            orientation: "horizontal",
+            range: {
+                'min': 0,
+                'max': 10
+            },
+            serialization: {
+                format: {
+                    decimals: 0
+                }
+            }
+        });
+        sliders.on('slide', showScore);
+        function showScore(){
+            $("#scoreText<?php echo $row['id']?>").val($("#scoreSlider<?php echo $row['id']?>").val());
+            $("#<?php echo $row['id']?>").html($("#scoreSlider<?php echo $row['id']?>").val());
+        }
+    </script>
 
 <?php
     
@@ -258,6 +285,7 @@ color:#333333;
     {
         
         ?>
+        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
 <select id="$row['id']" name="variable[]">
 <option value="Yes">Yes</option>
 <option value="No">No</option>
@@ -271,7 +299,8 @@ color:#333333;
     {
         
         ?>
-<input type="text" name="variable[]" id="$row['id']" aria-required="true"  />
+        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
+<input type="text" name="variable[]" placeholder='07:00' id="$row['id']" aria-required="true"  />
 
 <?php
     
@@ -279,11 +308,12 @@ color:#333333;
 if($row['type'] == 'switches'){
 
 ?>
-<div class="alert alert-info alert-dismissable">
+<div style='margin-top:10px' class="alert alert-info alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   <strong>Pick a date to view the amount of switches you made.</strong></br>You must have our chrome extension installed !!LINK!!
 </div>
-<input id='datepicker' placeholder="Choose a date" type="text"></input><input type='hidden' name="variable[]" id='switchCount'></input><h2><span id='switches'><span></h2>
+<h3><?php _e( $row['name'], 'buddypress' ); ?>: <span style='color:white' id='switches'><span></h3>
+<input id='datepicker' placeholder="Choose a date" type="text"></input><input type='hidden' name="variable[]" id='switchCount'></input>
 <script>
     $('#datepicker').pickadate({
         format: 'mm/dd/yyyy',
@@ -304,14 +334,9 @@ if($row['type'] == 'switches'){
     
     ?>
 
-</td>
 <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
 
-</td>
 
-</tr>
-</table>
-</td>
 
 <?php
     
@@ -329,21 +354,17 @@ if($row['type'] == 'switches'){
     
     ?>
 
-<tr>
-<td><input type="submit" value="<?php _e('report', 'buddypress' ); ?>" id="experiment-report-variables" name="report" />
-</td>
-</tr>
-</tr>
 
+<button style='margin-top:20px; width:100%' type="submit" value="<?php _e('report', 'buddypress' ); ?>" id="experiment-report-variables" name="report" ><span class="glyphicon glyphicon-stats"></span>
+</button>
 
-</table>
 
 
 
 
 </form>
 
-</div><div class='col-md-9'>
+</div><div class='col-md-9'><h3>Results</h3>
 <table>
 
 

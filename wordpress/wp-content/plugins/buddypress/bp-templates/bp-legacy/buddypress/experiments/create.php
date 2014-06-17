@@ -81,11 +81,16 @@ function addVariable() {
     var option4 = document.createElement("option");
     option4.text = "Time";
     option4.value = "time";
+
+    var option5 = document.createElement("option");
+    option5.text = "Swithes(Auto)";
+    option5.value = "switches";
     
     selectList.add(option1,selectList[0]);
     selectList.add(option2,selectList[1]);
     selectList.add(option3,selectList[2]);
-    //selectList.add(option4,selectList[3]);
+    selectList.add(option4,selectList[3]);
+    selectList.add(option5,selectList[4]);
     
     
     
