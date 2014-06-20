@@ -3857,7 +3857,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  padding: 5px 15px!important;
   font-size: 18px;
   line-height: 20px;
 }
@@ -6539,48 +6539,7 @@ img {
   display: block;
 }
 
-table {
-  width: 100%;
-  background: #fff;
-}
-table td, table th {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-table th {
-  background: #eee;
-  font-weight: bold;
-}
-table caption {
-  padding: 1em 0;
-  text-align: center;
-}
 
-dt {
-  font-weight: bold;
-}
-
-dd {
-  line-height: 1.4;
-  margin: 4px 0 0;
-  padding: 0 0 .5em 0;
-}
-
-input, textarea {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
-  border-radius: 6px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 8px;
-  border: 1px solid #bbb;
-  font-size: 14px;
-  color: #555;
-}
 
 /* =Assistive Text
 -------------------------------------------------------------- */
@@ -6751,7 +6710,7 @@ input, textarea {
 /* =Main elements
 -------------------------------------------------------------- */
 #page {
-  background: #f7f7f7;
+  background: #fbfbfb;
 }
 .boxed #page {
   margin-left: auto;

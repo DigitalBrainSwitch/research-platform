@@ -36,7 +36,7 @@ $bavotasan_theme_options = bavotasan_theme_options();
 				<?php $class = ( is_active_sidebar( 'extended-footer' ) ) ? ' active' : ''; ?>
 				<span class="line<?php echo $class; ?>"></span>
 				<span class="pull-left"><?php echo $bavotasan_theme_options['copyright']; ?></span>
-				<span class="credit-link pull-right"><i class="icon-leaf"></i><?php printf( __( 'Designed by %s.', 'ward' ), '<a href="https://themes.bavotasan.com/">bavotasan.com</a>' ); ?></span>
+				<span class="credit-link pull-right"></span>
 			</div><!-- .col-lg-12 -->
 		</div><!-- .row -->
 	</div><!-- #footer-content.container -->
