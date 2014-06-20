@@ -35,7 +35,7 @@
 
 	<ul id="experiments-list" class="item-list" role="main">
 	<?php while ( bp_experiments() ) : bp_the_experiment(); ?>
-	<div class="col-md-3 no-padding">
+	<div class="col-md-3 no-padding <?php bp_experiment_class(); ?>">
 		<li <?php bp_experiment_class(); ?>>
 			<a href="<?php bp_experiment_permalink(); ?>"><div class="dbs-item-avatar" style="background-image:url('<?php bp_experiment_avatar(); ?>')">
 				<div class='dbs-item-desc'><?php bp_experiment_description_excerpt(); ?></div>

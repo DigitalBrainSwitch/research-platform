@@ -5,12 +5,12 @@
 <!-- Optionally use Animate.css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.0.0/animate.min.css">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/liquidslider/css/liquid-slider.css">
+<script language="javascript" type="text/javascript" src='https://code.jquery.com/jquery-1.11.1.min.js' ></script>
+<script language="javascript" type="text/javascript" src='//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js' ></script>
 <!--link rel="stylesheet" href="http://localhost/liquidslider/css/liquid-slider.css"-->
 
 <!--link rel="stylesheet" href="http://localhost/wordpress/liquidslider/examples/assets/prism.css"-->
 <!--link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/liquidslider/examples/assets/styles.css"-->
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script language="javascript" type="text/javascript">
 
@@ -57,6 +57,7 @@ function addVariable() {
     textBox.setAttribute("type", "text");
     textBox.setAttribute("name", "name[]");
     textBox.setAttribute("id", textBoxId);
+    textBox.setAttribute("class", 'form-control');
     //textBox.setAttribute("value", textBoxId);
     
     
@@ -64,6 +65,7 @@ function addVariable() {
     selectListBoxId = "type" + variableCount.toString();
     selectList.setAttribute("name", "type[]");
     selectList.setAttribute("id", selectListBoxId);
+    selectList.setAttribute("class", "form-control form-control-select");
     
     
     var option1 = document.createElement("option");
@@ -83,7 +85,7 @@ function addVariable() {
     option4.value = "time";
 
     var option5 = document.createElement("option");
-    option5.text = "Swithes(Auto)";
+    option5.text = "Swithes (AUTO)";
     option5.value = "switches";
     
     selectList.add(option1,selectList[0]);
@@ -147,7 +149,43 @@ function removeVariable() {
 }
 
 </script>
-
+<style>
+.form-control-select{
+    max-width:25%!important;
+    background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/select-arrow.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}
+.form-control-select.focus {
+  background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/select-arrow.png')!important;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.form-control {
+  border: 2px solid #bdc3c7;
+  color: #34495e;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.467;
+  width:100%!important;
+  padding: 8px 12px;
+  height: 42px;
+  -webkit-appearance: none;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+  transition: border .25s linear, color .25s linear, background-color .25s linear;
+  margin-bottom:10px;
+}
+.form-group.focus .form-control,
+.form-control:focus {
+  border-color: #3a87ad;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+</style>
 
 <?php do_action( 'bp_before_create_experiment_page' ); ?>
 
@@ -173,11 +211,12 @@ function removeVariable() {
 
 <?php /* Experiment creation step 1: Basic experiment details */ ?>
 <!--?php if ( bp_is_experiment_creation_step( 'experiment-details' ) ) : ?-->
-
 <div class="liquid-slider" id="main-slider">
 
 <div id="experiment-details">
+<span>1) Details </span><span style='color:#ddd'>2) Variables   </span><span style='color:#ddd'>3) Privacy </span><span style='color:#ddd'>4) Invites</span>
 <h2 class="title1">Details</h2>
+
 
 <?php do_action( 'bp_before_experiment_details_creation_step' ); ?>
 
@@ -187,13 +226,13 @@ function removeVariable() {
 
 </div>
 <div>
-<label for="experiment-name"><?php _e( 'Experiment Name (required)', 'buddypress' ); ?></label>
-<input type="text" tabindex="-1" name="experiment-name" id="experiment-name" aria-required="true" value="<?php bp_new_experiment_name(); ?>" />
+<label for="experiment-name"><?php _e( 'Experiment Name', 'buddypress' ); ?></label>
+<input class='form-control' type="text" tabindex="-1" name="experiment-name" id="experiment-name" aria-required="true" value="<?php bp_new_experiment_name(); ?>" />
 </div>
 
 <div>
-<label for="experiment-desc"><?php _e( 'Experiment Description (required)', 'buddypress' ); ?></label>
-<textarea name="experiment-desc" tabindex="-1" id="experiment-desc" aria-required="true"><?php bp_new_experiment_description(); ?></textarea>
+<label for="experiment-desc"><?php _e( 'Experiment Description', 'buddypress' ); ?></label>
+<textarea class='form-control' name="experiment-desc" tabindex="-1" id="experiment-desc" aria-required="true"><?php bp_new_experiment_description(); ?></textarea>
 </div>
 
 <?php
@@ -208,20 +247,19 @@ function removeVariable() {
 </div><!--Details-->
 
 <div id="experiment-variables">
-
+<span style='color:#ddd'>1) Details </span><span>2) Variables </span><span style='color:#ddd'>3) Privacy </span><span style='color:#ddd'>4) Invites</span>
 <h2 class="title1">Variables</h2>
-
 <div align="right">
 
     <input type="button" tabindex="-1" class="btn-hover" value="Previous" name="btn-variables-previous" id="btn-variables-next" onclick="variablesPrevious()">
     <input type="button" tabindex="-1" class="btn-hover" value="Next" name="btn-variables-next" id="btn-variables-next" onclick="variablesNext()">
 
 </div>
+<p>These are the values that people will report on during your experiment.</p>
 
-<label for="experiment-variable1"><?php _e( 'Measurement 1 (required)', 'buddypress' ); ?></label>
-<input type="text" tabindex="-1" name="name[]" id="name[]" aria-required="true" value="<?php bp_new_experiment_variable(); ?>" />
-
-<select id="typeId[]" name="type[]" tabindex="-1">
+<input type="text" class='form-control' tabindex="-1" placeholder='Measurement 1' name="name[]" id="name[]" aria-required="true" value="<?php bp_new_experiment_variable(); ?>" />
+<div style='width:74%; float:right; margin-right:2px;'><div id='variable-description'></div></div>
+<select class='variable-selector form-control form-control-select' id="typeId[]" name="type[]" tabindex="-1">
 <option value="score"><?php _e( 'Score', 'buddypress' ); ?></option>
 <option value="binary"><?php _e( 'Binary', 'buddypress' ); ?></option>
 <option value="count"><?php _e( 'Count', 'buddypress' ); ?></option>
@@ -229,14 +267,28 @@ function removeVariable() {
 <option value="switches"><?php _e( 'Switches (AUTO)', 'buddypress' ); ?></option>
 <?php do_action( 'bp_experiment_variable_type_options' ); ?>
 </select>
+<script>
+$( ".variable-selector" )
+  .change(function () {
+    var str = "";
+    $( ".variable-selector option:selected" ).each(function() {
+        if ($( this ).text() == 'Score'){
+            str = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Score</b> variables can have a value 0-10. e.g. Level of Productivity</div>';
+        } else if ($( this ).text() == 'Count'){
+           str = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Count</b> variables are integers. e.g. How many meals did you eat?</div>';
+        }else if ($( this ).text() == 'Binary'){
+           str = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Binary</b> variables have a yes/no result. e.g. Did you wake up before 8AM?</div>';
+        }else if ($( this ).text() == 'Switches (AUTO)'){
+           str = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><b>Switches</b> is the automatically tracked number of browser tab switches you made. Participants must install our chrome extension.</div>';
+        }
+    });
+    $( "#variable-description" ).html( str );
+  })
+  .change();
+</script>
 
-
-
-
-<label for="experiment-variable2"><?php _e( 'Measurement 2 (required)', 'buddypress' ); ?></label>
-<input type="text" tabindex="-1" name="name[]" id="name[]" aria-required="true" value="<?php bp_new_experiment_variable(); ?>" />
-
-<select id="typeId[]" name="type[]" tabindex="-1">
+<input class='form-control' type="text" tabindex="-1" name="name[]" id="name[]" placeholder='Measurement 2' aria-required="true" value="<?php bp_new_experiment_variable(); ?>" />
+<select class='form-control form-control-select' id="typeId[]" name="type[]" tabindex="-1">
 <option value="score"><?php _e( 'Score', 'buddypress' ); ?></option>
 <option value="binary"><?php _e( 'Binary', 'buddypress' ); ?></option>
 <option value="count"><?php _e( 'Count', 'buddypress' ); ?></option>
@@ -245,8 +297,6 @@ function removeVariable() {
 
 <?php do_action( 'bp_experiment_variable_type_options' ); ?>
 </select>
-
-
 <tr>
     <td align="right" width="100%">
         <input type="button" value="Add Variable" tabindex="-1" name="add-variable-submit" id="add-variable-submit" onclick="addVariable()">
@@ -259,6 +309,7 @@ function removeVariable() {
 
 <div id="experiment-settings">
 
+<span style='color:#ddd'>1) Details </span><span style='color:#ddd'>2) Variables </span><span >3) Privacy </span><span style='color:#ddd'>4) Invites</span>
     <h2 class="title1">Privacy Options</h2>
 
     <div align="right">
@@ -267,38 +318,62 @@ function removeVariable() {
         <input type="button" tabindex="-1" class="btn-hover" value="Next" name="btn-settings-next" id="btn-settings-next" onclick="settingsNext()">
 
     </div>
+<div class="radio" style='margin-bottom:30px'>
+    <div class='col-md-4'>
+        <label><input class='privacy' type="radio" tabindex="-1" name="experiment-status" value="public"<?php if ( 'public' == bp_get_new_experiment_status() || !bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
+        <strong><?php _e( 'Public', 'buddypress' ); ?></strong>
+        </label>
+    </div>
 
-
-<div class="radio">
-<label><input type="radio" tabindex="-1" name="experiment-status" value="public"<?php if ( 'public' == bp_get_new_experiment_status() || !bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
-<strong><?php _e( 'This is a public experiment', 'buddypress' ); ?></strong>
-<ul>
-<li><?php _e( 'Any site member can join this experiment.', 'buddypress' ); ?></li>
-<li><?php _e( 'This experiment will be listed in the experiments directory and in search results.', 'buddypress' ); ?></li>
-<li><?php _e( 'Experiment content and activity will be visible to any site member.', 'buddypress' ); ?></li>
-</ul>
-</label>
-
-<label><input type="radio" tabindex="-1"  name="experiment-status" value="private"<?php if ( 'private' == bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
-<strong><?php _e( 'This is a private experiment', 'buddypress' ); ?></strong>
-<ul>
-<li><?php _e( 'Only users who request membership and are accepted can join the experiment.', 'buddypress' ); ?></li>
-<li><?php _e( 'This experiment will be listed in the experiments directory and in search results.', 'buddypress' ); ?></li>
-<li><?php _e( 'Experiment content and activity will only be visible to members of the experiment.', 'buddypress' ); ?></li>
-</ul>
-</label>
-
-<label><input type="radio" tabindex="-1"  name="experiment-status" value="hidden"<?php if ( 'hidden' == bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
-<strong><?php _e('This is a hidden experiment', 'buddypress' ); ?></strong>
-<ul>
-<li><?php _e( 'Only users who are invited can join the experiment.', 'buddypress' ); ?></li>
-<li><?php _e( 'This experiment will not be listed in the experiments directory or search results.', 'buddypress' ); ?></li>
-<li><?php _e( 'Experiment content and activity will only be visible to members of the experiment.', 'buddypress' ); ?></li>
-</ul>
-</label>
+<div class='col-md-4'>
+    <label><input class='privacy' type="radio" tabindex="-1"  name="experiment-status" value="private"<?php if ( 'private' == bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
+    <strong><?php _e( 'Private', 'buddypress' ); ?></strong>
+    </label>
 </div>
 
-<h4><?php _e( 'Experiment Invitations', 'buddypress' ); ?></h4>
+<div class='col-md-4'>
+    <label><input class='Hidden' type="radio" tabindex="-1"  name="experiment-status" value="hidden"<?php if ( 'hidden' == bp_get_new_experiment_status() ) { ?> checked="checked"<?php } ?> />
+    <strong><?php _e('Hidden', 'buddypress' ); ?></strong>
+    </label>
+</div>
+</div>
+<div id='public'>
+<p><?php _e( 'Any site member can join this experiment.', 'buddypress' ); ?></p>
+<p><?php _e( 'This experiment will be listed in the experiments directory and in search results.', 'buddypress' ); ?></p>
+<p><?php _e( 'Experiment content and activity will be visible to any site member.', 'buddypress' ); ?></p>
+</div>
+<div id='private'>
+<p><?php _e( 'Only users who request membership and are accepted can join the experiment.', 'buddypress' ); ?></p>
+<p><?php _e( 'This experiment will be listed in the experiments directory and in search results.', 'buddypress' ); ?></p>
+<p><?php _e( 'Experiment content and activity will only be visible to members of the experiment.', 'buddypress' ); ?></p>
+</div>
+<div id='hidden'>
+<p><?php _e( 'Only users who are invited can join the experiment.', 'buddypress' ); ?></p>
+<p><?php _e( 'This experiment will not be listed in the experiments directory or search results.', 'buddypress' ); ?></p>
+<p><?php _e( 'Experiment content and activity will only be visible to members of the experiment.', 'buddypress' ); ?></p>
+</div>
+<script>
+$(document).ready(function(){
+    $('#private').hide();
+    $('#hidden').hide();
+    $('.privacy').click(function() {
+       if( $( this ).val() == 'public'){
+            $('#private').hide();
+            $('#hidden').hide();
+            $('#public').show();
+       }if( $( this ).val() == 'private'){
+            $('#hidden').hide();
+            $('#public').hide();
+            $('#private').show();
+       }if( $( this ).val() == 'hidden'){
+            $('#private').hide();
+            $('#public').hide();
+            $('#hidden').show();
+       }
+    });
+});
+</script>
+<h3><?php _e( 'Experiment Invitations', 'buddypress' ); ?></h4>
 
 <p><?php _e( 'Which members of this experiment are allowed to invite others?', 'buddypress' ); ?></p>
 
@@ -325,6 +400,7 @@ function removeVariable() {
 
 <div id="experiment-invites">
 
+<span style='color:#ddd'>1) Details </span><span style='color:#ddd'>2) Variables </span><span style='color:#ddd'>3) Privacy </span><span >4) Invites</span>
 <h2 class="title1">Invites</h2>
 
 <div align="right">
@@ -631,3 +707,4 @@ function invitesPrevious() {
 
 </script>
 </footer>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js' />

@@ -17,7 +17,7 @@
 
 <li id="experiments-all" ><a title='All Experiments' class='all-experiments _button' href="<?php bp_experiments_directory_permalink(); ?>"></a></li>
 <li id="experiments-personal"><a title='My Experiments' class='my-experiments _button' href="<?php echo bp_loggedin_user_domain() . bp_get_experiments_slug() . '/my-experiments/'; ?>"><?php printf( __( '<span>%s</span>', 'buddypress' ),bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ); ?></a></li>
-<li><a class='new-experiment _button' title='Create Experiment' href='create'></a></li>
+<li><a class='new-experiment _button' title='Create Experiment' href='experiments/create'></a></li>
 
 <?php endif; ?>
 <li id="experiments-order-select" class="last filter">

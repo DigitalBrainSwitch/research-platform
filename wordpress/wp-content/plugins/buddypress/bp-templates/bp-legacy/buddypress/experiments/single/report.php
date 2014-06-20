@@ -6,13 +6,13 @@
 <script src="http://digitalbrain-test.lancs.ac.uk/chartjs/Chart.js"></script>
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.css" id="theme_base">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.date.css" id="theme_date">
-<link rel="stylesheet" href="http://localhost/uislider/jquery.nouislider.css">
+<link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.css">
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.date.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.time.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/legacy.js"></script>
-<script src="http://localhost/uislider/jquery.nouislider.min.js"></script>
-<script src="http://localhost/wp-includes/js/bootstrap.min.js"></script>
+<script src="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.min.js"></script>
+<script src="http://digitalbrain-test.lancs.ac.uk/wp-includes/js/bootstrap.min.js"></script>
 
 
 <script>
@@ -66,11 +66,41 @@ color:#333333;
 
 }
 .sidebar input{
-    width:100%;
-    background-color:#333;
-    color:#ddd;
-    border:0px;
-    padding:10px;
+      border: 2px solid #bdc3c7;
+  color: #34495e;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.467;
+  width:100%!important;
+  padding: 8px 12px;
+  height: 42px;
+  -webkit-appearance: none;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+  transition: border .25s linear, color .25s linear, background-color .25s linear;
+  margin-bottom:10px;
+}
+.sidebar select{
+    border: 2px solid #bdc3c7;
+  color: #34495e;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.467;
+  width:100%!important;
+  padding: 8px 12px;
+  height: 42px;
+  -webkit-appearance: none;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+  transition: border .25s linear, color .25s linear, background-color .25s linear;
+  margin-bottom:10px;
+    background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/select-arrow.png');
+    background-repeat: no-repeat;
+    background-position: right;
 }
  .sidebar h1, .sidebar h2 {
     color:#ddd;
@@ -187,8 +217,8 @@ color:#333333;
     //echo $experimentid;
     
     // Create a connection
-    $connection = mysql_connect("localhost", "root", "") or die(mysql_error());
-    //$connection = mysql_connect("localhost", "urashid", "password") or die(mysql_error());
+    //$connection = mysql_connect("digitalbrain-test.lancs.ac.uk", "root", "") or die(mysql_error());
+    $connection = mysql_connect("digitalbrain-test.lancs.ac.uk", "urashid", "password") or die(mysql_error());
     
     //Select database
     mysql_select_db("wordpress", $connection) or die(mysql_error());
@@ -319,7 +349,7 @@ if($row['type'] == 'switches'){
         format: 'mm/dd/yyyy',
          onSet: function(context) {
             d = $('#datepicker').val();
-            $.post("http://localhost/wp-includes/chrome-extension/getSwitchesCount.php", {user_id: <?php echo get_current_user_id(); ?>, date: d}, function(response) {
+            $.post("http://digitalbrain-test.lancs.ac.uk/wp-includes/chrome-extension/getSwitchesCount.php", {user_id: <?php echo get_current_user_id(); ?>, date: d}, function(response) {
               $('#switchCount').val(response);
               $('#switches').html(response);
               console.log(response);

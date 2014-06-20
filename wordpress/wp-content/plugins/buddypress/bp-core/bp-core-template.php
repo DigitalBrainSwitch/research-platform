@@ -65,7 +65,15 @@ function bp_get_options_nav() {
         
         // List type depends on our current component
 		//$list_type = bp_is_experiment() ? 'experiments' : 'personal';
-
+		if($subnav_item['css_id']=="home"){
+			$subnav_item['name'] = '<i class="fa fa-flask"></i>';
+		}if($subnav_item['css_id']=="members"){
+			$subnav_item['name'] = "<i class='fa fa-group'></i>";
+		}if($subnav_item['css_id']=="invite"){
+			$subnav_item['name'] = '<i class="fa fa-envelope"></i>';
+		}if($subnav_item['css_id']=="admin"){
+			$subnav_item['name'] = '<i class="fa fa-gear"></i>';
+		}
 		// echo out the final list item
 		echo apply_filters( 'bp_get_options_nav_' . $subnav_item['css_id'], '<li id="' . $subnav_item['css_id'] . '-' . $list_type . '-li" ' . $selected . '><a id="' . $subnav_item['css_id'] . '" href="' . $subnav_item['link'] . '">' . $subnav_item['name'] . '</a></li>', $subnav_item );
 	}
