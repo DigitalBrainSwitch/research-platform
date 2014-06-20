@@ -602,8 +602,46 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 #buddypress .dir-search input[type=text],
 #buddypress .groups-members-search input[type=search],
 #buddypress .groups-members-search input[type=text] {
-	
+	border: 2px solid #bdc3c7;
+color: #34495e;
+font-family: "Lato", Helvetica, Arial, sans-serif;
+font-size: 15px;
+line-height: 1.467;
+width: 100%!important;
+padding: 8px 12px;
+height: 42px;
+-webkit-appearance: none;
+border-radius: 6px;
+-webkit-box-shadow: none;
+box-shadow: none;
+-webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+transition: border .25s linear, color .25s linear, background-color .25s linear;
+margin-bottom: 10px;
 }
+#buddypress .standard-form textarea:focus,
+#buddypress .standard-form input[type=text]:focus,
+#buddypress .standard-form input[type=text]:focus,
+#buddypress .standard-form input[type=color]:focus,
+#buddypress .standard-form input[type=date]:focus,
+#buddypress .standard-form input[type=datetime]:focus,
+#buddypress .standard-form input[type=datetime-local]:focus,
+#buddypress .standard-form input[type=email]:focus,
+#buddypress .standard-form input[type=month]:focus,
+#buddypress .standard-form input[type=number]:focus,
+#buddypress .standard-form input[type=range]:focus,
+#buddypress .standard-form input[type=search]:focus,
+#buddypress .standard-form input[type=tel]:focus,
+#buddypress .standard-form input[type=time]:focus,
+#buddypress .standard-form input[type=url]:focus,
+#buddypress .standard-form input[type=week]:focus,
+#buddypress .standard-form select:focus,
+#buddypress .standard-form input[type=password]:focus,
+#buddypress .dir-search input[type=search]:focus,
+#buddypress .dir-search input[type=text]:focus,
+#buddypress .groups-members-search input[type=search]:focus,
+#buddypress .groups-members-search input[type=text]:focus, {
+border-color: #3a87ad;	
+}	
 #buddypress .standard-form select {
 	padding: 3px;
 }
