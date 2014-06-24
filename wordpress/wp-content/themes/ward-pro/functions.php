@@ -23,7 +23,11 @@ require( BAVOTASAN_THEME_TEMPLATE . '/library/shortcodes.php' ); // Functions to
 require( BAVOTASAN_THEME_TEMPLATE . '/library/import-export.php' ); // Functions for the import/export admin page
 require( BAVOTASAN_THEME_TEMPLATE . '/library/custom-metaboxes.php' ); // Functions for home page alignment
 require( BAVOTASAN_THEME_TEMPLATE . '/library/theme-updater.php' ); // Functions for update API
+/* remove admin bar features*/
+add_filter( 'show_admin_bar', '__return_false' );
 
+/* remove admin bar options for users */
+remove_action( 'personal_options', '_admin_bar_preferences' );
 /**
  * Prepare the content width
  *
