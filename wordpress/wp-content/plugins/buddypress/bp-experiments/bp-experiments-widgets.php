@@ -66,32 +66,27 @@ class BP_Experiments_Widget extends WP_Widget {
 				<a href="<?php bp_experiments_directory_permalink(); ?>" id="popular-experiments" <?php if ( $instance['experiment_default'] == 'popular' ) : ?> class="selected"<?php endif; ?>><?php _e("Popular", 'buddypress') ?></a>
 			</div>
 
-			<ul id="experiments-list" class="item-list">
-				<?php while ( bp_experiments() ) : bp_the_experiment(); ?>
-					<li <?php bp_experiment_class(); ?>>
-						<div class="item-avatar">
-							<a href="<?php bp_experiment_permalink() ?>" title="<?php bp_experiment_name() ?>"><?php bp_experiment_avatar_thumb() ?></a>
-						</div>
-
-						<div class="item">
-							<div class="item-title"><a href="<?php bp_experiment_permalink() ?>" title="<?php bp_experiment_name() ?>"><?php bp_experiment_name() ?></a></div>
-							<div class="item-meta">
-								<span class="activity">
-								<?php
-									if ( 'newest' == $instance['experiment_default'] )
-										printf( __( 'created %s', 'buddypress' ), bp_get_experiment_date_created() );
-									if ( 'active' == $instance['experiment_default'] )
-										printf( __( 'active %s', 'buddypress' ), bp_get_experiment_last_active() );
-									else if ( 'popular' == $instance['experiment_default'] )
-										bp_experiment_member_count();
-								?>
-								</span>
+				<ul id="experiments-list" class="item-list" role="main">
+					<?php while ( bp_experiments() ) : bp_the_experiment(); ?>
+					<div class="col-md-3 no-padding">
+						<li <?php bp_experiment_class(); ?>>
+							<a href="<?php bp_experiment_permalink(); ?>"><div class="dbs-item-avatar" style="background-image:url('<?php bp_experiment_avatar(); ?>')">
+								<div class='dbs-item-desc'><?php bp_experiment_description_excerpt(); ?></div>
+							</div></a>
+							<div class="dbs-item-top"></div>
+							<div class="dbs-item">
+								<div class="dbs-item-title"><a href="<?php bp_experiment_permalink(); ?>"><?php bp_experiment_name(); ?></a></div>
+								<div class="dbs-meta"><?php printf( __( 'active %s', 'buddypress' ), bp_get_experiment_last_active() ); ?></div>
+								<?php do_action( 'bp_directory_experiments_item' ); ?>
+								<div class="dbs-meta">
+									<?php bp_experiment_member_count(); ?>
+								</div>
 							</div>
-						</div>
-					</li>
-
-				<?php endwhile; ?>
-			</ul>
+							<div class="clear"></div>
+						</li>
+					</div>
+					<?php endwhile; ?>
+				</ul>
 			<?php wp_nonce_field( 'experiments_widget_experiments_list', '_wpnonce-experiments' ); ?>
 			<input type="hidden" name="experiments_widget_max" id="experiments_widget_max" value="<?php echo esc_attr( $instance['max_experiments'] ); ?>" />
 
@@ -180,28 +175,23 @@ function experiments_ajax_widget_experiments_list() {
 	if ( bp_has_experiments( $experiments_args ) ) : ?>
 		<?php echo "0[[SPLIT]]"; ?>
 		<?php while ( bp_experiments() ) : bp_the_experiment(); ?>
-			<li <?php bp_experiment_class(); ?>>
-				<div class="item-avatar">
-					<a href="<?php bp_experiment_permalink() ?>"><?php bp_experiment_avatar_thumb() ?></a>
-				</div>
-
-				<div class="item">
-					<div class="item-title"><a href="<?php bp_experiment_permalink() ?>" title="<?php bp_experiment_name() ?>"><?php bp_experiment_name() ?></a></div>
-					<div class="item-meta">
-						<span class="activity">
-							<?php
-							if ( 'newest-experiments' == $_POST['filter'] ) {
-								printf( __( 'created %s', 'buddypress' ), bp_get_experiment_date_created() );
-							} else if ( 'recently-active-experiments' == $_POST['filter'] ) {
-								printf( __( 'active %s', 'buddypress' ), bp_get_experiment_last_active() );
-							} else if ( 'popular-experiments' == $_POST['filter'] ) {
-								bp_experiment_member_count();
-							}
-							?>
-						</span>
+			<div class="col-md-3 no-padding">
+				<li <?php bp_experiment_class(); ?>>
+					<a href="<?php bp_experiment_permalink(); ?>"><div class="dbs-item-avatar" style="background-image:url('<?php bp_experiment_avatar(); ?>')">
+						<div class='dbs-item-desc'><?php bp_experiment_description_excerpt(); ?></div>
+					</div></a>
+					<div class="dbs-item-top"></div>
+					<div class="dbs-item">
+						<div class="dbs-item-title"><a href="<?php bp_experiment_permalink(); ?>"><?php bp_experiment_name(); ?></a></div>
+						<div class="dbs-meta"><?php printf( __( 'active %s', 'buddypress' ), bp_get_experiment_last_active() ); ?></div>
+						<?php do_action( 'bp_directory_experiments_item' ); ?>
+						<div class="dbs-meta">
+							<?php bp_experiment_member_count(); ?>
+						</div>
 					</div>
-				</div>
-			</li>
+					<div class="clear"></div>
+				</li>
+			</div>
 		<?php endwhile; ?>
 
 		<?php wp_nonce_field( 'experiments_widget_experiments_list', '_wpnonce-experiments' ); ?>
