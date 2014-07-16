@@ -1,0 +1,39 @@
+.tp-caption.large_bold_white2 {
+font-size:37px;
+line-height:60px;
+font-weight:300;
+font-family:"PT Sans Narrow";
+color:rgb(255, 255, 255);
+text-decoration:none;
+background-color:transparent;
+border-width:0px;
+border-color:rgb(255, 214, 88);
+border-style:none;
+}
+
+.tp-caption.large_bold_white {
+font-size:61px;
+line-height:60px;
+font-weight:300;
+font-family:"PT Sans Narrow";
+color:rgb(255, 255, 255);
+text-decoration:none;
+background-color:transparent;
+border-width:0px;
+border-color:rgb(255, 214, 88);
+border-style:none;
+}
+
+.tp-caption.large_bold_white1 {
+font-size:48px;
+line-height:49px;
+font-weight:300;
+font-family:"PT Sans Narrow";
+color:rgb(255, 255, 255);
+text-decoration:none;
+background-color:transparent;
+border-width:0px;
+border-color:rgb(255, 214, 88);
+border-style:none;
+}
+
