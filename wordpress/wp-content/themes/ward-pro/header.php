@@ -19,8 +19,8 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <?php wp_head(); ?>
 </head>
@@ -43,14 +43,14 @@ $boxed_class = ( $boxed ) ? 'boxed' : '';
 			          <span class="icon-bar"></span>
 			        </button>
 
-					<a id="site-title" class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="http://digitalbrain-test.lancs.ac.uk/wp-content/themes/ward-pro/library/images/logo.png" alt=""></a>
+					<a id="site-title" class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="http://localhost/wp-content/themes/ward-pro/library/images/logo.png" alt=""></a>
 				</div>
 				<h3 class="screen-reader-text"><?php _e( 'Main menu', 'ward' ); ?></h3>
 				<a class="screen-reader-text" href="#primary" title="<?php esc_attr_e( 'Skip to content', 'ward' ); ?>"><?php _e( 'Skip to content', 'ward' ); ?></a>
 				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container' => 'nav', 'container_class' => 'navbar-collapse collapse', 'menu_class' => 'nav navbar-nav', 'fallback_cb' => 'bavotasan_default_menu' ) ); ?>
 			</div>
 		</header>
-
+<?php putRevSlider("home","homepage") ?>
 		<?php
 		bavotasan_jumbotron();
 		bavotasan_home_page_default_widgets();
