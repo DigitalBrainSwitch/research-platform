@@ -19,7 +19,12 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<<<<<<< HEAD
 <link href="https://fontastic.s3.amazonaws.com/vHRwcxAhDS2HZbCaEVJPMC/icons.css" rel="stylesheet">
+=======
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+>>>>>>> origin/master
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <?php wp_head(); ?>
 </head>
@@ -49,7 +54,12 @@ $boxed_class = ( $boxed ) ? 'boxed' : '';
 				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container' => 'nav', 'container_class' => 'navbar-collapse collapse', 'menu_class' => 'nav navbar-nav', 'fallback_cb' => 'bavotasan_default_menu' ) ); ?>
 			</div>
 		</header>
+<<<<<<< HEAD
 		<?php putRevSlider("home2","homepage");
+=======
+<?php putRevSlider("home","homepage") ?>
+		<?php
+>>>>>>> origin/master
 		bavotasan_jumbotron();
 		bavotasan_home_page_default_widgets();
 		if ( is_singular() || is_404() || ( function_exists( 'is_bbpress' ) && is_bbpress() ) ) { ?>
