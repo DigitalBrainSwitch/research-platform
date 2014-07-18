@@ -86,6 +86,7 @@ function experiments_screen_experiment_invites() {
 	bp_core_load_template( apply_filters( 'experiments_template_experiment_invites', 'members/single/home' ) );
 }
 
+
 function experiments_screen_experiment_home() {
 
 	if ( ! bp_is_single_item() ) {

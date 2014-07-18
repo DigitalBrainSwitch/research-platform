@@ -34,6 +34,23 @@ Hello, this is the BuddyPress Legacy stylesheet.
 /*--------------------------------------------------------------
 1.1 - Pagination
 --------------------------------------------------------------*/
+  #experiments-order-select select, #experiment-dir-search input{
+	background-color: white;
+	border: 2px solid #bdc3c7;
+	color: #34495e;
+	font-family: "Lato", Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.467;
+	padding: 8px 12px;
+	height: 42px;
+	-webkit-appearance: none;
+	border-radius: 6px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+	transition: border .25s linear, color .25s linear, background-color .25s linear; 
+}
+
 #buddypress div.pagination {
 	background: transparent;
 	border: none;
@@ -490,8 +507,8 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 #buddypress div.dir-search {
 	float: right;
 }
-#buddypress div.dir-search input[type=text],
-#buddypress li.groups-members-search input[type=text] {
+.sidebar div.dir-search input[type=text],
+.sidebar li.groups-members-search input[type=text] {
 	height:40px;
 	color:white;
 	background:#555;
@@ -499,11 +516,11 @@ body.activity-permalink #buddypress div.activity-comments div.acomment-content {
 	border:0px;
 	padding: 5px 10px;
 }
-#buddypress div.dir-search input[type=text]:focus,
-#buddypress li.groups-members-search input[type=text]:focus {
+.sidebar div.dir-search input[type=text]:focus,
+.sidebar li.groups-members-search input[type=text]:focus {
 	height:40px;
 	color:white;
-	background:#0ea2d1;
+	background:#a3d140;
 	border-radius: 0px;
 	border:0px;
 	padding: 5px 10px;
@@ -756,40 +773,39 @@ border-color: #3a87ad;
 	padding: 5px;
 	width: 160px;
 }
-#buddypress button,
-#buddypress a.button,
-#buddypress input[type=submit],
-#buddypress input[type=button],
-#buddypress input[type=reset],
-#buddypress ul.button-nav li a,
-#buddypress div.generic-button a,
-#buddypress .comment-reply-link,
+.sidebar button,
+.sidebar a.button,
+.sidebar input[type=submit],
+.sidebar input[type=button],
+.sidebar input[type=reset],
+.sidebar ul.button-nav li a,
+.sidebar div.generic-button a,
+.sidebar .comment-reply-link,
 a.bp-title-button {
-	background: #595a5c; /* Old browsers */
-	border-radius: 4px;
-	color: #fff;
-	border:0px;
-	font-size: .8rem;
+	background: #98c734; /* Old browsers */
+	border-radius: 8px;
+	color: #789c2b;
+	border:2px solid #789c2b;
 	cursor: pointer;
 	outline: none;
-	padding: 4px 10px;
-	height:40px;
-	text-align: center;
+	padding: 5px;
+	padding-top: 10px;
+	text-align: baseline;
 	vertical-align: middle;
 	text-decoration: none;
 }
-#buddypress button:hover,
-#buddypress a.button:hover,
-#buddypress a.button:focus,
-#buddypress input[type=submit]:hover,
-#buddypress input[type=button]:hover,
-#buddypress input[type=reset]:hover,
-#buddypress ul.button-nav li a:hover,
-#buddypress ul.button-nav li.current a,
-#buddypress div.generic-button a:hover,
-#buddypress .comment-reply-link:hover {
-	background:#0ea2d1;
-	border:0px;
+.sidebar button:hover,
+.sidebar a.button:hover,
+.sidebar a.button:focus,
+.sidebar input[type=submit]:hover,
+.sidebar input[type=button]:hover,
+.sidebar input[type=reset]:hover,
+.sidebar ul.button-nav li a:hover,
+.sidebar ul.button-nav li.current a,
+.sidebar div.generic-button a:hover,
+.sidebar .comment-reply-link:hover {
+	color:#d0f87a;
+	background-color: #8cb72f;
 }
 
 #buddypress form.standard-form .left-menu {
@@ -1223,7 +1239,6 @@ a.bp-title-button {
 	line-height: 80%;
 }
 #buddypress ul.item-list {
-	border-top: 1px solid #eaeaea;
 	width: 100%;
 	list-style: none;
 	clear: both;
@@ -1305,31 +1320,22 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 }
 #buddypress div.item-list-tabs#subnav ul li.last {
 	margin-top: 4px;
+}#buddypress div.item-list-tabs ul li.last select {
+	
 }
-#buddypress div.item-list-tabs ul li.last select {
-	max-width: 175px;
-	height: 40px;
-	border-radius: 0;
-	border: 0;
-	background-color: #555;
-	padding: 5px 7px;
-	color:#fff;
-}
-#buddypress div.item-list-tabs ul li a,
-#buddypress div.item-list-tabs ul li span {
-	background-color:#444;
+#dbs-item-nav div.item-list-tabs ul li a,
+#dbs-item-nav div.item-list-tabs ul li span,#exp-nav li a {
 	display: block;
 	font-size:12pt;
-	color:#fff;
+	color:#789c2b;
 	text-decoration: none;
-	padding: 10px;
+	padding: 6px;
 	border-radius: 4px;
 }
-#buddypress div.item-list-tabs ul li a:hover{
-	background-color: #0ea2d1;
-	color:#fff;
+#dbs-item-nav div.item-list-tabs ul li a:hover, #exp-nav li a:hover{
+	color:#d0f87a;
 }
-#buddypress div.item-list-tabs ul li a span {
+#dbs-item-nav div.item-list-tabs ul li a span {
 	background: #eee;
 	border-radius: 50%;
 	color: #999;
@@ -1339,20 +1345,21 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 	text-align: center;
 	vertical-align: middle;
 }
-#buddypress div.item-list-tabs ul li.selected a,
-#buddypress div.item-list-tabs ul li.current a {
-	background-color: #0ea2d1;;
+#dbs-item-nav div.item-list-tabs ul li.selected a,
+#dbs-item-nav div.item-list-tabs ul li.current a {
 	color: #fff;
+	padding-bottom: 0px;
 	font-weight: bold;
+}
+#buddypress div.item-list-tabs ul li.selected  a{
+	color:#555;
 }
 #buddypress div.item-list-tabs ul li.selected a span,
 #buddypress div.item-list-tabs ul li.current a span,
 #buddypress div.item-list-tabs ul li a:hover span {
-	background-color: #eee;
 }
 #buddypress div.item-list-tabs ul li.selected a span,
 #buddypress div.item-list-tabs ul li.current a span {
-	background-color: #fff;
 }
 #buddypress div#item-nav ul li.loading a {
 	background-position: 88% 50%;
@@ -1371,6 +1378,8 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 	overflow: auto;
 	list-style: none;
 }
+
+
 
 
 /*--------------------------------------------------------------
@@ -1580,33 +1589,30 @@ body.register #buddypress div.page ul {
 	padding:5px;
 	height:100px;
 	max-height: 100px;
-	background-color:#0ea2d1;
-	color:white;
+	background-color:#a3d140;
+	color:#789c2b;
 	text-transform:uppercase;
+	margin-bottom:10;
+}
+.dbs-item:hover{
+	background-color: #d0f87a;
 }
 .dbs-balloon{
 	padding:5px;
-	background-color:#0ea2d1;
+	background-color:#a3d140;
 	color:white;
 	text-transform:uppercase;
 }
-.dbs-item-top{
-	background-image:url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/callout.jpg');
-	background-position: center;
-	height:7px;
-	top:-7px;
-	width:100%;
-	background-repeat: no-repeat;
-}
 .dbs-item-title a{
-	font-size:1em;
+	font-size:1.2em;
+	font-weight: 400;
 	line-height: 0.8em;
 	margin:0px;
-	color:white;
+	color:#789c2b;
+	text-decoration: none;
 }
 .dbs-item-title a:hover{
 	text-decoration: none;
-	color:#9fdcef;
 }
 .no-padding{
 	padding:2px !important;
@@ -1639,6 +1645,7 @@ body.register #buddypress div.page ul {
     -webkit-transition-property: background-size, background-position;
 }
 .dbs-item-avatar div.dbs-item-desc{
+	overflow: hidden;
 	width:100%;
 	height:100%;
 	padding:5px;
@@ -1653,27 +1660,71 @@ body.register #buddypress div.page ul {
 	background-color: rgba(0,0,0,0.5);
 }
 .dbs-item-avatar:hover div.dbs-item-desc p{
-	color:#ddd;
-	font-size: 0.9em;
+	color:#fff;
 	text-align: center;
+}
+.dbs-item-desc{
+	font-size: 1.3em;
 }
 .dbs-meta{
 	font-size: 0.7em;
 }
+ul#experiments-list li a:hover + a div{ 
+	background-color: #8cb72f;
+	color: #d0f87a; 
+}
 ul#experiments-list li{
 	border: 0px;
 	padding:0px !important;
+	list-style: none;
+	text-decoration: none;
+}
+ul#experiments-list li a {
+	text-decoration: none;
+}
+ul#experiments-list li a:hover{
+	text-decoration: none;
 }
 
 @media (max-width: 1200px) {
-.dbs-item-avatar {height:175px}
+	.dbs-item-avatar {height:175px}
+	.dbs-item-title{
+		font-size: 0.9em;
+	}
+	.dbs-item-desc{
+		font-size: 0.9em;
+	}
 }
 @media (max-width: 800px) {
 	.dbs-item-avatar {height:160px}
 	ul#experiments-list li{
 		border: 0px;
-		padding-top:20px !important
-	};
+		padding-top:20px !important;
+	}
+	.dbs-item-title{
+	font-size: 0.8em;
+	}
+	.dbs-item-desc{
+		font-size: 0.8em;
+	}
+}
+@media (max-width: 768px) {
+	.dbs-item-avatar {height:300px}
+	.dbs-item-title{
+	font-size: 1.4em;
+	}
+	.dbs-item-desc{
+		font-size: 1.4em;
+	}
+}
+@media (max-width: 568px) {
+	.dbs-item-avatar {height:200px}
+	.dbs-item-title{
+	font-size: 1.2em;
+}
+.dbs-item-desc{
+		font-size: 1.2em;
+	}
 }
 #experiment-admins, #experiment-mods{
 	list-style-type: none;
@@ -1712,7 +1763,7 @@ background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/b
 @media screen and (max-device-width: 480px), screen and (-webkit-min-device-pixel-ratio: 2) {
 	-webkit-text-size-adjust: none;
 }
-@media only screen and (max-width: 760px ){
+@media only screen and (max-width: 990px ){
 		.col-md-3{
 		text-align: center;
 	}
@@ -1848,4 +1899,400 @@ table{
 
 #item-body{
 	margin-bottom:10px;
+}
+.exp-admins{
+background-color:#789c2b;
+}
+.exp-admins h3{
+margin:0px;
+}
+.exp-admins ul li a img{
+border-radius:4px;
+}
+#item-nav div ul li a{
+	
+}
+#item-nav div ul li a:hover{
+	color:#bbb;
+}
+#item-nav {
+	bottom:0px !important;
+}
+
+#item-nav div ul .current a{
+	color:#fff!important;
+}
+/* ========================================================================
+ * bootstrap-switch - v3.0.2
+ * http://www.bootstrap-switch.org
+ * ========================================================================
+ * Copyright 2012-2013 Mattia Larentis
+ *
+ * ========================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================================
+ */
+
+.bootstrap-switch {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #cccccc;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  line-height: 8px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  min-width: 100px;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.bootstrap-switch.bootstrap-switch-mini {
+  min-width: 71px;
+}
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  font-size: 10px;
+  line-height: 9px;
+}
+.bootstrap-switch.bootstrap-switch-small {
+  min-width: 79px;
+}
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+  padding-bottom: 3px;
+  padding-top: 3px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.bootstrap-switch.bootstrap-switch-large {
+  min-width: 120px;
+}
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
+  padding-bottom: 9px;
+  padding-top: 9px;
+  font-size: 16px;
+  line-height: normal;
+}
+.bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+  -webkit-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
+}
+.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
+  margin-left: 0%;
+}
+.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -50%;
+}
+.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-container {
+  margin-left: -25%;
+}
+.bootstrap-switch.bootstrap-switch-disabled,
+.bootstrap-switch.bootstrap-switch-readonly,
+.bootstrap-switch.bootstrap-switch-indeterminate {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default !important;
+}
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label,
+.bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-label {
+  cursor: default !important;
+}
+.bootstrap-switch.bootstrap-switch-focused {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.bootstrap-switch .bootstrap-switch-container {
+  display: inline-block;
+  width: 150%;
+  top: 0;
+  border-radius: 4px;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off,
+.bootstrap-switch .bootstrap-switch-label {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block !important;
+  height: 100%;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off {
+  text-align: center;
+  z-index: 1;
+  width: 33.333333333%;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+  color: #fff;
+  background: #428bca;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
+  color: #fff;
+  background: #5bc0de;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
+  color: #fff;
+  background: #5cb85c;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+  background: #f0ad4e;
+  color: #fff;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
+  color: #fff;
+  background: #d9534f;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+  color: #000;
+  background: #eeeeee;
+}
+.bootstrap-switch .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.bootstrap-switch .bootstrap-switch-label {
+  text-align: center;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  z-index: 100;
+  width: 33.333333333%;
+  color: #333333;
+  background: #ffffff;
+}
+.bootstrap-switch input[type='radio'],
+.bootstrap-switch input[type='checkbox'] {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: -1;
+}
+.bootstrap-switch input[type='radio'].form-control,
+.bootstrap-switch input[type='checkbox'].form-control {
+  height: auto;
+}
+
+.icon{
+	font-size: 2.5em;
+	margin-right: 2px;
+	margin-top: 5px;
+}
+	#experiment-title{
+		font-size:2.5em;
+		font-weight: 600;
+		color:white;
+		font-family: "Raleway";
+	}
+	.bp_experiment {
+		padding-top:0px!important;
+	}
+	.entry-title{
+		display:none;
+	}
+	#exp-desc{
+		font-size: 1.5em;
+		color: #789c2b;
+	}
+	#dbs-item-header{
+		background-color: #a3d140;
+		padding-bottom:10px;
+	}
+	#dbs-item-nav{
+		background-color: #8cb72f;
+		margin-bottom:10px;
+	}
+	.exp-avatar{
+		max-width:300px;
+		
+		border-radius: 50%;
+		width:100%;
+		height:100%;
+	}
+	#item-actions h3{
+		font-size:1.2em;
+		font-family: Raleway, cursive;
+		font-weight: 100;
+		color:white;
+	}
+
+
+.error {
+	display: block;
+	color: red;
+    font-style: italic;
+}
+#message {
+display:none;
+font-size:15px;
+font-weight:bold;
+color:#333333;
+}
+.sidebar {
+    display: block;
+    background-color: #444;
+    padding:20px;
+    color:#777;
+    margin-top: -10px;
+    text-align: center;
+    position:relative;
+}
+.sidebar input{
+    width:100%;
+    background-color:#333;
+    color:#ddd;
+    border:0px;
+    padding:10px;
+}
+ .sidebar h1, .sidebar h2 {
+    color:#ddd;
+}
+.score{
+    width: 150px;
+    height: 150px;
+    padding: 15px;
+    vertical-align: middle;
+    margin:0 auto;
+    border-radius: 50%;
+    margin-bottom:10px;
+    background-color: #333;
+}
+.sidebar h3{
+    color:#fff;
+    font-size: 2em;
+}
+.big_white{
+    font-size: 4em;
+    color:white;
+}
+#datepicker1{
+     width:100%;
+    background-color:#333;
+    color:#ddd;
+    border:0px;
+    padding:10px;
+    margin-top: -10px;
+}
+.var-entry{
+	float:left;
+	padding:5px;
+	width:24%;
+	background-color: #98c734;
+	color:#789c2b;
+	margin:1px;
+}
+.var-entry:hover{
+	cursor: pointer;
+	background-color: #d0f87a;
+}
+.selected-entry{
+	background-color:#333;
+}
+.all-entries{
+	display:none;
+	margin-top:10px;
+	margin-bottom: 10px;
+}
+.var{
+	position:relative;
+}
+.edit-entries{
+	visibility:hidden;
+	position: absolute;
+	right:0;
+	bottom:0;
+	font-size: 0.7em;
+	padding:3px;
+	padding-top:1px;
+	color:#98c734;
+}
+.noUi-connect{
+	background-color: #98c734!important;
+}
+
+	.experiment-button a{
+		margin-top:15px;
+		margin-bottom:15px;
+		padding:10px!important;
+		display:block;
+		font-size: 1.5em!important;
+		border: 0px!important;
+	}
+
+	@media (min-width: 768px) {
+  .container {
+    width: 100%!important;
+  }
+  .picker__footer{
+  	display:none;
+  }
+
+  .picker__input{
+  	font-size: 1.5em;
+  	padding:20px!important;
+ 	padding-top:10px!important;
+  }
+
+  #experiment-admins li a img{
+  	border-radius: 50%;
+  }
+
+.icon-small{
+	vertical-align: middle!important;
 }
