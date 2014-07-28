@@ -57,7 +57,8 @@
 
 	//$db = new PDO('mysql:host=digitalbrain-test.lancs.ac.uk;dbname=wordpress;charset=utf8', 'urashid', 'password');
 	
-	$connection = mysqli_connect('digitalbrain-test.lancs.ac.uk', 'urashid', 'password', 'wordpress');
+	//$connection = mysqli_connect('digitalbrain-test.lancs.ac.uk', 'urashid', 'password', 'wordpress');
+	$connection = mysqli_connect('localhost', 'root', ' ', 'wordpress');
     
     if($variable1!=-1)
     {

@@ -4460,8 +4460,8 @@ function showComparison()
             //var user_variable2_values = obj.user_variable2_values;
             var friend_variable2_values = obj.friend_variable2_values;
 
-            var user_variable1_values = values[variable1_index];
-            var user_variable2_values = values[variable2_index];
+            var user_variable1_values = valuesPP[variable1_index];
+            var user_variable2_values = valuesPP[variable2_index];
             	
 			//alert("user_variable1_values=");
               
@@ -4476,13 +4476,14 @@ function showComparison()
             if(variable1_id!=-1 && variable2_id!=-1)
             {
 
-            	/*
             	
+            	/*
             	for(var i=0; i< user_variable1_values.length; i++)
             	{
             		alert("user_variable1_values="+user_variable1_values[i]);
             	}
-*/
+            	*/
+
 
             	/*
 				var typeVar1 =  <?php echo json_encode($variableTypes[$variable_chart1_index]); ?>;
@@ -7332,7 +7333,7 @@ function showComparison()
 /*
    	xmlhttp.open("GET", "http://localhost/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId+"&friendId="+friendId+
    	"&variable1="+variable1_id+"&variable2="+variable2_id+"&typeVar1="+typeVar1+"&typeVar2="+typeVar2+"&times[]="+times+"&timesPP[]="+timesPP, true);
-*/  
+*/
    	xmlhttp.open("GET", "http://digitalbrain-test.lancs.ac.uk/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId+"&friendId="+friendId+
    	"&variable1="+variable1_id+"&variable2="+variable2_id+"&typeVar1="+typeVar1+"&typeVar2="+typeVar2+"&times[]="+times+"&timesPP[]="+timesPP, true);
    	   	
