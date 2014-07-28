@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- CSS -->
 <?php 
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
@@ -8,18 +7,6 @@ include "$root/ajaxfiles/reportExperiment.php";
 ?>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/flot/examples/examples.css" type="text/css">
-=======
-<<<<<<< HEAD
-
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<!--script src="http://digitalbrain-test.lancs.ac.uk/chartjs/Chart.js"></script-->
-<script src="http://digitalbrain-test.lancs.ac.uk/chartjs/Chart.js"></script>
-<link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.css" id="theme_base">
-<link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.date.css" id="theme_date">
-<link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.css">
-=======
-<link href="http://digitalbrain-test.lancs.ac.uk/flot/examples/examples.css" rel="stylesheet" type="text/css">
->>>>>>> FETCH_HEAD
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.css" id="theme_base">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/themes/default.date.css" id="theme_date">
 <link rel="stylesheet" href="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.css">
@@ -57,126 +44,14 @@ include "$root/ajaxfiles/reportExperiment.php";
 <script language="javascript" type="text/javascript" src="http://digitalbrain-test.lancs.ac.uk/flot/jquery.flot.axislabels.js"></script>
 <script language="javascript" type="text/javascript" src="http://digitalbrain-test.lancs.ac.uk/flot/jquery.flot.navigate.js"></script>
 
-<<<<<<< HEAD
 	<!-- datepicker -->
-=======
-
->>>>>>> origin/master
->>>>>>> FETCH_HEAD
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.date.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.time.js"></script>
 <script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/legacy.js"></script>
-<<<<<<< HEAD
 
 	<!-- uislider -->
 <script src="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.min.js"></script>
-=======
-<script src="http://digitalbrain-test.lancs.ac.uk/uislider/jquery.nouislider.min.js"></script>
-<script src="http://digitalbrain-test.lancs.ac.uk/wp-includes/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-<script src='http://localhost/wp-content/plugins/buddypress/bp-templates/bp-legacy/js/bootstrap-switch.min.js'></script>
-
-<!--style the error message-->
-=======
-
-
-<script>
-/*
-
-$(document).ready(function() {
-
-                  $("#report-experiment-form").validate({
-                                       submitHandler: function() {
-                                       //submit the form
-                                       $.post("<?php echo $_SERVER[PHP_SELF]; ?>", //post
-                                              $("#report-experiment-form").serialize(),
-                                              function(data){
-                                              //if message is sent
-                                              if (data == 'Sent') {
-                                                    //$("#message").fadeIn(); //show confirmation message
-                                              $("#report-experiment-form")[0].reset(); //reset fields
-                                              }
-                                              //
-                                              });
-                                       return false; //don't let the page refresh on submit.
-                                       }
-                                       }); //validate the form
-                  
-                  
-                  });
-
-*/
-</script>
-
-
-<!--style the error message-->
-<style type="text/css">
-.error {
-display: block;
-color: red;
-    font-style: italic;
-}
-#message {
-display:none;
-font-size:15px;
-font-weight:bold;
-color:#333333;
-}
-.sidebar {
-    display: block;
-    background-color: #444;
-    padding:20px;
-    color:#777;
-    margin-top: -10px;
-    text-align: left;
-
-}
-.sidebar input{
-      border: 2px solid #bdc3c7;
-  color: #34495e;
-  font-family: "Lato", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.467;
-  width:100%!important;
-  padding: 8px 12px;
-  height: 42px;
-  -webkit-appearance: none;
-  border-radius: 6px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
-  transition: border .25s linear, color .25s linear, background-color .25s linear;
-  margin-bottom:10px;
-}
-.sidebar select{
-    border: 2px solid #bdc3c7;
-  color: #34495e;
-  font-family: "Lato", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.467;
-  width:100%!important;
-  padding: 8px 12px;
-  height: 42px;
-  -webkit-appearance: none;
-  border-radius: 6px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
-  transition: border .25s linear, color .25s linear, background-color .25s linear;
-  margin-bottom:10px;
-    background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/select-arrow.png');
-    background-repeat: no-repeat;
-    background-position: right;
-}
- .sidebar h1, .sidebar h2 {
-    color:#ddd;
-}
-.sidebar h3{
-    color:#777;
-}
->>>>>>> origin/master
->>>>>>> FETCH_HEAD
 
 	<!-- bootstrap -->
 <script src="http://digitalbrain-test.lancs.ac.uk/wp-includes/js/bootstrap.min.js"></script>
@@ -197,49 +72,13 @@ color:#333333;
 		<input id='datepicker1' style='text-align:center' data-value="today" type="text"></input>
 	<div class='sidebar'>
 
-<<<<<<< HEAD
 <script>
 
 	var comparisonShown = 0;
-=======
-<div id="message">Your message has been sent.<br /><br /></div>
-
-<div class="row"><div class="col-md-3" style='padding:0px;'>
-<input id='datepicker1' style='text-align:center'data-value="today" type="text"></input>
-<div class='sidebar'>
-<script>
->>>>>>> FETCH_HEAD
     $('#datepicker1').pickadate({
         format: 'dd/mm/yyyy'
     });
 </script>
-<<<<<<< HEAD
-=======
-<?php
-    
-    global $variable_chart1;
-    global $variable_chart2;
-    
-    global $variable_chart1_index;
-    global $variable_chart2_index;
-    
-    global $experiment_report_count;
-    global $experiment_results_period;
-    
-    $variable_chart1_index = 0;
-    $variable_chart2_index = 1;
-    
-    $experiment_results_period = 0;
-    
-    if(isset($_POST['chart']))
-    {
-        
-        $variable_chart1 = $_POST['shown-variable1'];
-        $variable_chart2 = $_POST['shown-variable2'];
-        
-        $experiment_results_period = $_POST['results-period'];
-        //echo $variable_chart1;
->>>>>>> FETCH_HEAD
 
 <?php
     
@@ -325,10 +164,7 @@ color:#333333;
 ?>
 
 
-<<<<<<< HEAD
 <!--form action="" method="post" id="report-experiment-form" name="report-experiment-form"-->
-=======
->>>>>>> FETCH_HEAD
 
 
 <?php
@@ -344,7 +180,6 @@ color:#333333;
     //echo $experimentid;
     
     // Create a connection
-<<<<<<< HEAD
     //$connection = mysql_connect("localhost", "root", "") or die(mysql_error());
     $connection = mysql_connect("digitalbrain-test.lancs.ac.uk", "urashid", "password") or die(mysql_error());
     
@@ -354,34 +189,13 @@ color:#333333;
     $result=mysql_query("select * from wp_bp_experiments_variables where experiment_id=$experimentid"); 
 	
 	$today = new DateTime("now");
-=======
-    $connection = mysql_connect("localhost", "root", "") or die(mysql_error());
-<<<<<<< HEAD
-    //$connection = mysql_connect("localhost", "urashid", "password") or die(mysql_error());
-=======
-    //$connection = mysql_connect("digitalbrain-test.lancs.ac.uk", "urashid", "password") or die(mysql_error());
->>>>>>> origin/master
-    
-    //Select database
-    mysql_select_db("wordpress", $connection) or die(mysql_error());
-    $user_id = get_current_user_id( );
-    $result=mysql_query("select * from wp_bp_experiments_variables where experiment_id=$experimentid");
-    $today = new DateTime("now");
->>>>>>> FETCH_HEAD
     $tomorrow = new DateTime("now");
     date_modify($tomorrow, '+1 day');
     $today = $today->format('Y-m-d'); 
     $tomorrow = $tomorrow->format('Y-m-d');
-<<<<<<< HEAD
 	
 	/*
     $report=mysql_query("select * from wp_bp_experiments_report where experiment_id=$experimentid AND user_id=$user_id AND date_modified > '$today' and `date_modified` < '$tomorrow'");
-=======
-    $report=mysql_query("select * from wp_bp_experiments_report where experiment_id =$experimentid AND user_id =$user_id and `date_modified` > '$today' and `date_modified` < '$tomorrow'");
-    while($row = mysql_fetch_assoc($report)){
-        $data[] = $row;
-    }
->>>>>>> FETCH_HEAD
     
     while($row = mysql_fetch_assoc($report)){
         $data[] = $row;
@@ -389,25 +203,7 @@ color:#333333;
     */	
 	  
     $cols=1;		// Here we define the number of columns
-<<<<<<< HEAD
 
-=======
-    
-    
-    global $variable_name1;
-    global $variable_name2;
-    
-<<<<<<< HEAD
-    //echo "experimentid="+$experimentid;
-    ?>
-
-
-
-<?php
-=======
->>>>>>> origin/master
-    
->>>>>>> FETCH_HEAD
     do{
         
 ?>
@@ -430,22 +226,7 @@ color:#333333;
                 if($row['type'] == 'count')
                 {
         
-<<<<<<< HEAD
-        ?>
-<div class='var'>
-<h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-<div class='score'><div class='big_white' id="sum<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Total</span></div>
-<div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
-</div>
-<div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
-<input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
-<input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
-<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
-
-<button style='margin-top:20px; width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, $("#entry_id<?php echo $row['id']?>").val(), $("#<?php echo $row['id']?>").val(), "new", "count"); $("#<?php echo $row['id']?>").val(0);$("#entry_id<?php echo $row['id']?>").val("null")'>Report <div data-icon="l" class="icon-small"></div></button>
-=======
 ?>
-<<<<<<< HEAD
 <div class='var'>
 <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
 <div class='score'><div class='big_white' id="sum<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Total</span></div>
@@ -493,67 +274,6 @@ $( document ).ready(function() {
     <div class='score'><div class='big_white' id="average<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Avg</span></div>
     <div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
 </div>
-=======
-        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-        <input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
->>>>>>> origin/master
-
-<script>
-$( document ).ready(function() {
-        $('input').attr('autocomplete','off');
-       getEntries(<?php echo $row['id']?>, "<?php echo $row['type']?>");
-       today =  $('#datepicker1').val();
-       $( "#edit-entries<?php echo $row['id']?>" ).click(function() {
-            if ($("#dbs-entries<?php echo $row['id']?>").is(":visible")){
-                $("#dbs-entries<?php echo $row['id']?>").slideUp( "slow", function() {
-                });
-            } 
-            else{
-                $("#dbs-entries<?php echo $row['id']?>").slideDown( "slow", function() {
-                });
-            } 
-        });
-    });
-    $('#datepicker1').change(function() {
-        getEntries(<?php echo $row['id']?>, "<?php echo $row['type']?>");
-    });
-
-function getSum(data, var_id){
-        id = var_id;
-        if(data.length>0){
-            sum = 0;
-            for (i = 0; i < data.length; i++) { 
-              console.log(data[i]);
-              if(isInt(parseInt(data[i]['variable_value']))){
-                sum += parseInt(data[i]['variable_value']);
-              }
-            }
-            $("#sum"+id).html(sum);
-        }
-        else{
-            $("#sum"+id).html('0');
-        }
-    }</script>
-<?php
-    
-    }
-    
-    if($row['type'] == 'score')
-    {
-        
-<<<<<<< HEAD
-        ?>
-<div class='var'>
-    <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-    <div class='score'><div class='big_white' id="average<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Avg</span></div>
-    <div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
-</div>
-=======
-?>
-
-    <h3><?php _e( $row['name'], 'buddypress' ); ?>: <span style='color:white' id="<?php echo $row['id']?>">0</span></h3>
->>>>>>> origin/master
->>>>>>> FETCH_HEAD
     <div class="slider" id="scoreSlider<?php echo $row['id']?>"></div>
     <span style='color:white' id="<?php echo $row['id']?>">0</span><span style='color:white'>/10<span>
      <div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
@@ -581,12 +301,6 @@ function getSum(data, var_id){
         }
     </script>
     <script>
-<<<<<<< HEAD
-=======
-    function isInt(n) {
-       return typeof n === 'number' && n % 1 == 0;
-    }
->>>>>>> FETCH_HEAD
     $( document ).ready(function() {
         $( "#edit-entries<?php echo $row['id']?>" ).click(function() {
             if ($("#dbs-entries<?php echo $row['id']?>").is(":visible")){
@@ -604,28 +318,6 @@ function getSum(data, var_id){
     $('#datepicker1').change(function() {
         getEntries(<?php echo $row['id']?>, "<?php echo $row['type']?>");
     });
-<<<<<<< HEAD
-=======
-    function getAverages(data, var_id){
-        id = var_id;
-        if(data.length>0){
-            sum = 0;
-            for (i = 0; i < data.length; i++) { 
-              console.log(data[i]['date_modified'] + ':' + data[i]['variable_value']);
-              if(isInt(parseInt(data[i]['variable_value']))){
-                sum += parseInt(data[i]['variable_value']);
-              }
-            }
-            average = sum / data.length;
-            average= Math.round( average * 10) / 10;
-            $("#average"+id).html(average);
-            console.log(average);
-        }
-        else{
-            $("#average"+id).html('0');
-        }
-    }
->>>>>>> FETCH_HEAD
     </script>
     <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
 <input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
@@ -639,10 +331,6 @@ function getSum(data, var_id){
 			{
 ?>
         <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> FETCH_HEAD
         <span id='binary-not-set<?php echo $row['id']?>'>No recorded entry, please choose yes or no.</br></span>
 <input id='<?php echo $row['id'];?>' type="checkbox" />
 <div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
@@ -656,23 +344,16 @@ function getSum(data, var_id){
             console.log(state); // true | false
             if(state){
                 binary<?php echo $row['id'];?> = 'Yes';
-<<<<<<< HEAD
                 console.log("YAY");
             }
             else{
                 binary<?php echo $row['id'];?> = 'No';
                 console.log("NAY");
-=======
-            }
-            else{
-                binary<?php echo $row['id'];?> = 'No';
->>>>>>> FETCH_HEAD
             }
             entryid = $('#entry_id<?php echo $row["id"]; ?>').val();
             reportSave(<?php echo $row['id']; ?>, entryid, binary<?php echo $row['id']?> ,"new","binary");
         }); 
     });
-<<<<<<< HEAD
 
     $('#datepicker1').change(function() {
         getEntries(<?php echo $row['id']?>, "<?php echo $row['type']?>");
@@ -689,57 +370,14 @@ function getSum(data, var_id){
 
         <!--h3><?php _e($row['name'], 'buddypress'); ?></h3>
 <input type="text" name="variable[]" placeholder='07:00' id="$row['id']" aria-required="true"  /-->
-=======
-    $('#datepicker1').change(function() {
-        getEntries(<?php echo $row['id']?>, "<?php echo $row['type']?>");
-    });
-</script>
- <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
-<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
-=======
-        <select id="$row['id']" name="variable[]">
-<option value="Yes">Yes</option>
-<option value="No">No</option>
-</select>
-
->>>>>>> origin/master
-<?php
-    
-    }
-
-
-
-    if($row['type'] == 'time')
-    {
-        
-<<<<<<< HEAD
-        ?>
-        <!--
-=======
-?>
-
->>>>>>> origin/master
-        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-<input type="text" name="variable[]" placeholder='07:00' id="$row['id']" aria-required="true"  />
--->
-<?php
-    
-    }
-if($row['type'] == 'switches'){
->>>>>>> FETCH_HEAD
 
 <?php 
 				}//end if($row['type'] == 'time')
 				if($row['type'] == 'switches')
 				{
 ?>
-<<<<<<< HEAD
 
 <!--div style='margin-top:10px' class="alert alert-info alert-dismissable">
-=======
-        <!--
-<div style='margin-top:10px' class="alert alert-info alert-dismissable">
->>>>>>> FETCH_HEAD
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   <strong>Pick a date to view the amount of switches you made.</strong></br>You must have our chrome extension installed !!LINK!!
 </div>
@@ -750,7 +388,6 @@ if($row['type'] == 'switches'){
         format: 'mm/dd/yyyy',
          onSet: function(context) {
             d = $('#datepicker').val();
-<<<<<<< HEAD
             $.post("http://digitalbrain-test.lancs.ac.uk/wp-includes/chrome-extension/getSwitchesCount.php", {user_id: <?php echo get_current_user_id(); ?>
 				, date: d}, function(response) {
 				$('#switchCount').val(response);
@@ -768,29 +405,6 @@ if($row['type'] == 'switches'){
 
               <!--input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>"-->
 
-=======
-            $.post("http://localhost/wp-includes/chrome-extension/getSwitchesCount.php", {user_id: <?php echo get_current_user_id(); ?>, date: d}, function(response) {
-              $('#switchCount').val(response);
-              $('#switches').html(response);
-              console.log(response);
-            });
-        }
-    });
-
-
-    
-</script>
-<<<<<<< HEAD
--->
-<?php }     
-=======
-<?php
-    }
->>>>>>> origin/master
-    
-?>
-
->>>>>>> FETCH_HEAD
 
 
 <?php
@@ -812,7 +426,6 @@ if($row['type'] == 'switches'){
 
 
 
-<<<<<<< HEAD
 <!--/form--> <!-- end report-experiment-form-->
 
 
@@ -820,44 +433,6 @@ if($row['type'] == 'switches'){
 </div>
 
 <div id='mlr_results' class='col-md-9'><h3>Results</h3>
-=======
-</div>
-<script>
-function reportSave(id, entry_id, value, date, type) {
-    if(date=='new'){
-        if (today==$('#datepicker1').val()){
-            d = new Date();
-            d.setHours(d.getHours()+2);
-            date = d.toISOString().slice(0, 19).replace('T', ' ');
-        }
-        else{
-            from = $("#datepicker1").val().split("/");
-            f = new Date(from[2], from[1] - 1, from[0]);
-            f.setHours(f.getHours()+2);
-            date = f.toISOString().slice(0, 19).replace('T', ' ');
-        }
-    }
-    console.log(entry_id);
-     $.ajax({
-          async:false,
-          type: "POST",
-          url: "http://localhost/wp-includes/saveVars.php",
-          data:{
-             id:  entry_id, 
-             user_id: <?php echo $user_id ?>,
-             variable_id: id,
-             experiment_id: <?php echo $experimentid ?>,
-             variable_value:  value,
-             date_modified: date
-          }
-        }).done(function(data) {
-            console.log(data);
-            getEntries(id, type);
-        });
-}
-</script>
-</div><div class='col-md-9'><h3>Results</h3>
->>>>>>> FETCH_HEAD
 <table>
 
 
@@ -3350,96 +2925,6 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 }//end if(experiment_count>0)
 ?>
 
-<?php endif;
-    if(!is_user_logged_in() ) {
-        echo "Please login / register to report and view the experiment";
-    }
-    elseif(!bp_experiment_is_member()){
-        echo "You must join the experiment to report and view.";
-    }
-?><!-- end  (is_user_logged_in() && bp_experiment_is_member() ) -->
+<?php endif; ?><!-- end  (is_user_logged_in() && bp_experiment_is_member() ) -->
 
 </div>
-<script>
-
-    var entries = [];
-    function getEntries(var_id, type){
-     $.ajax({
-          async:false,
-          type: "POST",
-          url: "http://localhost/wp-includes/getEntries.php",
-          data:{
-             date:  $('#datepicker1').val(), 
-             user_id: <?php echo $user_id ?>,
-             variable_id: var_id
-          }
-        }).done(function(data) {
-            
-            if(type == 'score'){
-                getAverages(JSON.parse(data), var_id);
-                populateEntries(JSON.parse(data), var_id, type);
-            }
-            if(type == 'count'){
-                getSum(JSON.parse(data), var_id);
-                populateEntries(JSON.parse(data), var_id, type);
-            }
-            if(type == 'binary'){
-                setBinary(JSON.parse(data), var_id);
-            }
-        });
-    }
-
-
-    function populateEntries(data, var_id, type){
-        $('#dbs-entries'+var_id).empty();
-        id = var_id;
-        if(data.length>0){
-            for (i = 0; i < data.length; i++) { 
-
-                $('#dbs-entries'+var_id).append('<div class="var-entry" id="record' + data[i]['id'] + '">'+data[i]['variable_value']+'</div>');
-            }
-             $('#edit-entries'+var_id).css( "visibility", "visible" );
-        }
-        else{
-           $('#edit-entries'+var_id).css( "visibility", "hidden" );
-        }
-        $( ".var-entry" ).click(function() {
-            var parent = $(this).parent()[0].id;
-            $("#"+parent + " .var-entry").removeClass('selected-entry'); 
-            $(this).addClass('selected-entry'); 
-            console.log(parent);
-            if ("dbs-entries"+var_id == parent){
-                if (type=='count'){
-                    $("#"+var_id).val($(this).text());
-                }
-                if (type=='score'){
-                     $("#scoreSlider"+var_id).val($(this).text());
-                     $("#"+var_id).text($(this).text());
-                } 
-                var id = $(this)[0].id;
-                id = id.split("record");
-                $("#entry_id"+var_id).val(id[1]);
-            }
-        });    
-    }
-    
-    
-    function setBinary(data, var_id){
-        id = var_id;
-        if(data.length>0){
-            $('#entry_id'+var_id).val( data[0]['id'] );
-            console.log(id);
-            if(data[0]['variable_value']=='Yes'){
-                $("#25").bootstrapSwitch('state',true);
-            }
-            else{
-                $("#25").bootstrapSwitch('state',false);
-            }
-            $("#binary-not-set"+id).hide();
-        }
-        else{
-            $('#entry_id'+var_id).val( 'null' );
-            $("#binary-not-set"+id).show();
-        }
-    }
-</script>
