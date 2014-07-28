@@ -41,7 +41,6 @@ $bavotasan_theme_options = bavotasan_theme_options();
 		</div><!-- .row -->
 	</div><!-- #footer-content.container -->
 </footer><!-- #footer -->
-
 <?php wp_footer(); ?>
 </body>
 </html>

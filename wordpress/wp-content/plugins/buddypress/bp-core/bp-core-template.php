@@ -66,13 +66,15 @@ function bp_get_options_nav() {
         // List type depends on our current component
 		//$list_type = bp_is_experiment() ? 'experiments' : 'personal';
 		if($subnav_item['css_id']=="home"){
-			$subnav_item['name'] = '<i class="fa fa-flask"></i>';
+			$subnav_item['name'] = '<div data-icon="a" class="icon"></div>';
 		}if($subnav_item['css_id']=="members"){
-			$subnav_item['name'] = "<i class='fa fa-group'></i>";
+			$subnav_item['name'] = "<div data-icon='c' class='icon'></div>";
 		}if($subnav_item['css_id']=="invite"){
-			$subnav_item['name'] = '<i class="fa fa-envelope"></i>';
+			$subnav_item['name'] = '<div data-icon="b" class="icon"></div>';
 		}if($subnav_item['css_id']=="admin"){
-			$subnav_item['name'] = '<i class="fa fa-gear"></i>';
+			$subnav_item['name'] = '<div data-icon="d" class="icon"></div>';
+		}if($subnav_item['css_id']=="nav-notifications"){
+			$subnav_item['name'] = '<div data-icon="m" class="icon"></div>';
 		}
 		// echo out the final list item
 		echo apply_filters( 'bp_get_options_nav_' . $subnav_item['css_id'], '<li id="' . $subnav_item['css_id'] . '-' . $list_type . '-li" ' . $selected . '><a id="' . $subnav_item['css_id'] . '" href="' . $subnav_item['link'] . '">' . $subnav_item['name'] . '</a></li>', $subnav_item );

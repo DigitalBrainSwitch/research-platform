@@ -1,3 +1,9 @@
+<style>
+.container{
+	max-width: 100%!important;
+	width:100%;
+}
+</style>
 <?php do_action( 'bp_before_directory_experiments_page' ); ?>
 <div id="buddypress">
 
@@ -11,15 +17,24 @@
 
 <form action="" method="post" id="experiments-directory-form" class="dir-form">
 <?php do_action( 'template_notices' ); ?>
+
 <div class="item-list-tabs" role="navigation">
-<ul>
+<div class='mini-nav'>
+<ul id='exp-nav'>
 <?php if ( is_user_logged_in() && bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ) : ?>
-
-<li id="experiments-all" ><a title='All Experiments' class='all-experiments _button' href="<?php bp_experiments_directory_permalink(); ?>"></a></li>
-<li id="experiments-personal"><a title='My Experiments' class='my-experiments _button' href="<?php echo bp_loggedin_user_domain() . bp_get_experiments_slug() . '/my-experiments/'; ?>"><?php printf( __( '<span>%s</span>', 'buddypress' ),bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ); ?></a></li>
-<li><a class='new-experiment _button' title='Create Experiment' href='experiments/create'></a></li>
-
+<li id="experiments-all" ><a title='All Experiments' href="<?php bp_experiments_directory_permalink(); ?>"><span data-icon="i" class="icon"></span></a></li>
+<li id="experiments-personal"><a title='My Experiments' href="<?php echo bp_loggedin_user_domain() . bp_get_experiments_slug() . '/my-experiments/'; ?>"><?php printf( __( '<span data-icon="j" class="icon">  %s</span>', 'buddypress' ),bp_get_total_experiment_count_for_user( bp_loggedin_user_id() ) ); ?></a></li>
+<li><a title='Create Experiment' href='experiments/create'><span data-icon="k" class="icon"></span></a></li>
 <?php endif; ?>
+</ul></div></div><!-- .item-list-tabs -->
+
+<div class="item-list-tabs" id="subnav" role="navigation">
+<ul>
+<?php do_action( 'bp_experiments_directory_experiment_types' ); ?>
+
+
+</ul>
+</div>
 <li id="experiments-order-select" class="last filter">
 
 <label for="experiments-order-by"><?php _e( 'Order By', 'buddypress' ); ?></label>
@@ -34,16 +49,6 @@
 </select>
 </li>
 <?php do_action( 'bp_experiments_directory_experiment_filter' ); ?>
-
-</ul></div><!-- .item-list-tabs -->
-
-<div class="item-list-tabs" id="subnav" role="navigation">
-<ul>
-<?php do_action( 'bp_experiments_directory_experiment_types' ); ?>
-
-
-</ul>
-</div>
 
 <div id="experiments-dir-list" class="experiments dir-list">
 <?php bp_get_template_part( 'experiments/experiments-loop' ); ?>

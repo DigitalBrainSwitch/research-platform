@@ -4590,3 +4590,169 @@ function bp_register_experiment_extension( $experiment_extension_class = '' ) {
 		add_action( "admin_init", array( &$extension, "_register" ) );
 	' ), 11 );
 }
+
+/**
+ * The class_exists() check is recommended, to prevent problems during upgrade
+ * or when the Groups component is disabled
+ */
+if ( class_exists( 'BP_experiment_Extension' ) ) :
+  
+class experiment_Extension_Example_2 extends BP_experiment_Extension {
+    /**
+     * Here you can see more customization of the config options
+     */
+    function __construct() {
+        $args = array(
+            'slug' => 'notifications',
+            'name' => 'Notifications',
+            'nav_item_position' => 105
+        );
+        parent::init( $args );
+    }
+ 
+    function display() {
+        ?>
+
+<script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.js"></script>
+<script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.date.js"></script>
+<script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/picker.time.js"></script>
+<script src="http://digitalbrain-test.lancs.ac.uk/datepicker/lib/legacy.js"></script>
+<script src='http://localhost/wp-content/plugins/buddypress/bp-templates/bp-legacy/js/bootstrap-switch.min.js'></script>
+<div id='timepickers'>
+</div><div id='newNotification'>+ NEW</div>
+<div id='saveNotifications'>Save All</div>
+<script>
+var newCount = 0;
+$( document ).ready(function() {
+    $( "#newNotification" ).click(function() {
+       createTimepicker("00:00:00", "new"+newCount, '0', 'Weekday');
+       newCount++;     
+    });
+    $( "#saveNotifications" ).click(function() {
+       saveAll();
+       location.reload();    
+    });
+    $.ajax({
+      async:false,
+      type: "POST",
+      url: "http://localhost/wp-includes/getNotifications.php",
+      data:{
+         experiment_id:  <?php echo bp_get_current_experiment_id()?>, 
+         user_id: <?php echo get_current_user_id(); ?>,
+      }
+    }).done(function(data) {
+       console.log(JSON.parse(data));
+       results = JSON.parse(data);
+       if(results.length > 0){
+            for (i = 0; i < results.length; i++){
+                console.log(results[i]);
+                createTimepicker(results[i]['time'], results[i]['id'], results[i]['enabled'], results[i]['type']);
+           }
+       }
+    });
+   
+    
+});
+function createTimepicker(time, id, enabled, type){
+    var type = type;
+    var time = time;
+    var id = id;
+    $('#timepickers').append("<div class='row notification'><li id='"+id+"'><div class='col-md-4'><input class='timepicker' id='timepicker"+id+"' style='text-align:center'data-value='"+time+"' type='text'></input></div></li></div>");
+    $('#'+id).append('<div class="col-md-4"><select id="type'+id+'"><option value="weekday">Weekdays</option><option value="weekend">Weekend</option><option value="everyday">Everyday</option></select></div><div class="col-md-4"><input id="enabled'+id+'" type="checkbox" /></div>');
+    $("#enabled"+id).bootstrapSwitch();
+    if(enabled=='1'){
+        $("#enabled"+id).bootstrapSwitch('state',true);        
+    }
+    else{
+        $("#enabled"+id).bootstrapSwitch('state',false);
+    }
+    if(type=='weekend'){
+        $("#type"+id).val('weekend');        
+    }
+    if(type=='everyday'){
+        $("#type"+id).val('everyday');        
+    }
+    $('#timepicker'+id).pickatime({
+        editable: true,
+        formatSubmit: 'HH:i',
+        formatLabel: 'HH:i',
+    });
+}
+
+function saveAll(){
+    $( ".notification" ).each(function( index ) {
+      var id = $( this ).children(":first").attr('id');
+      var enabled = $("#enabled"+id).bootstrapSwitch('state');
+      if (enabled){
+        enabled = 1;
+      }
+      else{
+        enabled = 0;
+      }
+      var time = $('#timepicker'+id).val();
+      var type = $('#type'+id).val();
+      saveNotification(id, enabled, time, type);
+    });
+}
+function saveNotification(id, enabled, time, type){
+    if (id.indexOf("new") >= 0){
+        id = 'null';
+    }
+    $.ajax({
+          async:false,
+          type: "POST",
+          url: "http://localhost/wp-includes/saveNotifications.php",
+          data:{
+             id:  id, 
+             experiment_id:  <?php echo bp_get_current_experiment_id()?>, 
+             user_id: <?php echo get_current_user_id(); ?>,
+             enabled:  enabled,
+             time: time,
+             type: type
+          }
+        }).done(function(data) {
+            console.log(data);
+        });
+}
+</script>
+        <?php
+    }
+ 
+    function settings_screen( $experiment_id ) {
+        $setting = experiments_get_experimentmeta( $experiment_id, 'experiment_extension_example_2_setting' );
+ 
+        ?>
+        Save your plugin setting here: <input type="text" name="experiment_extension_example_2_setting" value="<?php echo esc_attr( $setting ) ?>" />
+        <?php
+    }
+ 
+    function settings_screen_save( $experiment_id ) {
+        $setting = isset( $_POST['experiment_extension_example_2_setting'] ) ? $_POST['experiment_extension_example_2_setting'] : '';
+        experiments_update_experimentmeta( $experiment_id, 'experiment_extension_example_2_setting', $setting );
+    }
+ 
+    /**
+     * create_screen() is an optional method that, when present, will
+     * be used instead of settings_screen() in the context of experiment
+     * creation.
+     *
+     * Similar overrides exist via the following methods:
+     *   * create_screen_save()
+     *   * edit_screen()
+     *   * edit_screen_save()
+     *   * admin_screen()
+     *   * admin_screen_save()
+     */
+    function create_screen( $experiment_id ) {
+        $setting = experiments_get_experimentmeta( $experiment_id, 'experiment_extension_example_2_setting' );
+ 
+        ?>
+        Welcome to your new experiment! You are neat.
+        Save your plugin setting here: <input type="text" name="experiment_extension_example_2_setting" value="<?php echo esc_attr( $setting ) ?>" />
+        <?php
+    }
+ 
+}
+bp_register_experiment_extension( 'experiment_Extension_Example_2' );
+ 
+endif;
