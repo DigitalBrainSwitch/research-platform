@@ -13,24 +13,24 @@ include "$root/ajaxfiles/reportExperiment.php";
 
 <style type="text/css">
 
-	#placeholder-compare .button {
-		position: absolute;
-		cursor: pointer;
-	}
+#placeholder-compare .button {
+	position: absolute;
+	cursor: pointer;
+}
 
-	#placeholder-compare div.button {
-		font-size: smaller;
-		color: #999;
-		background-color: #eee;
-		padding: 2px;
-	}
+#placeholder-compare div.button {
+	font-size: smaller;
+	color: #999;
+	background-color: #eee;
+	padding: 2px;
+}
 	/*
 	.message {
 		padding-left: 50px;
 		font-size: smaller;
 	}
 */
-	</style>
+</style>
 
 <!-- Javascript -->
 	<!-- jquery -->
@@ -102,7 +102,7 @@ include "$root/ajaxfiles/reportExperiment.php";
 	$variable_chart2_index = 1;
 	
 	$experiment_results_period = 0;
-
+/*
 	if (isset($_POST['chart'])) {
 	
 	
@@ -117,7 +117,8 @@ include "$root/ajaxfiles/reportExperiment.php";
 	
 	}//end if(isset($_POST['chart'])
 
-	if (isset($_POST['report'])) {
+	if (isset($_POST['report'])) 
+	{
 	
 		//echo "Success";
 		global $wpdb, $bp;
@@ -161,6 +162,7 @@ include "$root/ajaxfiles/reportExperiment.php";
 
 	//bp_core_redirect( bp_get_experiment_permalink( $bp->experiments->current_experiment ) );
 	}//end if(isset($_POST['report']))
+ */ 
 ?>
 
 
@@ -227,17 +229,17 @@ include "$root/ajaxfiles/reportExperiment.php";
                 {
         
 ?>
-<div class='var'>
-<h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-<div class='score'><div class='big_white' id="sum<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Total</span></div>
-<div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
-</div>
-<div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
-<input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
-<input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
-<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
-<button style='margin-top:20px; width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, $("#entry_id<?php echo $row['id']?>").val(), $("#<?php echo $row['id']?>").val(), "new", "count"); $("#<?php echo $row['id']?>").val(0);$("#entry_id<?php echo $row['id']?>").val("null")'>Report <div data-icon="l" class="icon-small"></div></button>
-
+					<div class='var'>
+					<h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
+					<div class='score'><div class='big_white' id="sum<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Total</span></div>
+					<div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
+					</div>
+					<div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
+					<input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
+					<input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
+					<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
+					<button style='margin-top:20px; width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, $("#entry_id<?php echo $row['id']?>").val(), $("#<?php echo $row['id']?>").val(), "new", "count"); $("#<?php echo $row['id']?>").val(0);$("#entry_id<?php echo $row['id']?>").val("null")'>Report <div data-icon="l" class="icon-small"></div></button>
+					
 
 <script>
 $( document ).ready(function() {
@@ -404,15 +406,12 @@ $( document ).ready(function() {
 ?>
 
               <!--input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>"-->
-
-
-
 <?php
     
         	}//end if(row)
-        else{
-           //echo "<td>&nbsp;</td>";	//If there are no more records at the end, add a blank column
-        }//end else
+        	else{
+           			//echo "<td>&nbsp;</td>";	//If there are no more records at the end, add a blank column
+        	}//end else
     
     
               }//end for (cols)
@@ -438,7 +437,11 @@ $( document ).ready(function() {
 
 
 <?php
-    
+
+/*
+ 	Retrieve the variables of experiment from the database
+ * */
+      
     $experimentid = bp_get_current_experiment_id();
     $query="SELECT id, name, type FROM wp_bp_experiments_variables where wp_bp_experiments_variables.experiment_id=$experimentid";
     $result = mysql_query($query);
@@ -475,8 +478,12 @@ $( document ).ready(function() {
         
     }while($row);
     
-
-    $result1=mysql_query("SELECT count(*) FROM wp_bp_experiments_report WHERE experiment_id=$experimentid");
+/*
+ 	Check if the variable values entries exists for the experiment
+ * 
+ * */
+ 
+    $result1=mysql_query("SELECT count(*) FROM wp_bp_experiments_report WHERE experiment_id='$experimentid'");
     $row=mysql_fetch_array($result1);
     if($row)
     {
@@ -488,16 +495,27 @@ $( document ).ready(function() {
         else if($experiment_report_count>0)
         {
             //$result2=mysql_query("select * from wp_bp_experiments_report where experiment_id=$experimentid and variable_id=$variableIds[0]");
-			
+			/*
+			$query = "select DISTINCT(date_format (date_modified, '%d-%m-%Y')) AS report_date from wp_bp_experiments_report where 
+				experiment_id=$experimentid order by date_format (date_modified, '%d-%m-%Y')";
+			*/
+			$query = "select DISTINCT(date_format (date_modified, '%d-%m-%Y')) AS report_date from wp_bp_experiments_report where 
+				experiment_id='$experimentid' order by date_modified ASC";
+				
+			//echo $query;
+			/*	
 			$result2=mysql_query("select DISTINCT(date_format (date_modified, '%d-%m-%Y')) AS report_date from wp_bp_experiments_report where 
 				experiment_id=$experimentid order by date_format (date_modified, '%d-%m-%Y')
 			");
+            */
             
+            $result2=mysql_query($query);
+			
             //echo "<table>";
             do{
                 $row=mysql_fetch_array($result2);
                 if($row){
-                    
+                    //echo $row['report_date']. " ";
                     $dateTimes[] = $row['report_date'];
                 }//end if($row)
             } while($row);
@@ -511,6 +529,8 @@ $( document ).ready(function() {
 
 
 <?php
+    
+    //echo "experiment_report_count=".$experiment_report_count;
     
     /*
         If the data exists in experiments reports, show the visualization.
@@ -626,7 +646,7 @@ $( document ).ready(function() {
 
 
   <td align="center">
-        <br> <br>
+
         <button type="button" id="experiment-show-variables-chart" name="chart" onclick="loadChart()">Chart</button>
 
         <br> <br>
@@ -664,7 +684,7 @@ $( document ).ready(function() {
               //If the experiment has more than 1 participants, show comparison option.
               if(count($experiment_memberIds) > 1)
               {
-              ?>
+    ?>
               
              	<div id="show-comparison">
               
@@ -694,40 +714,23 @@ $( document ).ready(function() {
               	{
       ?>
               <option value="<?php echo $experiment_memberIds[$i];?>"> <?php echo $experiment_memberNames[$i];?></option>
-     <?php
+  <?php
               	}//end else
               	$i++;
               
               }//end while
-      ?>
+  ?>
               
               </select>
               
-      <?php
+ <?php
               }//end if(count($experiment_memberIds) > 0)
-      ?>
+ ?>
               
-              
-              
-</tr>
-              
+</tr>          
               <div id="show-comparison-charts">
-              
                     <div id="show-comparison-text"> </div>
-              
               </div>
-              
-
-              <!--div id="content1" name="content1" style="visibility: hidden;">
-                <div class="demo-container">
-                    <div id="placeholder-compare" class="demo-placeholder"></div>
-                </div>
-                <span id="hoverdata"></span>
-    			<span id="clickdata"></span>
-              </div-->
-
-              
-
 <tr>
 
 <?php //var names = <?php echo json_encode($variableNames); ?
@@ -754,14 +757,17 @@ for ($x = 0; $x < count($dateTimes); $x++)
 	{
 		$j++;
 		$id = $variableIds[$y];
-		$query = "select count(*) from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' AND date_format (date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
+		$query = "select count(*) from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' 
+		AND date_format (date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
 		//echo $query;
 		$result1 = mysql_query($query);
 		$row=mysql_fetch_array($result1);
 		if($row)
 		{
 			$variableForDay[$y] = $row['count(*)'];
-			//echo "variableForDay[y]=".$variableForDay[$y];
+			//if($variableForDay[$y]>0)
+				//echo $query." ";
+			//echo "variableForDay[".$y."]=".$variableForDay[$y]." ";
 		}//end roow
     
 	}//end for
@@ -773,6 +779,7 @@ for ($x = 0; $x < count($dateTimes); $x++)
 	{
 		if($variableForDay[$y]==0)
 		{
+			//echo "variableForDay[y]=0 ".$variableForDay[$y].", x=".$x." ";
 			$dateTimes[$x] = -1;
 			break;
 		}
@@ -783,12 +790,17 @@ for ($x = 0; $x < count($dateTimes); $x++)
 	/*
   		Remove the date if a variable report is missing for that date
  	*/	
-
+//echo "count(dateTimes)before=".count($dateTimes);
 for ($x = 0; $x < count($dateTimes); $x++) 
 {
 	//echo $dateTimes[$x];
+	//echo "dateTimes[".$x."]=".$dateTimes[$x]." ";
+	/*
 	if($dateTimes[$x]==-1)
 		unset($dateTimes[$x]);
+	 */
+	unset( $dateTimes[array_search( -1, $dateTimes )] ); 
+	 
 }//end for
 
 /*
@@ -797,6 +809,27 @@ for ($x = 0; $x < count($dateTimes); $x++)
 
 $dateTimes = array_values($dateTimes);
 //echo "count(dateTimes)after=".count($dateTimes);
+/*
+echo "count(dateTimes)after=".count($dateTimes);
+for ($x = 0; $x < count($dateTimes); $x++) 
+{
+	//echo $dateTimes[$x];
+	//echo "dateTimes[".$x."]=".$dateTimes[$x]." ";
+	if($dateTimes[$x]==-1)
+		unset($dateTimes[$x]);
+}//end for
+*/
+
+//$dateTimes = array_values($dateTimes);
+//echo "count(dateTimes)after=".count($dateTimes);
+/*
+for ($x = 0; $x < count($dateTimes); $x++) 
+{
+	echo "dateTimes[".$x."]=".$dateTimes[$x]." ";
+}//end for
+*/
+
+
 
 /*
  * 	Dates with full entries for varliables by the current user
@@ -804,11 +837,14 @@ $dateTimes = array_values($dateTimes);
 
 	for ($x = 0; $x < count($dateTimes); $x++) 
 	{
+		//echo "dateTimes[". $x ."]= " .$dateTimes[$x]." ";
+		
 		$query = "select count(*) from wp_bp_experiments_report where 
 			experiment_id='$experimentid' 
 			AND user_id='$currentUserId'
 			AND date_format (date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
 	
+		
 		//echo $query;
 		
 		$result1 = mysql_query($query);
@@ -828,6 +864,8 @@ $dateTimes = array_values($dateTimes);
 			
 	}//end for
 	
+//	echo "count(dateTimesPP) = ". count($dateTimes). " ";
+//	echo "count(dateTimesPP) = ". count($dateTimesPP). " ";
 	/*
 	//echo "count(dateTimesPP) =". count($dateTimesPP);
 	for ($x = 0; $x < count($dateTimesPP); $x++) 
@@ -867,7 +905,8 @@ for ($y = 0; $y < count($variableNames); $y++)
 			if($type == "binary")
 			{
 				
-				$query = "select * from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]' 
+				$query = "select * from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' AND 
+				date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]' 
 				ORDER BY time(date_modified) DESC LIMIT 1";
 				/*
 				$query = "select * from (select * from wp_bp_experiments_report where experiment_id='$experimentid' 
@@ -889,8 +928,8 @@ for ($y = 0; $y < count($variableNames); $y++)
 			if($type == "count")
 			{
 					
-				$query = "select *, count(variable_value) from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' 
-				AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
+				$query = "select *, sum(variable_value) from wp_bp_experiments_report where experiment_id='$experimentid' 
+				AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
 				/*
 				$query = "select *, count(variable_value) from (select * from wp_bp_experiments_report where experiment_id='$experimentid' 
 				AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]' order by date_modified desc) x group by `user_id`";
@@ -915,7 +954,7 @@ for ($y = 0; $y < count($variableNames); $y++)
 						$val = $row['avg(variable_value)'];
 					
 					if($type == "count")
-						$val = $row['count(variable_value)'];
+						$val = $row['sum(variable_value)'];
 					
 					//echo $variableNames[$y]."'s variable_value=". $val;
 					//echo "x=". $x .", y=". $y ."variableValues y x's variable_value=". $val;
@@ -926,8 +965,6 @@ for ($y = 0; $y < count($variableNames); $y++)
 	    
 		}//end for
 	}//end for
-
-
 
 
 	for ($x = 0; $x < count($dateTimesPP); $x++) 
@@ -948,7 +985,7 @@ for ($y = 0; $y < count($variableNames); $y++)
 			{
 				
 				$query = "select * from wp_bp_experiments_report where experiment_id='$experimentid' 
-				AND user_id=$currentUserId AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimesPP[$x]' 
+				AND user_id='$currentUserId' AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimesPP[$x]' 
 				ORDER BY time(date_modified) DESC LIMIT 1";
 				/*
 				$query = "select * from (select * from wp_bp_experiments_report where experiment_id='$experimentid' 
@@ -960,7 +997,7 @@ for ($y = 0; $y < count($variableNames); $y++)
 			{
 				
 				$query = "select *, avg(variable_value) from wp_bp_experiments_report where experiment_id='$experimentid' 
-				AND user_id=$currentUserId AND variable_id='$id' 
+				AND user_id='$currentUserId' AND variable_id='$id' 
 				AND date_format(date_modified, '%d-%m-%Y')='$dateTimesPP[$x]'";
 				/*
 				$query = "select *, avg(variable_value) from (select * from wp_bp_experiments_report where experiment_id='$experimentid' 
@@ -970,9 +1007,12 @@ for ($y = 0; $y < count($variableNames); $y++)
 			
 			if($type == "count")
 			{
+						
 					
-				$query = "select *, count(variable_value) from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' 
-				AND user_id=$currentUserId AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]'";
+				$query = "select *, sum(variable_value) from wp_bp_experiments_report where experiment_id='$experimentid' AND variable_id='$id' 
+				AND user_id='$currentUserId' AND date_format(date_modified, '%d-%m-%Y')='$dateTimesPP[$x]'";
+				
+				//echo "...".$query. "...";
 				/*
 				$query = "select *, count(variable_value) from (select * from wp_bp_experiments_report where experiment_id='$experimentid' 
 				AND variable_id='$id' AND date_format(date_modified, '%d-%m-%Y')='$dateTimes[$x]' order by date_modified desc) x group by `user_id`";
@@ -995,19 +1035,27 @@ for ($y = 0; $y < count($variableNames); $y++)
 						$val = $row['avg(variable_value)'];
 					
 					if($type == "count")
-						$val = $row['count(variable_value)'];
+						$val = $row['sum(variable_value)'];
 					
 					//echo $variableNames[$y]."'s variable_value=". $val;
 					//echo "x=". $x .", y=". $y ."variableValues y x's variable_value=". $val;
 					$variableValuesPP[$y][$x] = $val;
+					
+					if($type == "binary")
+					{
+						//echo "query is=  ".$query."   ";
+						//echo "variableValuesPP[".$y."][".$x."]=". $variableValuesPP[$y][$x]."   ";
+					}//end if($type == "binary")
+					
 				}//end if($row)
 			} while($row);
 	    
 		}//end for
 	}//end for
 
-
-//echo "count(variableValues)=".count($variableValues);
+//echo "count(variableValues)=".count($variableValues)."  ";
+//echo "count(variableValuesPP)=".count($variableValuesPP)."  ";
+//echo "count(variableValuesPP[0])=".count($variableValuesPP[0])."  ";
 //echo "count(variableValues0)=".count($variableValues[0][0]);
 
 ?>
@@ -1018,7 +1066,12 @@ for ($y = 0; $y < count($variableNames); $y++)
 	var values =  <?php echo json_encode($variableValues); ?>;
 	
 	var values_js =  <?php echo json_encode($variableValues); ?>;
-	var valuesPP_js =  <?php echo json_encode($variableValuesPP); ?>;	
+	var valuesPP_js =  <?php echo json_encode($variableValuesPP); ?>;
+
+	//$variableValuesPP[$y][$x]
+
+	//alert("values[0].length="+values_js[0].length);		
+	//alert("valuesPP_js[0].length="+valuesPP_js[0].length);	
 
 	var times =  <?php echo json_encode($dateTimes); ?>;
 
@@ -1037,7 +1090,7 @@ for ($y = 0; $y < count($variableNames); $y++)
 </script>
 
 
-<?php echo "All participants' results (daily)"; ?>
+<!--?php echo "All participants' results (daily)"; ?-->
 
 <script type="text/javascript">
 
@@ -1046,9 +1099,10 @@ for ($y = 0; $y < count($variableNames); $y++)
 	$(document).ready(function() 
 	{
 
+
 		if (typeVar1 == "binary" && typeVar2 == "binary") 
 		{
-
+			/*
 			var d1 = [];
 			var d2 = [];
 
@@ -1074,11 +1128,43 @@ for ($y = 0; $y < count($variableNames); $y++)
 			var xlabels = [];
 			for (var i = 0; i < times.length; ++i) 
 			{
-				//alert("times[0]="+times[0]);
+				var latestDate= times[i].toString();
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDate);
+				var newDate = (parsedDate.getDate()) + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();	
+						
 				var xlabel = [];
-				xlabel.push(i, times[i]);
+				xlabel.push(i+0.3, times[i]);
+				//xlabel.push(i+0.3, newDate);
 				xlabels.push(xlabel);
 			}//end for
+
+			var numDays = xlabels.length;
+			if(numDays<7)
+			{
+
+				var latestDate= xlabels[xlabels.length-1].toString();
+				var index = latestDate.indexOf(",")+1;
+				var latestDateString = latestDate.substr(index, latestDate.length-1);
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+
+				for(var x=numDays; x<7; x++)
+				{
+					var difference = x-numDays;
+					parsedDate.setDate(parsedDate.getDate()+1);
+					//alert("parsedDate-new="+parsedDate); 
+					var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+					//alert("newDate="+newDate);
+					
+					var xlabel = [];
+					//xlabel.push(x, "Day"+ (x+1)+ " ");
+					xlabel.push(x+0.3, newDate);
+					xlabels.push(xlabel);
+					
+					d1.push([x, "nil"]);
+					d2.push([x, "nil"]);	
+				
+				}//end for
+			}//end if(xlabels.length<7)
 
 			var ylabels = [];
 			ylabels[0] = nameVar2 + " Yes";
@@ -1107,11 +1193,14 @@ for ($y = 0; $y < count($variableNames); $y++)
 					//max: ticks.length+0.5,
 					ticks : xlabels,
 					rotateTicks : 90,
-					panRange: [-0.1, times.length],
+					panRange: [-0.1, xlabels.length],
+					axisLabel : ' '
 				},
 				yaxis : {
 					ticks : [[0.5, "Yes"], [-0.5, "No"]],
 					axisLabel : nameVar2,
+					//axisLabelFontSizePixels: 14,
+            		//axisLabelFontFamily: 'sans-serif',
 					panRange: false,
 				},
 
@@ -1186,20 +1275,38 @@ for ($y = 0; $y < count($variableNames); $y++)
 					plot.highlight(item.series, item.datapoint);
 				}
 			});
-
+			*/
+			
+	        if($("#content-daily").length != 0)
+			{
+				$("#content-daily").remove();
+			}
+			
 		}//end if(typeVar1=='binary' && typeVar2=='binary')
 		
 		else if (typeVar1 == "binary" || typeVar2 == "binary") 
 		{
 
+			/*
+			if ($("#content-daily").length == 0)
+			{
+				$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+			}
+  			*/
+  			
+  			if($("#content-daily").length != 0)
+			{
+				$("#content-daily").remove();
+			}
+ /* 						
 			var d1 = [];
 			var d2 = [];
 			var ylabels = [];
 			var label2;
 			var yMax = 0;
 
-			if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) {
-				
+			if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) 
+			{	
 				label2 = nameVar2;
 				ylabels[0] = nameVar1 + " Yes";
 				ylabels[1] = nameVar1 + " No";
@@ -1237,14 +1344,17 @@ for ($y = 0; $y < count($variableNames); $y++)
 				}//end for
 			}//end if(typeVar2 == "binary" && (typeVar1== "score" || typeVar1== "count"))
 
-			var xlabels = [];
 
-			for (var i = 0; i < times.length; ++i) {
+			var xlabels = [];
+			for (var i = 0; i < times.length; ++i) 
+			{
 				//alert("times[0]="+times[0]);
 				var xlabel = [];
 				xlabel.push(i, times[i]);
 				xlabels.push(xlabel);
 			}
+
+
 
 			var data = [{
 				data : d1,
@@ -1268,7 +1378,8 @@ for ($y = 0; $y < count($variableNames); $y++)
 					//max: ticks.length+0.5,
 					ticks : xlabels,
 					rotateTicks : 90,
-					panRange: [-0.1, times.length],
+					panRange: [-0.1, xlabels.length],
+					axisLabel: ' ',
 				},
 				yaxis : {
 					axisLabel : label2,
@@ -1336,24 +1447,45 @@ for ($y = 0; $y < count($variableNames); $y++)
 					plot.highlight(item.series, item.datapoint);
 				}
 			});
-
+*/
 		}//end else if(typeVar1=="binary" || typeVar2=="binary")
-		else if ((typeVar1 == "score" || typeVar1 == "count") && (typeVar2 == "score" || typeVar2 == "count")) {
+		else if ((typeVar1 == "score" || typeVar1 == "count") && (typeVar2 == "score" || typeVar2 == "count")) 
+		{
 
+			if($("#content-cumulative").length != 0)
+			{
+				$("#content-cumulative").remove();	
+			}
+			
+			if($("#content-cumulative-pp").length != 0)
+			{
+				$("#content-cumulative-pp").remove();
+			}
+					
+			if ($("#content-daily").length == 0)
+			{
+				$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+			}
+			
 			var d1 = [];
 			var d2 = [];
 
 			var xlabels = [];
 
-			for (var i = 0; i < times.length; ++i) {
+			for (var i = 0; i < times.length; ++i) 
+			{
 				//alert("times[0]="+times[0]);
+				var latestDate= times[i].toString();
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDate);
+				var newDate = (parsedDate.getDate()) + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();	
+				
 				var xlabel = [];
-				xlabel.push(i, times[i]);
+				xlabel.push(i+0.1, times[i]);
+				//xlabel.push(i+0.3, newDate);
 				xlabels.push(xlabel);
 
 				d1.push([i, values1[i]]);
 				d2.push([i, values2[i]]);
-
 			}
 
 			var ylabels = [];
@@ -1381,16 +1513,14 @@ for ($y = 0; $y < count($variableNames); $y++)
 					show : true
 				},
 				xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-
 				{
-
 					tickLength : 0,
 					//min: 0.5,
 					//max: ticks.length+0.5,
 					ticks : xlabels,
 					rotateTicks : 90,
 					panRange: [-0.1, times.length],
-
+					axisLabel: ' '
 				},
 				yaxes : [{
 					min : 0,
@@ -1462,15 +1592,18 @@ for ($y = 0; $y < count($variableNames); $y++)
 				}
 			});
 
-		}
-		//end else if( (typeVar1== "score" || typeVar1== "count") && (typeVar2== "score" || typeVar2== "count")  )
+		}//end else if( (typeVar1== "score" || typeVar1== "count") && (typeVar2== "score" || typeVar2== "count")  )
 
 	});
 
 </script>
 
+<div id="show-daily-charts">
+               
+</div>
 
 <div id="content-daily" name="content-daily">
+	<div>All participants' results (daily)</div>
     <div class="demo-container">
         <div id="legendcontainer-daily"></div>
         <div id="placeholder-daily" class="demo-placeholder" style="height: 400px; width: 100%;"></div>
@@ -1490,7 +1623,7 @@ for ($y = 0; $y < count($variableNames); $y++)
     //if( $variableTypes[$variable_chart1_index] == "binary" || $variableTypes[$variable_chart2_index] == "binary")
     {
     
- echo "<br><br>All participants' results (cumulative)";
+ //echo "<br><br>All participants' results (cumulative)";
 
 ?>
 
@@ -1537,7 +1670,7 @@ for ($y = 0; $y < count($variableNames); $y++)
 			xlabels1.push(xlabel1);
 
 			var xlabel2 = [];
-			xlabel2.push(4, nameVar2 + ":No");
+			xlabel2.push(4, nameVar2 + " No");
 			xlabels1.push(xlabel2);
 
 			var ylabels = [];
@@ -1546,11 +1679,11 @@ for ($y = 0; $y < count($variableNames); $y++)
 
 			var data = [{
 				data : dc1,
-				label : nameVar1 + ":Yes",
+				label : nameVar1 + " Yes",
 				//color : "blue"
 			}, {
 				data : dc2,
-				label : nameVar1 + ":No",
+				label : nameVar1 + " No",
 				//color : "red"
 			}];
 
@@ -1670,11 +1803,11 @@ for ($y = 0; $y < count($variableNames); $y++)
 				ylabels[1] = nameVar1 + " No";
 
 				var xlabel1 = [];
-				xlabel1.push(0.2, nameVar1 + ":Yes");
+				xlabel1.push(0.2, nameVar1 + " Yes");
 				xlabels1.push(xlabel1);
 
 				var xlabel2 = [];
-				xlabel2.push(1.2, nameVar1 + ":No");
+				xlabel2.push(1.2, nameVar1 + " No");
 				xlabels1.push(xlabel2);
 
 				if (typeVar2 == "score") 
@@ -1757,11 +1890,11 @@ for ($y = 0; $y < count($variableNames); $y++)
 				ylabels[1] = nameVar2 + " No";
 
 				var xlabel1 = [];
-				xlabel1.push(0.2, nameVar2 + ":Yes");
+				xlabel1.push(0.2, nameVar2 + " Yes");
 				xlabels1.push(xlabel1);
 
 				var xlabel2 = [];
-				xlabel2.push(1.2, nameVar2 + ":No");
+				xlabel2.push(1.2, nameVar2 + " No");
 				xlabels1.push(xlabel2);
 
 				if (typeVar1 == "score") {
@@ -1931,12 +2064,12 @@ for ($y = 0; $y < count($variableNames); $y++)
 
 
 <div id="show-cumulative-charts">
-              
-
-              
+                            
 </div>
 
 <div id="content-cumulative" name="content-cumulative">
+    
+    <div>All participants' results (cumulative)</div>
     <div class="demo-container">
         <div id="legendcontainer-cumulative"></div>
    		 <div id="placeholder-cumulative" class="demo-placeholder" style="height: 400px; width: 100%;"></div>
@@ -1946,10 +2079,12 @@ for ($y = 0; $y < count($variableNames); $y++)
 	</div>
 </div>
 
+<?php
+ 
+	}//end if( $variableTypes[$variable_chart1_index] == "binary" || $variableTypes[$variable_chart2_index] == "binary")
 
-
-<?php }//end if( $variableTypes[$variable_chart1_index] == "binary" || $variableTypes[$variable_chart2_index] == "binary")
-
+	//echo "variableValues[0].length=".count($variableValues[0]). "  ";
+	//echo "variableValuesPP[0].length=".count($variableValuesPP[0]). "  ";
 /*
 
 Retreiving an individual participant's resutls from the database
@@ -2012,6 +2147,10 @@ for ($x=0; $x<count($variableNames); $x++)
 	var names =  <?php echo json_encode($variableNames); ?>;
 	var valuesPP =  <?php echo json_encode($variableValuesPP); ?>;
 
+	valuesPP[0] =  <?php echo json_encode($variableValuesPP[0]); ?>;
+	//alert("main page, valuesPP[0].length="+valuesPP[0].length);
+	//alert("main page, valuesPP[1].length="+valuesPP[1].length);
+
 	var timesPP =  <?php echo json_encode($dateTimesPP); ?>;
 
 	//var values1 = <?php echo json_encode($variableValues[0]); ?>;
@@ -2036,7 +2175,7 @@ for ($x=0; $x<count($variableNames); $x++)
     if(count($dateTimesPP) > 0)
     {
     //echo count($dateTimesPP);
-    	echo "<br><br>Your results (daily)";
+    //echo "<br><br>Your results (daily)";
     
 
 ?>
@@ -2069,14 +2208,56 @@ for ($x=0; $x<count($variableNames); $x++)
 
 			}//end for
 
+/*
 			var xlabels = [];
-
 			for (var i = 0; i < timesPP.length; ++i) {
 				//alert("times[0]="+times[0]);
 				var xlabel = [];
 				xlabel.push(i, timesPP[i]);
 				xlabels.push(xlabel);
 			}
+*/
+
+			var xlabels = [];
+			for (var i = 0; i < timesPP.length; ++i) 
+			{
+				var latestDate= timesPP[i].toString();
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDate);
+				var newDate = (parsedDate.getDate()) + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();				
+				
+				var xlabel = [];
+				//xlabel.push(i+0.3, times[i]);
+				xlabel.push(i+0.3, newDate);
+				xlabels.push(xlabel);
+			}//end for
+
+			var numDays = xlabels.length;
+			if(numDays<7)
+			{
+				//alert("numDays="+numDays);
+				var latestDate= xlabels[xlabels.length-1].toString();
+				var index = latestDate.indexOf(",")+1;
+				var latestDateString = latestDate.substr(index, latestDate.length-1);
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+
+				for(var x=numDays; x<7; x++)
+				{
+					var difference = x-numDays;
+					parsedDate.setDate(parsedDate.getDate()+1);
+					//alert("parsedDate-new="+parsedDate); 
+					var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+					//alert("newDate="+newDate);
+					
+					var xlabel = [];
+					//xlabel.push(x, "Day"+ (x+1)+ " ");
+					xlabel.push(x+0.3, newDate);
+					xlabels.push(xlabel);
+					
+					d1.push([x, "nil"]);
+					d2.push([x, "nil"]);	
+				
+				}//end for
+			}//end if(xlabels.length<7)
 
 			var ylabels = [];
 			ylabels[0] = nameVar2 + " Yes";
@@ -2106,7 +2287,8 @@ for ($x=0; $x<count($variableNames); $x++)
 					//max: ticks.length+0.5,
 					ticks : xlabels,
 					rotateTicks : 90,
-					panRange: [-0.05, timesPP.length],
+					panRange: [-0.05, xlabels.length],
+					axisLabel: ' '
 				},
 				yaxis : {
 					ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -2186,18 +2368,20 @@ for ($x=0; $x<count($variableNames); $x++)
 
 		}//end if(typeVar1=='binary' && typeVar2=='binary')
 		
-else if (typeVar1 == "binary" || typeVar2 == "binary") {
+		else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
 			var d1 = [];
 			var d2 = [];
 			var ylabels = [];
 			var label2;
 
-			if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) {
+			if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) 
+			{
 				label2 = nameVar2;
 				ylabels[0] = nameVar1 + " Yes";
 				ylabels[1] = nameVar1 + " No";
-				for (var i = 0; i < valuesPP2.length; ++i) {
+				for (var i = 0; i < valuesPP2.length; ++i) 
+				{
 					if (valuesPP1[i] == 1)
 						d1.push([i, valuesPP2[i]]);
 
@@ -2207,11 +2391,13 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
 			}//end if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2== "count"))
 
-			if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) {
+			if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) 
+			{
 				label2 = nameVar1;
 				ylabels[0] = nameVar2 + " Yes";
 				ylabels[1] = nameVar2 + " No";
-				for (var i = 0; i < valuesPP1.length; ++i) {
+				for (var i = 0; i < valuesPP1.length; ++i) 
+				{
 
 					if (valuesPP2[i] == 1)
 						d1.push([i, valuesPP1[i]]);
@@ -2221,14 +2407,57 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 				}//end for
 			}//end if(typeVar2 == "binary" && (typeVar1== "score" || typeVar1== "count"))
 
+/*
 			var xlabels = [];
-
 			for (var i = 0; i < timesPP.length; ++i) {
 				//alert("times[0]="+times[0]);
 				var xlabel = [];
 				xlabel.push(i, timesPP[i]);
 				xlabels.push(xlabel);
 			}
+*/
+
+
+			var xlabels = [];
+			for (var i = 0; i < timesPP.length; ++i) 
+			{
+				var latestDate= timesPP[i].toString();
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDate);
+				var newDate = (parsedDate.getDate()) + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();				
+				
+				var xlabel = [];
+				//xlabel.push(i+0.3, times[i]);
+				xlabel.push(i+0.3, newDate);
+				xlabels.push(xlabel);
+			}//end for
+
+			var numDays = xlabels.length;
+			if(numDays<7)
+			{
+
+				var latestDate= xlabels[xlabels.length-1].toString();
+				var index = latestDate.indexOf(",")+1;
+				var latestDateString = latestDate.substr(index, latestDate.length-1);
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+
+				for(var x=numDays; x<7; x++)
+				{
+					var difference = x-numDays;
+					parsedDate.setDate(parsedDate.getDate()+1);
+					//alert("parsedDate-new="+parsedDate); 
+					var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+					//alert("newDate="+newDate);
+					
+					var xlabel = [];
+					//xlabel.push(x, "Day"+ (x+1)+ " ");
+					xlabel.push(x+0.3, newDate);
+					xlabels.push(xlabel);
+					
+					d1.push([x, "nil"]);
+					d2.push([x, "nil"]);	
+				
+				}//end for
+			}//end if(xlabels.length<7)
 
 			var data = [{
 				data : d1,
@@ -2255,7 +2484,8 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 					//max: ticks.length+0.5,
 					ticks : xlabels,
 					rotateTicks : 90,
-					panRange: [-0.2, timesPP.length],
+					panRange: [-0.2, xlabels.length],
+					axisLabel: ' ',
 
 				},
 
@@ -2390,7 +2620,7 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 					ticks : xlabels,
 					rotateTicks : 90,
 					panRange: [-0.2, timesPP.length],
-
+					axisLabel: ' ',
 				},
 				yaxes : [{
 					min : 0,
@@ -2471,6 +2701,7 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
 
 <div id="content-daily-pp" name="content-daily-pp">
+	<div>Your results (daily)</div>
     <div class="demo-container">
         <div id="legendcontainer-daily-pp"></div>
         <div id="placeholder-daily-pp" class="demo-placeholder" style="height: 400px; width: 100%;"></div>
@@ -2485,7 +2716,7 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
     //if( $variableTypes[$variable_chart1_index] == "binary" || $variableTypes[$variable_chart2_index] == "binary")
     {
-        echo "<br><br>Your results (cumulative)";
+        //echo "<br><br>Your results (cumulative)";
 ?>
 
 <script type="text/javascript">
@@ -2527,11 +2758,11 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
 			var xlabels1 = [];
 			var xlabel1 = [];
-			xlabel1.push(1, nameVar2 + ":Yes");
+			xlabel1.push(1, nameVar2 + " Yes");
 			xlabels1.push(xlabel1);
 
 			var xlabel2 = [];
-			xlabel2.push(4, nameVar2 + ":No");
+			xlabel2.push(4, nameVar2 + " No");
 			xlabels1.push(xlabel2);
 
 			var ylabels = [];
@@ -2540,15 +2771,14 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 
 			var data = [{
 				data : dc1,
-				label : nameVar1 + ":Yes",
+				label : nameVar1 + " Yes",
 				//color : "blue"
 			}, {
 				data : dc2,
-				label : nameVar1 + ":No",
+				label : nameVar1 + " No",
 				//color : "red"
 			}];
 
-			var placeholder = $("#placeholder-cumulative-pp");
 
 			var placeholder = $("#placeholder-cumulative-pp");
 
@@ -2658,11 +2888,11 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 				ylabels[1] = nameVar1 + " No";
 
 				var xlabel1 = [];
-				xlabel1.push(0.2, nameVar1 + ":Yes");
+				xlabel1.push(0.2, nameVar1 + " Yes");
 				xlabels1.push(xlabel1);
 
 				var xlabel2 = [];
-				xlabel2.push(1.2, nameVar1 + ":No");
+				xlabel2.push(1.2, nameVar1 + " No");
 				xlabels1.push(xlabel2);
 
 				if (typeVar2 == "score") {
@@ -2730,11 +2960,11 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 				ylabels[1] = nameVar2 + " No";
 
 				var xlabel1 = [];
-				xlabel1.push(0.2, nameVar2 + ":Yes");
+				xlabel1.push(0.2, nameVar2 + " Yes");
 				xlabels1.push(xlabel1);
 
 				var xlabel2 = [];
-				xlabel2.push(1.2, nameVar2 + ":No");
+				xlabel2.push(1.2, nameVar2 + " No");
 				xlabels1.push(xlabel2);
 
 				if (typeVar1 == "score") 
@@ -2900,15 +3130,13 @@ else if (typeVar1 == "binary" || typeVar2 == "binary") {
 </script>
 
 
-<div id="show-cumulative-charts">
-              
-
-              
+<div id="show-cumulative-pp-charts">
+                            
 </div>
 
 
 <div id="content-cumulative-pp" name="content-cumulative-pp">
-
+	<div>Your results (cumulative)</div>
     <div class="demo-container">
         <div id="legendcontainer-cumulative-pp"></div>
         <div id="placeholder-cumulative-pp" class="demo-placeholder" style="height: 400px; width: 100%;"></div>

@@ -2,429 +2,16 @@
  * showExperimentResultsComparison.js
  */
 
-/*
-function showChartDaily(jQuery)
-{
-
-	if (typeVar1 == "binary" && typeVar2 == "binary") 
-	{
-
-			var d1 = [];
-			var d2 = [];
-
-			for (var i = 0; i < times.length; ++i) {
-				if (values1[i] == 1 && values2[i] == 1) {
-					d1.push([i, 1]);
-				}
-
-				if (values1[i] == 1 && values2[i] == 0) {
-					d1.push([i, -1]);
-				}
-
-				if (values1[i] == 0 && values2[i] == 1) {
-					d2.push([i, 1]);
-				}
-				if (values1[i] == 0 && values2[i] == 0) {
-					d2.push([i, -1]);
-				}
-
-			}//end for
-
-			var xlabels = [];
-			for (var i = 0; i < times.length; ++i) {
-				//alert("times[0]="+times[0]);
-				var xlabel = [];
-				xlabel.push(i, times[i]);
-				xlabels.push(xlabel);
-			}//end for
-
-			var ylabels = [];
-			ylabels[0] = nameVar2 + " Yes";
-			ylabels[1] = nameVar2 + " No";
-
-			var data = [{
-				data : d1,
-				label : nameVar1 + " Yes",
-				//color : "blue"
-			}, {
-				data : d2,
-				label : nameVar1 + " No",
-				//color : "red"
-			}];
-
-			var placeholder = $("#placeholder-daily");
-			var plot = $.plot(placeholder, data, {
-				bars : {
-					show : true,
-					barWidth : 0.5,
-					fill : 0.9
-				},
-				xaxis : {
-					tickLength : 0,
-					//min: 0.5,
-					//max: ticks.length+0.5,
-					ticks : xlabels,
-					rotateTicks : 90
-				},
-				yaxis : {
-					ticks : [[0.5, "Yes"], [-0.5, "No"]],
-					axisLabel : nameVar2
-				},
-
-				grid : {
-					hoverable : true,
-					clickable : true
-				},
-				legend : {
-					noColumns : 0,
-					container : $("#legendcontainer-daily")
-				},
-
-			});
-
-			$("<div id='tooltip'></div>").css({
-				position : "absolute",
-				display : "none",
-				border : "1px solid #fdd",
-				padding : "2px",
-				"background-color" : "#fee",
-				opacity : 0.80
-			}).appendTo("body");
-
-			placeholder.bind("plothover", function(event, pos, item) {
-
-				//    if ($("#enablePosition:checked").length > 0)
-				{
-					var str = "(" + pos.x.toFixed(2) + "," + pos.y.toFixed(2) + ")";
-					//$("#hoverdata").text(str);
-				}
-
-				//if ($("#enableTooltip:checked").length > 0)
-				{
-					if (item) {
-						var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-						if (y == 1)
-							y = "Yes";
-						else if (y == -1)
-							y = "No";
-
-						$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
-							top : item.pageY + 5,
-							left : item.pageX + 5
-						}).fadeIn(200);
-
-					} else {
-						$("#tooltip").hide();
-					}
-				}
-			});
-
-			placeholder.bind("plotclick", function(event, pos, item) {
-				if (item) {
-					//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-					var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-					if (y == 1)
-						y = "Yes";
-					else if (y == -1)
-						y = "No";
-
-					$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
-						top : item.pageY + 5,
-						left : item.pageX + 5
-					}).fadeIn(200);
-
-					plot.highlight(item.series, item.datapoint);
-				}
-			});
-
-		}//end if(typeVar1=='binary' && typeVar2=='binary')
-		
-		else if (typeVar1 == "binary" || typeVar2 == "binary") {
-
-			var d1 = [];
-			var d2 = [];
-			var ylabels = [];
-			var label2;
-			var yMax = 0;
-
-			if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) {
-				label2 = nameVar2;
-				ylabels[0] = nameVar1 + " Yes";
-				ylabels[1] = nameVar1 + " No";
-				for (var i = 0; i < values2.length; ++i) {
-
-					//alert("values2[i]="+values2[i]);
-					if(values2[i] > yMax)
-						yMax = values2[i];
-						
-					if (values1[i] == 1)
-						d1.push([i, values2[i]]);
-
-					if (values1[i] == 0)
-						d2.push([i, values2[i]]);
-				}//end for
-
-			}//end if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2== "count"))
-
-			if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) {
-
-				label2 = nameVar1;
-				ylabels[0] = nameVar2 + " Yes";
-				ylabels[1] = nameVar2 + " No";
-				for (var i = 0; i < values1.length; ++i) {
-
-					if(values1[i] > yMax)
-						yMax = values1[i];
-						
-					if (values2[i] == 1)
-						d1.push([i, values1[i]]);
-
-					if (values2[i] == 0)
-						d2.push([i, values1[i]]);
-				}//end for
-			}//end if(typeVar2 == "binary" && (typeVar1== "score" || typeVar1== "count"))
-
-			var xlabels = [];
-
-			for (var i = 0; i < times.length; ++i) {
-				//alert("times[0]="+times[0]);
-				var xlabel = [];
-				xlabel.push(i, times[i]);
-				xlabels.push(xlabel);
-			}
-
-			var data = [{
-				data : d1,
-				label : ylabels[0],
-				//color : "blue"
-			}, {
-				data : d2,
-				label : ylabels[1],
-				//color : "red"
-			}];
-			var placeholder = $("#placeholder-daily");
-			var plot = $.plot(placeholder, data, {
-				bars : {
-					show : true,
-					barWidth : 0.5,
-					fill : 0.9
-				},
-				xaxis : {
-					tickLength : 0,
-					//min: 0.5,
-					//max: ticks.length+0.5,
-					ticks : xlabels,
-					rotateTicks : 90,
-					panRange: [-0.5, times.length],
-				},
-				yaxis : {
-					axisLabel : label2,
-					panRange: [-0.5, yMax+0.5],
-				},
-
-				grid : {
-					hoverable : true,
-					clickable : true
-				},
-				legend : {
-					noColumns : 0,
-					container : $("#legendcontainer-daily")
-				},
-				
-				pan: {
-					interactive: true
-				},
-
-			});
-
-			placeholder.bind("plotpan", function (event, plot) {
-				var axes = plot.getAxes();
-			});
-
-
-			$("<div id='tooltip'></div>").css({
-				position : "absolute",
-				display : "none",
-				border : "1px solid #fdd",
-				padding : "2px",
-				"background-color" : "#fee",
-				opacity : 0.80
-			}).appendTo("body");
-
-			placeholder.bind("plothover", function(event, pos, item) {
-
-				//    if ($("#enablePosition:checked").length > 0)
-				{
-					var str = "(" + pos.x.toFixed(2) + " , " + pos.y.toFixed(2) + ")";
-					//$("#hoverdata").text(str);
-				}
-
-				//if ($("#enableTooltip:checked").length > 0)
-				{
-					if (item) {
-						var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-						$("#tooltip").html(item.series.label + " , " + label2 + " = " + y).css({
-							top : item.pageY + 5,
-							left : item.pageX + 5
-						}).fadeIn(200);
-
-					} else {
-						$("#tooltip").hide();
-					}
-				}
-			});
-
-			placeholder.bind("plotclick", function(event, pos, item) {
-				if (item) {
-					//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-					var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-					$("#tooltip").html(item.series.label + " , " + label2 + " = " + y).css({
-						top : item.pageY + 5,
-						left : item.pageX + 5
-					}).fadeIn(200);
-
-					plot.highlight(item.series, item.datapoint);
-				}
-			});
-
-		}//end else if(typeVar1=="binary" || typeVar2=="binary")
-		else if ((typeVar1 == "score" || typeVar1 == "count") && (typeVar2 == "score" || typeVar2 == "count")) {
-
-			var d1 = [];
-			var d2 = [];
-
-			var xlabels = [];
-
-			for (var i = 0; i < times.length; ++i) {
-				//alert("times[0]="+times[0]);
-				var xlabel = [];
-				xlabel.push(i, times[i]);
-				xlabels.push(xlabel);
-
-				d1.push([i, values1[i]]);
-				d2.push([i, values2[i]]);
-
-			}
-
-			var ylabels = [];
-			ylabels[0] = nameVar2 + " Yes";
-			ylabels[1] = nameVar2 + " No";
-
-			var data = [{
-				data : d1,
-				label : nameVar1,
-				//color : "blue"
-			}, {
-				data : d2,
-				label : nameVar2,
-				//color : "red",
-				yaxis : 2
-			}];
-
-			var placeholder = $("#placeholder-daily");
-
-			var plot = $.plot(placeholder, data, {
-				lines : {
-					show : true
-				},
-				points : {
-					show : true
-				},
-				xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-
-				{
-
-					tickLength : 0,
-					//min: 0.5,
-					//max: ticks.length+0.5,
-					ticks : xlabels,
-					rotateTicks : 90
-
-				},
-				yaxes : [{
-					min : 0
-				}, {
-					position : "right"
-				}],
-
-				grid : {
-					hoverable : true,
-					clickable : true
-				},
-				legend : {
-					noColumns : 0,
-					container : $("#legendcontainer-daily")
-				},
-
-			});
-
-			$("<div id='tooltip'></div>").css({
-				position : "absolute",
-				display : "none",
-				border : "1px solid #fdd",
-				padding : "2px",
-				"background-color" : "#fee",
-				opacity : 0.80
-			}).appendTo("body");
-
-			placeholder.bind("plothover", function(event, pos, item) {
-
-				//    if ($("#enablePosition:checked").length > 0)
-				{
-					var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
-					//$("#hoverdata").text(str);
-				}
-
-				//if ($("#enableTooltip:checked").length > 0)
-				{
-					if (item) {
-						var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-						$("#tooltip").html(item.series.label + " = " + y).css({
-							top : item.pageY + 5,
-							left : item.pageX + 5
-						}).fadeIn(200);
-
-					} else {
-						$("#tooltip").hide();
-					}
-				}
-			});
-
-			placeholder.bind("plotclick", function(event, pos, item) {
-				if (item) {
-					//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-					var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-
-					$("#tooltip").html(item.series.label + " = " + y).css({
-						top : item.pageY + 5,
-						left : item.pageX + 5
-					}).fadeIn(200);
-
-					plot.highlight(item.series, item.datapoint);
-				}
-			});
-
-		}
-		//end else if( (typeVar1== "score" || typeVar1== "count") && (typeVar2== "score" || typeVar2== "count")  )
-
-}//end showChartDaily
-*/
-
 function loadChart()
 {
 	var variable1 = document.getElementById("shown-variable1").value;
 	var variable2 = document.getElementById("shown-variable2").value;
-	/*
+/*
  	alert("experimentId="+experimentId);
 	alert("userId="+userId);
-	alert("variable1="+variable1_id);
-	alert("variable2="+variable2_id);
-	*/
+	alert("variable1="+variable1);
+	alert("variable2="+variable2);
+*/
    //alert("values.length="+values.length);		
    //alert("variable1="+variable1);
    //alert("variable2="+variable2);
@@ -444,13 +31,11 @@ function loadChart()
 	var variable2_id = variableIds_js[variable2_index];
 	//alert("variable2_index="+variable2_index);
 	//alert("variableIds_js[variable2_index]="+variableIds_js[variable2_index]);
-  
-  
+
 	//var typeVar1 =  <?php echo json_encode($variableTypes[$variable1_index]); ?>;
 	//var typeVar2 =  <?php echo json_encode($variableTypes[$variable2_index]); ?>;
 		
 	//var variableTypes_js = <?php echo json_encode($variableTypes)?>;
-	
 	//var values = <?php echo json_encode($variableValues); ?>;
 
 	var values1 =  values[variable1_index];
@@ -459,9 +44,11 @@ function loadChart()
 	var valuesPP1 =  valuesPP[variable1_index];
 	var valuesPP2 =  valuesPP[variable2_index];
 	
+ 	//alert("valuesPP1.length="+valuesPP1.length);
+ 	//alert("valuesPP2.length="+valuesPP2.length);
+	
 	var nameVar1 = variableNames_js[variable1_index];
 	var nameVar2 = variableNames_js[variable2_index];
-	
 			
 	var typeVar1 =  variableTypes_js[variable1_index];
 	var typeVar2 =  variableTypes_js[variable2_index];
@@ -474,9 +61,7 @@ function loadChart()
 	
 //	var experiment_results_start_date = $("#datepicker2").val();
 	//alert(experiment_results_start_date);
-
-	
-				
+		
  	//alert(<?php echo json_encode($variable1_index); ?>);
  	//alert(<?php echo json_encode($variable2_index); ?>);
 /*
@@ -493,22 +78,23 @@ function loadChart()
   
 	//alert("variable1_id="+variable1_id);
 	//alert("variable2_id="+variable2_id);
-  
-	var friendId = document.getElementById("experiment-members").value;
 
-     var d1 = [];
-        var d2 = [];
-        var d3 = [];
-        var d4 = [];
-        
-        
-        //alert("variable1_id="+variable1_id);
+		var friendId = document.getElementById("experiment-members").value;
+		
+		var d1 = [];
+		var d2 = [];
+		var d3 = [];
+		var d4 = [];
+		        
+		//alert("variable1_id="+variable1_id);
 		//alert("variable2_id="+variable1_id);
 		//alert("typeVar1="+typeVar1);
 		//alert("typeVar2="+typeVar2);
 
         if(variable1_id==-1 && variable2_id==-1)
         {
+        	//alert("nothing");
+       
 		  	if($("#comparison-cumulative").length !=0)
 			{
 				//var div2 = document.getElementById("comparison-cumulative");
@@ -518,15 +104,12 @@ function loadChart()
 			
         	if($("#comparison-individual").length !=0)
 			{
-				//var div2 = document.getElementById("comparison-cumulative");
-				//div2.parentNode.removeChild(div2);
 				$( "#comparison-individual" ).remove();
 			}			
 			
 			if($("#content-cumulative").length != 0)
 			{
 				$("#content-cumulative").remove();
-				
 			}
 			
 			if($("#content-cumulative-pp").length != 0)
@@ -536,27 +119,52 @@ function loadChart()
 			}
 			
 			var emptyData = [];
-			
-			$.plot("#placeholder-daily", emptyData, {
+			var data = [{
+				data : [],
+				label : 'nothing',
+			}];
+
 					
+			if ($("#content-daily").length == 0)
+			{
+				$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+			}
+
+			if($("#content-daily").length != 0)
+			{
+				//$("#content-daily").remove();
+				
+				//alert("content-daily exists");
+				$.plot("#placeholder-daily", data, {
 					legend : {
 						noColumns : 0,
 						container : $("#legendcontainer-daily")
 					},
-	
-				});
-			$.plot("#placeholder-daily-pp", emptyData, {
-					
-					legend : {
-						noColumns : 0,
-						container : $("#legendcontainer-daily-pp")
-					},
-	
 				});
 				
+				//$.plot($("#placeholder-daily"), [[]]);
+			}//end if($("#content-daily").length != 0)
+					
+			if($("#content-daily-pp").length != 0)
+			{
+				//$("#content-daily-pp").remove();
+				//alert("content-daily-pp exists");
+				//$.plot($("#placeholder-daily-pp"), [[]]);
+				
+				$.plot("#placeholder-daily-pp", data, {
+						legend : {
+							noColumns : 0,
+							container : $("#legendcontainer-daily-pp")
+						},
+					});	
+							
+			}//end if($("#content-daily-pp").length != 0)
+			
         }//end if(variable1_id==-1 && variable2_id==-1)
-        
-        else if( (variable1_id==-1 && variable2_id!=-1) || (variable1_id!=-1 && variable2_id==-1)  )
+        else if( 
+        	(variable1_id==-1 && variable2_id!=-1) || (variable1_id!=-1 && variable2_id==-1) 
+        //&&  (!(variable1_id==-1 && variable2_id==-1))
+          )
         {
         	
         	//alert("one side");
@@ -566,148 +174,26 @@ function loadChart()
         		if(typeVar1=="binary")
         		{
  					
+ 					if($("#content-daily").length != 0)
+					{
+						$("#content-daily").remove();
+					}
  					
 					if ($("#content-cumulative").length == 0)
 					{
-						$("<div id='content-cumulative' name='content-cumulative'> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
+						$("<div id='content-cumulative' name='content-cumulative'> <div>All participants' results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
 					}
 					
 					if ($("#content-cumulative-pp").length == 0)
 					{
-						//alert("content-cumulative-p not there");
-						$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
+						$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div>Your results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
 					} 
 					 
 						var d1 = [];
 						var d2 = [];					
 						
 						/*
-						 *  Daily visualization for all participants
-						 */	
-						
-						for(var i=0; i< values1.length; i++)
-						{
-							//alert("values1[i]="+values1[i]);
-							
-							if(values1[i]==1)
-								d1.push([i, 1]);
-								
-							if(values1[i]==0)
-								d2.push([i, 1]);							
-						}//end for
-						
-						//alert("values1.length="+values1.length);
-						//alert("times.length="+times.length);
-						//alert("d1.length="+times.length);
-						
-						var xlabels = [];
-						for (var i = 0; i < times.length; ++i) {
-							//alert("times[0]="+times[0]);
-							var xlabel = [];
-							xlabel.push(i, times[i]);
-							xlabels.push(xlabel);
-						}//end for
-			
-						var ylabels = [];
-						ylabels[0] = nameVar1 + " Yes";
-						ylabels[1] = nameVar1 + " No";
-						
-						var data = [{
-							data : d1,
-							label : nameVar1 + " Yes",
-							//color : "blue"
-						}, {
-							data : d2,
-							label : nameVar1 + " No",
-							//color : "red"
-						}];
-			
-						var placeholder = $("#placeholder-daily");
-						var plot = $.plot(placeholder, data, {
-							bars : {
-								show : true,
-								barWidth : 0.5,
-								fill : 0.9
-							},
-							xaxis : {
-								tickLength : 0,
-								//min: 0.5,
-								//max: ticks.length+0.5,
-								ticks : xlabels,
-								rotateTicks : 90,
-								panRange: [-0.1, times.length],
-							},
-							yaxis : {
-								//ticks : [[0.5, "Yes"], [-0.5, "No"]],
-								//axisLabel : nameVar1,
-								panRange: false,
-							},
-			
-							grid : {
-								hoverable : true,
-								clickable : true
-							},
-							legend : {
-								noColumns : 0,
-								container : $("#legendcontainer-daily")
-							},
-							pan: {
-								interactive: true
-							},
-			
-						});
-	
-						$("<div id='tooltip'></div>").css({
-							position : "absolute",
-							display : "none",
-							border : "1px solid #fdd",
-							padding : "2px",
-							"background-color" : "#fee",
-							opacity : 0.80
-						}).appendTo("body");
-			
-						placeholder.bind("plothover", function(event, pos, item) {
-			
-							//    if ($("#enablePosition:checked").length > 0)
-							{
-								var str = "(" + pos.x.toFixed(2) + "," + pos.y.toFixed(2) + ")";
-								//$("#hoverdata").text(str);
-							}
-			
-							//if ($("#enableTooltip:checked").length > 0)
-							{
-								if (item) {
-									var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-			
-									$("#tooltip").html(item.series.label).css({
-										top : item.pageY + 5,
-										left : item.pageX + 5
-									}).fadeIn(200);
-			
-								} else {
-									$("#tooltip").hide();
-								}
-							}
-						});
-			
-						placeholder.bind("plotclick", function(event, pos, item) {
-							if (item) {
-								//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-	
-			
-								$("#tooltip").html(item.series.label).css({
-									top : item.pageY + 5,
-									left : item.pageX + 5
-								}).fadeIn(200);
-			
-								plot.highlight(item.series, item.datapoint);
-							}
-						});
-						
-						
-						/*
-						 * Cumulative visualization 
+						 * Cumulative visualization for all participants
 						 */
 						
 						
@@ -766,7 +252,7 @@ function loadChart()
 								//min: 0.5,
 								//max: ticks.length+0.5,
 								ticks : xlabels,
-								rotateTicks : 90,
+								rotateTicks : 0,
 								panRange: false,
 							},
 							yaxis : {
@@ -843,8 +329,6 @@ function loadChart()
 						
 						for(var i=0; i< valuesPP1.length; i++)
 						{
-							//alert("values1[i]="+values1[i]);
-							
 							if(valuesPP1[i]==1)
 								d1.push([i, 1]);
 								
@@ -852,18 +336,42 @@ function loadChart()
 								d2.push([i, 1]);							
 						}//end for
 						
-						//alert("values1.length="+values1.length);
-						//alert("times.length="+times.length);
-						//alert("d1.length="+times.length);
-						
 						var xlabels = [];
-						for (var i = 0; i < timesPP.length; ++i) {
+						for (var i = 0; i < timesPP.length; ++i) 
+						{
 							//alert("times[0]="+times[0]);
 							var xlabel = [];
-							xlabel.push(i, times[i]);
+							xlabel.push(i, timesPP[i]);
 							xlabels.push(xlabel);
 						}//end for
+						
+						var numDays = xlabels.length;
+						if(numDays<7)
+						{
 			
+							var latestDate= xlabels[xlabels.length-1].toString();
+							var index = latestDate.indexOf(",")+1;
+							var latestDateString = latestDate.substr(index, latestDate.length-1);
+							var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+			
+							for(var x=numDays; x<7; x++)
+							{
+								parsedDate.setDate(parsedDate.getDate()+1);
+								//alert("parsedDate-new="+parsedDate); 
+								var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+								//alert("newDate="+newDate);
+								
+								var xlabel = [];
+								//xlabel.push(x, "Day"+ (x+1)+ " ");
+								xlabel.push(x, newDate);
+								xlabels.push(xlabel);
+								
+								d1.push([x, "nil"]);
+								d2.push([x, "nil"]);	
+							
+							}//end for
+						}//end if(xlabels.length<7)
+
 						var ylabels = [];
 						ylabels[0] = nameVar1 + " Yes";
 						ylabels[1] = nameVar1 + " No";
@@ -891,7 +399,8 @@ function loadChart()
 								//max: ticks.length+0.5,
 								ticks : xlabels,
 								rotateTicks : 90,
-								panRange: [-0.1, times.length],
+								panRange: [-0.1, xlabels.length],
+								axisLabel: ' ', 
 							},
 							yaxis : {
 								//ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -961,11 +470,9 @@ function loadChart()
 							}
 						});					
 						
-						
 						/*
 						 * Cumulative visualization per participant
 						 */
-						
 						
 						var dc1 = [];
 						var dc2 = [];
@@ -988,21 +495,17 @@ function loadChart()
 			
 						dc1.push([0, count1]);
 						dc2.push([2, count2]);
-						
-						
-						
-						
+
 						var xlabels = [];
 						
 						var xlabel1 = [];
-						xlabel1.push(0, nameVar1+"? Yes");
+						xlabel1.push(0, nameVar1+" Yes");
 						xlabels.push(xlabel1);
 						
 						var xlabel2 = [];
-						xlabel2.push(2, nameVar1+"? No");
+						xlabel2.push(2, nameVar1+" No");
 						xlabels.push(xlabel2);
-													
-	
+
 						var data = [{
 							data : dc1,
 							label : nameVar1 + " Yes",
@@ -1025,7 +528,7 @@ function loadChart()
 								//min: 0.5,
 								//max: ticks.length+0.5,
 								ticks : xlabels,
-								rotateTicks : 90,
+								rotateTicks : 0,
 								panRange: false,
 							},
 							yaxis : {
@@ -1085,8 +588,7 @@ function loadChart()
 							if (item) {
 								//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
 								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-	
-			
+
 								$("#tooltip").html(item.series.label+"="+y).css({
 									top : item.pageY + 5,
 									left : item.pageX + 5
@@ -1100,6 +602,13 @@ function loadChart()
          		
          		if(typeVar1=="score")
         		{
+        			
+    				if ($("#content-daily").length == 0)
+					{
+						$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+					}
+        			
+        			
         			if($("#content-cumulative").length != 0)
 					{
 						$("#content-cumulative").remove();
@@ -1118,7 +627,8 @@ function loadChart()
 		
 					var xlabels = [];
 		
-					for (var i = 0; i < times.length; ++i) {
+					for (var i = 0; i < times.length; ++i) 
+					{
 						//alert("times[0]="+times[0]);
 						var xlabel = [];
 						xlabel.push(i, times[i]);
@@ -1157,6 +667,7 @@ function loadChart()
 							ticks : xlabels,
 							rotateTicks : 90,
 							panRange: [-0.2, times.length],
+							axisLabel: ' ',
 		
 						},
 						yaxis : {
@@ -1234,14 +745,14 @@ function loadChart()
 		
 					var xlabels = [];
 		
-					for (var i = 0; i < timesPP.length; ++i) {
+					for (var i = 0; i < timesPP.length; ++i) 
+					{
 						//alert("times[0]="+times[0]);
 						var xlabel = [];
 						xlabel.push(i, timesPP[i]);
 						xlabels.push(xlabel);
 		
 						d1.push([i, valuesPP1[i]]);
-		
 					}
 		
 					var ylabels = [];
@@ -1272,7 +783,8 @@ function loadChart()
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
-							panRange: [-0.2, times.length],
+							panRange: [-0.2, timesPP.length],
+							axisLabel: ' ',
 		
 						},
 						yaxis : {
@@ -1338,28 +850,26 @@ function loadChart()
 							plot.highlight(item.series, item.datapoint);
 						}
 					});
-					
-					
-					
-					
 					
         		}//end if(typeVar1=="score") 
         		
          		if(typeVar1=="count")
         		{
+        			
+        			if ($("#content-daily").length == 0)
+					{
+						$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+					}
+        			
         			if($("#content-cumulative").length != 0)
 					{
 						$("#content-cumulative").remove();
-						
 					}
 					
 					if($("#content-cumulative-pp").length != 0)
 					{
 						$("#content-cumulative-pp").remove();
-						
 					}
-					
-					
 
 					var d1 = [];
 					var d2 = [];
@@ -1405,6 +915,7 @@ function loadChart()
 							ticks : xlabels,
 							rotateTicks : 90,
 							panRange: [-0.2, times.length],
+							axisLabel: ' ',
 		
 						},
 						yaxis : {
@@ -1482,14 +993,14 @@ function loadChart()
 		
 					var xlabels = [];
 		
-					for (var i = 0; i < timesPP.length; ++i) {
+					for (var i = 0; i < timesPP.length; ++i) 
+					{
 						//alert("times[0]="+times[0]);
 						var xlabel = [];
 						xlabel.push(i, timesPP[i]);
 						xlabels.push(xlabel);
 		
 						d1.push([i, valuesPP1[i]]);
-		
 					}
 		
 					var ylabels = [];
@@ -1512,16 +1023,14 @@ function loadChart()
 							show : true
 						},
 						xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-		
 						{
-		
 							tickLength : 0,
 							//min: 0.5,
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
-							panRange: [-0.2, times.length],
-		
+							panRange: [-0.2, timesPP.length],
+							axisLabel: ' ',
 						},
 						yaxis : {
 							panRange: false,
@@ -1587,156 +1096,31 @@ function loadChart()
 						}
 					});
 					
-					
-					
-										
-					
-					
-					
+
         		}//end if(typeVar1=="count")       		    		
         	}//end if(variable1_id!=-1)
         	if(variable2_id!=-1)
         	{
          		if(typeVar2=="binary")
         		{
+        			if ($("#content-daily").length != 0)
+        			{
+        				$("#content-daily").remove();
+        			}
+        			
 					if ($("#content-cumulative").length == 0)
 					{
-						$("<div id='content-cumulative' name='content-cumulative'> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
+						$("<div id='content-cumulative' name='content-cumulative'> <div>All participants' results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
 					}
 					
 					if ($("#content-cumulative-pp").length == 0)
 					{
-						$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
+						$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div>Your results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
 					} 
 					 
 						var d1 = [];
 						var d2 = [];					
-						
-						/*
-						 *  Daily visualization for all participants
-						 */	
-						
-						for(var i=0; i< values2.length; i++)
-						{
-							//alert("values1[i]="+values1[i]);
-							
-							if(values2[i]==1)
-								d1.push([i, 1]);
-								
-							if(values2[i]==0)
-								d2.push([i, 1]);							
-						}//end for
-						
-						//alert("values1.length="+values1.length);
-						//alert("times.length="+times.length);
-						//alert("d1.length="+times.length);
-						
-						var xlabels = [];
-						for (var i = 0; i < times.length; ++i) {
-							//alert("times[0]="+times[0]);
-							var xlabel = [];
-							xlabel.push(i, times[i]);
-							xlabels.push(xlabel);
-						}//end for
-			
-						var ylabels = [];
-						ylabels[0] = nameVar2 + " Yes";
-						ylabels[1] = nameVar2 + " No";
-						
-						var data = [{
-							data : d1,
-							label : nameVar2 + " Yes",
-							//color : "blue"
-						}, {
-							data : d2,
-							label : nameVar2 + " No",
-							//color : "red"
-						}];
-			
-						var placeholder = $("#placeholder-daily");
-						var plot = $.plot(placeholder, data, {
-							bars : {
-								show : true,
-								barWidth : 0.5,
-								fill : 0.9
-							},
-							xaxis : {
-								tickLength : 0,
-								//min: 0.5,
-								//max: ticks.length+0.5,
-								ticks : xlabels,
-								rotateTicks : 90,
-								panRange: [-0.1, times.length],
-							},
-							yaxis : {
-								//ticks : [[0.5, "Yes"], [-0.5, "No"]],
-								//axisLabel : nameVar1,
-								panRange: false,
-							},
-			
-							grid : {
-								hoverable : true,
-								clickable : true
-							},
-							legend : {
-								noColumns : 0,
-								container : $("#legendcontainer-daily")
-							},
-							pan: {
-								interactive: true
-							},
-			
-						});
-	
-						$("<div id='tooltip'></div>").css({
-							position : "absolute",
-							display : "none",
-							border : "1px solid #fdd",
-							padding : "2px",
-							"background-color" : "#fee",
-							opacity : 0.80
-						}).appendTo("body");
-			
-						placeholder.bind("plothover", function(event, pos, item) {
-			
-							//    if ($("#enablePosition:checked").length > 0)
-							{
-								var str = "(" + pos.x.toFixed(2) + "," + pos.y.toFixed(2) + ")";
-								//$("#hoverdata").text(str);
-							}
-			
-							//if ($("#enableTooltip:checked").length > 0)
-							{
-								if (item) {
-									var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-			
-									$("#tooltip").html(item.series.label).css({
-										top : item.pageY + 5,
-										left : item.pageX + 5
-									}).fadeIn(200);
-			
-								} else {
-									$("#tooltip").hide();
-								}
-							}
-						});
-			
-						placeholder.bind("plotclick", function(event, pos, item) {
-							if (item) {
-								//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-	
-			
-								$("#tooltip").html(item.series.label).css({
-									top : item.pageY + 5,
-									left : item.pageX + 5
-								}).fadeIn(200);
-			
-								plot.highlight(item.series, item.datapoint);
-							}
-						});
-						
-						
+
 						/*
 						 * Cumulative visualization 
 						 */
@@ -1763,18 +1147,15 @@ function loadChart()
 			
 						dc1.push([0, count1]);
 						dc2.push([2, count2]);
-						
-						
-						
-						
+
 						var xlabels = [];
 						
 						var xlabel1 = [];
-						xlabel1.push(0, nameVar2+"? Yes");
+						xlabel1.push(0, nameVar2+" Yes");
 						xlabels.push(xlabel1);
 						
 						var xlabel2 = [];
-						xlabel2.push(2, nameVar2+"? No");
+						xlabel2.push(2, nameVar2+" No");
 						xlabels.push(xlabel2);
 													
 	
@@ -1800,7 +1181,7 @@ function loadChart()
 								//min: 0.5,
 								//max: ticks.length+0.5,
 								ticks : xlabels,
-								rotateTicks : 90,
+								rotateTicks : 0,
 								panRange: false,
 							},
 							yaxis : {
@@ -1891,12 +1272,42 @@ function loadChart()
 						//alert("d1.length="+times.length);
 						
 						var xlabels = [];
-						for (var i = 0; i < timesPP.length; ++i) {
+						for (var i = 0; i < timesPP.length; ++i) 
+						{
 							//alert("times[0]="+times[0]);
 							var xlabel = [];
-							xlabel.push(i, times[i]);
+							xlabel.push(i, timesPP[i]);
 							xlabels.push(xlabel);
 						}//end for
+			
+			
+						var numDays = xlabels.length;
+						if(numDays<7)
+						{
+							//alert("numDays="+numDays);
+							var latestDate= xlabels[xlabels.length-1].toString();
+							var index = latestDate.indexOf(",")+1;
+							var latestDateString = latestDate.substr(index, latestDate.length-1);
+							var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+			
+							for(var x=numDays; x<7; x++)
+							{
+								var difference = x-numDays;
+								parsedDate.setDate(parsedDate.getDate()+1);
+								//alert("parsedDate-new="+parsedDate); 
+								var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+								//alert("newDate="+newDate);
+								
+								var xlabel = [];
+								//xlabel.push(x, "Day"+ (x+1)+ " ");
+								xlabel.push(x+0.3, newDate);
+								xlabels.push(xlabel);
+								
+								d1.push([x, "nil"]);
+								d2.push([x, "nil"]);	
+							
+							}//end for
+						}//end if(xlabels.length<7)			
 			
 						var ylabels = [];
 						ylabels[0] = nameVar2 + " Yes";
@@ -1925,7 +1336,8 @@ function loadChart()
 								//max: ticks.length+0.5,
 								ticks : xlabels,
 								rotateTicks : 90,
-								panRange: [-0.1, times.length],
+								panRange: [-0.1, xlabels.length],
+								axisLabel: ' ',
 							},
 							yaxis : {
 								//ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -2029,11 +1441,11 @@ function loadChart()
 						var xlabels = [];
 						
 						var xlabel1 = [];
-						xlabel1.push(0, nameVar2+"? Yes");
+						xlabel1.push(0, nameVar2+" Yes");
 						xlabels.push(xlabel1);
 						
 						var xlabel2 = [];
-						xlabel2.push(2, nameVar2+"? No");
+						xlabel2.push(2, nameVar2+" No");
 						xlabels.push(xlabel2);
 													
 	
@@ -2059,7 +1471,7 @@ function loadChart()
 								//min: 0.5,
 								//max: ticks.length+0.5,
 								ticks : xlabels,
-								rotateTicks : 90,
+								rotateTicks : 0,
 								panRange: false,
 							},
 							yaxis : {
@@ -2129,25 +1541,25 @@ function loadChart()
 								plot.highlight(item.series, item.datapoint);
 							}
 						});					
-						
-					
-					
+
         		}//end if(typeVar2=="binary")         		
          		if(typeVar2=="score")
         		{
+        			
+        			if ($("#content-daily").length == 0)
+					{
+						$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+					}
+        			
         			if($("#content-cumulative").length != 0)
 					{
 						$("#content-cumulative").remove();
-						
 					}
 					
 					if($("#content-cumulative-pp").length != 0)
 					{
 						$("#content-cumulative-pp").remove();
-						
 					}
-					
-					
 					
 					var d1 = [];
 					var d2 = [];
@@ -2161,7 +1573,6 @@ function loadChart()
 						xlabels.push(xlabel);
 		
 						d1.push([i, values2[i]]);
-		
 					}
 		
 					var ylabels = [];
@@ -2175,7 +1586,6 @@ function loadChart()
 					}];
 		
 					var placeholder = $("#placeholder-daily");
-		
 					var plot = $.plot(placeholder, data, {
 						lines : {
 							show : true
@@ -2184,16 +1594,14 @@ function loadChart()
 							show : true
 						},
 						xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-		
 						{
-		
 							tickLength : 0,
 							//min: 0.5,
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
 							panRange: [-0.2, times.length],
-		
+							axisLabel: ' ',
 						},
 						yaxis : {
 							panRange: false,
@@ -2209,7 +1617,6 @@ function loadChart()
 						pan: {
 							interactive: true
 						},
-		
 					});
 		
 					$("<div id='tooltip'></div>").css({
@@ -2270,14 +1677,14 @@ function loadChart()
 		
 					var xlabels = [];
 		
-					for (var i = 0; i < timesPP.length; ++i) {
+					for (var i = 0; i < timesPP.length; ++i) 
+					{
 						//alert("times[0]="+times[0]);
 						var xlabel = [];
 						xlabel.push(i, timesPP[i]);
 						xlabels.push(xlabel);
 		
 						d1.push([i, valuesPP2[i]]);
-		
 					}
 		
 					var ylabels = [];
@@ -2308,7 +1715,8 @@ function loadChart()
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
-							panRange: [-0.2, times.length],
+							panRange: [-0.2, timesPP.length],
+							axisLabel: ' ',
 		
 						},
 						yaxis : {
@@ -2374,29 +1782,27 @@ function loadChart()
 							plot.highlight(item.series, item.datapoint);
 						}
 					});
-					
-					
-					
-					
-					
 					
         		}//end if(typeVar2=="score") 
         		
          		if(typeVar2=="count")
         		{
+        			
+        			if ($("#content-daily").length == 0)
+					{
+						$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+					}
+        			
         			if($("#content-cumulative").length != 0)
 					{
 						$("#content-cumulative").remove();
-						
 					}
 					
 					if($("#content-cumulative-pp").length != 0)
 					{
 						$("#content-cumulative-pp").remove();
-						
 					}
-					
-					
+										
 					
 					var d1 = [];
 					var d2 = [];
@@ -2442,6 +1848,7 @@ function loadChart()
 							ticks : xlabels,
 							rotateTicks : 90,
 							panRange: [-0.2, times.length],
+							axisLabel: ' ',
 		
 						},
 						yaxis : {
@@ -2549,16 +1956,14 @@ function loadChart()
 							show : true
 						},
 						xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-		
 						{
-		
 							tickLength : 0,
 							//min: 0.5,
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
-							panRange: [-0.2, times.length],
-		
+							panRange: [-0.2, timesPP.length],
+							axisLabel: ' ',
 						},
 						yaxis : {
 							panRange: false,
@@ -2623,26 +2028,34 @@ function loadChart()
 							plot.highlight(item.series, item.datapoint);
 						}
 					});
-					
-					
+
         		}//end if(typeVar2=="count") 
         		           		
         	}//end if(variable2_id!=-1)
 
         }//end else if(variable1_id==-1 || variable2_id==-1)
-               
-        else if(variable1_id!=-1 && variable2_id!=-1)
+	   
+	    else if(variable1_id!=-1 && variable2_id!=-1)
         {
-           
            		if(typeVar1!="binary" && typeVar2!="binary")
 				{
 					
+					/*
+					 * Include daily visualizations of all participants if any of the variables shown is of binary type
+					 */										
+					if ($("#content-daily").length == 0)
+					{
+						$("<div id='content-daily' name='content-daily'> <div>All participants' results (daily)</div> <div class='demo-container'> <div id='legendcontainer-daily'></div> <div id='placeholder-daily' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-daily-charts");
+					}
+					
+					//alert("content-cumulative to go");
 					if($("#content-cumulative").length != 0)
 					{
 						$("#content-cumulative").remove();
 						
 					}
 					
+					//alert("content-cumulative-pp to go");
 					if($("#content-cumulative-pp").length != 0)
 					{
 						$("#content-cumulative-pp").remove();
@@ -2652,315 +2065,41 @@ function loadChart()
 				else if(typeVar1=="binary" || typeVar2=="binary")
 				{
 					
+					/*
+					 * Remove daily visualizations of all participants if any of the variables shown is of binary type
+					 */
+					if($("#content-daily").length != 0)
+					{
+						$("#content-daily").remove();
+					}
+				
+					if ($("#content-cumulative").length == 0)
+					{
+						$("<div id='content-cumulative' name='content-cumulative'> <div>All participants' results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
+					}
 					
-						if ($("#content-cumulative").length == 0)
-						{
-							$("<div id='content-cumulative' name='content-cumulative'> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
-  						}
-  						
-  						if ($("#content-cumulative-pp").length == 0)
-						{
-							$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
-  						}
+					if ($("#content-cumulative-pp").length == 0)
+					{
+						$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div>Your results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
+					}
 				}//end if(typeVar1=="binary" || typeVar2=="binary")
  		
           	/*
          		* Daily Visualizations 
          	*/             		
-               if (typeVar1 == "binary" && typeVar2 == "binary") 
-               {
+	               if (typeVar1 == "binary" && typeVar2 == "binary") 
+	               {
+	   
+						
+					}//end if(typeVar1=='binary' && typeVar2=='binary')
+					
+					else if (typeVar1 == "binary" || typeVar2 == "binary") 
+					{
+						
 
-					var d1 = [];
-					var d2 = [];
-		
-					for (var i = 0; i < times.length; ++i) {
-						if (values1[i] == 1 && values2[i] == 1) {
-							d1.push([i, 1]);
-						}
-		
-						if (values1[i] == 1 && values2[i] == 0) {
-							d1.push([i, -1]);
-						}
-		
-						if (values1[i] == 0 && values2[i] == 1) {
-							d2.push([i, 1]);
-						}
-						if (values1[i] == 0 && values2[i] == 0) {
-							d2.push([i, -1]);
-						}
-		
-					}//end for
-		
-					var xlabels = [];
-					for (var i = 0; i < times.length; ++i) {
-						//alert("times[0]="+times[0]);
-						var xlabel = [];
-						xlabel.push(i, times[i]);
-						xlabels.push(xlabel);
-					}//end for
-		
-					var ylabels = [];
-					ylabels[0] = nameVar2 + " Yes";
-					ylabels[1] = nameVar2 + " No";
-		
-					var data = [{
-						data : d1,
-						label : nameVar1 + " Yes",
-						//color : "blue"
-					}, {
-						data : d2,
-						label : nameVar1 + " No",
-						//color : "red"
-					}];
-		
-					var placeholder = $("#placeholder-daily");
-					var plot = $.plot(placeholder, data, {
-						bars : {
-							show : true,
-							barWidth : 0.5,
-							fill : 0.9
-						},
-						xaxis : {
-							tickLength : 0,
-							//min: 0.5,
-							//max: ticks.length+0.5,
-							ticks : xlabels,
-							rotateTicks : 90,
-							panRange: [-0.1, times.length],
-						},
-						yaxis : {
-							ticks : [[0.5, "Yes"], [-0.5, "No"]],
-							axisLabel : nameVar2,
-							panRange: false,
-						},
-		
-						grid : {
-							hoverable : true,
-							clickable : true
-						},
-						legend : {
-							noColumns : 0,
-							container : $("#legendcontainer-daily")
-						},
-						pan: {
-							interactive: true
-						},
-		
-					});
-		
-					$("<div id='tooltip'></div>").css({
-						position : "absolute",
-						display : "none",
-						border : "1px solid #fdd",
-						padding : "2px",
-						"background-color" : "#fee",
-						opacity : 0.80
-					}).appendTo("body");
-		
-					placeholder.bind("plothover", function(event, pos, item) {
-		
-						//    if ($("#enablePosition:checked").length > 0)
-						{
-							var str = "(" + pos.x.toFixed(2) + "," + pos.y.toFixed(2) + ")";
-							//$("#hoverdata").text(str);
-						}
-		
-						//if ($("#enableTooltip:checked").length > 0)
-						{
-							if (item) {
-								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-		
-								if (y == 1)
-									y = "Yes";
-								else if (y == -1)
-									y = "No";
-		
-								$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
-									top : item.pageY + 5,
-									left : item.pageX + 5
-								}).fadeIn(200);
-		
-							} else {
-								$("#tooltip").hide();
-							}
-						}
-					});
-		
-					placeholder.bind("plotclick", function(event, pos, item) {
-						if (item) {
-							//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-							var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-		
-							if (y == 1)
-								y = "Yes";
-							else if (y == -1)
-								y = "No";
-		
-							$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
-								top : item.pageY + 5,
-								left : item.pageX + 5
-							}).fadeIn(200);
-		
-							plot.highlight(item.series, item.datapoint);
-						}
-					});
-				}//end if(typeVar1=='binary' && typeVar2=='binary')
-				
-				else if (typeVar1 == "binary" || typeVar2 == "binary") 
-				{
-						
-						var d1 = [];
-						var d2 = [];
-						var ylabels = [];
-						var label2;
-						var yMax = 0;
-			
-						if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) 
-						{
-							label2 = nameVar2;
-							ylabels[0] = nameVar1 + " Yes";
-							ylabels[1] = nameVar1 + " No";
-							for (var i = 0; i < values2.length; ++i) 
-							{
-			
-								if(parseFloat(values2[i]) > yMax)
-									yMax = values2[i];
-									
-								//alert("values2[i]="+values2[i]+", yMax="+yMax);
-								
-								if (values1[i] == 1)
-									d1.push([i, values2[i]]);
-			
-								if (values1[i] == 0)
-									d2.push([i, values2[i]]);
-							}//end for
-			
-						}//end if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2== "count"))
-			
-						if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) 
-						{
-			
-							label2 = nameVar1;
-							ylabels[0] = nameVar2 + " Yes";
-							ylabels[1] = nameVar2 + " No";
-							for (var i = 0; i < values1.length; ++i) 
-							{
-								if(parseFloat(values1[i]) > yMax)
-									yMax = values1[i];
-									
-								//alert("values1[i]="+values1[i]+", yMax="+yMax);
-								
-								if (values2[i] == 1)
-									d1.push([i, values1[i]]);
-			
-								if (values2[i] == 0)
-									d2.push([i, values1[i]]);
-							}//end for
-						}//end if(typeVar2 == "binary" && (typeVar1== "score" || typeVar1== "count"))
-			
-			
-						var xlabels = [];
-			
-						for (var i = 0; i < times.length; ++i) {
-							//alert("times[0]="+times[0]);
-							var xlabel = [];
-							xlabel.push(i, times[i]);
-							xlabels.push(xlabel);
-						}
-			
-						
-						var data = [{
-							data : d1,
-							label : ylabels[0],
-							//color : "blue"
-						}, {
-							data : d2,
-							label : ylabels[1],
-							//color : "red"
-						}];
-						var placeholder = $("#placeholder-daily");
-						var plot = $.plot(placeholder, data, {
-							bars : {
-								show : true,
-								barWidth : 0.5,
-								fill : 0.9
-							},
-							xaxis : {
-								tickLength : 0,
-								//min: 0.5,
-								//max: ticks.length+0.5,
-								ticks : xlabels,
-								rotateTicks : 90,
-								panRange: [-0.1, times.length],
-							},
-							yaxis : {
-								axisLabel : label2,
-								panRange: false,
-							},
-			
-							grid : {
-								hoverable : true,
-								clickable : true
-							},
-							legend : {
-								noColumns : 0,
-								container : $("#legendcontainer-daily")
-							},
-							
-							pan: {
-								interactive: true
-							},			
-						});
-			
-						$("<div id='tooltip'></div>").css({
-							position : "absolute",
-							display : "none",
-							border : "1px solid #fdd",
-							padding : "2px",
-							"background-color" : "#fee",
-							opacity : 0.80
-						}).appendTo("body");
-			
-						placeholder.bind("plothover", function(event, pos, item) {
-			
-							//    if ($("#enablePosition:checked").length > 0)
-							{
-								var str = "(" + pos.x.toFixed(2) + " , " + pos.y.toFixed(2) + ")";
-								//$("#hoverdata").text(str);
-							}
-			
-							//if ($("#enableTooltip:checked").length > 0)
-							{
-								if (item) {
-									var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-			
-									$("#tooltip").html(item.series.label + " , " + label2 + " = " + y).css({
-										top : item.pageY + 5,
-										left : item.pageX + 5
-									}).fadeIn(200);
-			
-								} else {
-									$("#tooltip").hide();
-								}
-							}
-						});
-			
-						placeholder.bind("plotclick", function(event, pos, item) {
-							if (item) {
-								//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
-			
-								$("#tooltip").html(item.series.label + " , " + label2 + " = " + y).css({
-									top : item.pageY + 5,
-									left : item.pageX + 5
-								}).fadeIn(200);
-			
-								plot.highlight(item.series, item.datapoint);
-							}
-						});
-			
 					}//end else if(typeVar1=="binary" || typeVar2=="binary")
-					else if ((typeVar1 == "score" || typeVar1 == "count") && (typeVar2 == "score" || typeVar2 == "count")) {
+					else if ((typeVar1 == "score" || typeVar1 == "count") && (typeVar2 == "score" || typeVar2 == "count")) 
+					{
 			
 						var d1 = [];
 						var d2 = [];
@@ -3019,6 +2158,7 @@ function loadChart()
 								ticks : xlabels,
 								rotateTicks : 90,
 								panRange: [-0.1, times.length],
+								axisLabel: ' ',
 			
 							},
 							yaxes : [
@@ -3107,6 +2247,21 @@ function loadChart()
 					
 			if (typeVar1 == "binary" && typeVar2 == "binary") 
 			{
+				
+						if ($("#content-daily").length == 0)
+						{
+							$("#content-daily").remove();
+						}
+				
+						if ($("#content-cumulative").length == 0)
+						{
+							$("<div id='content-cumulative' name='content-cumulative'> <div>All participants' results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative'></div> <div id='placeholder-cumulative' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-charts");
+  						}
+  						
+  						if ($("#content-cumulative-pp").length == 0)
+						{
+							$("<div id='content-cumulative-pp' name='content-cumulative-pp'> <div>Your results (cumulative)</div> <div class='demo-container'> <div id='legendcontainer-cumulative-pp'></div> <div id='placeholder-cumulative-pp' class='demo-placeholder'></div> </div> <span id='hoverdata'></span> <span id='clickdata'></span> </div>").appendTo("#show-cumulative-pp-charts");
+  						}				
 
 					var dc1 = [];
 					var dc2 = [];
@@ -3143,11 +2298,11 @@ function loadChart()
 		
 					var xlabels1 = [];
 					var xlabel1 = [];
-					xlabel1.push(1, nameVar2 + ":Yes");
+					xlabel1.push(1, nameVar2 + " Yes");
 					xlabels1.push(xlabel1);
 		
 					var xlabel2 = [];
-					xlabel2.push(4, nameVar2 + ":No");
+					xlabel2.push(4, nameVar2 + " No");
 					xlabels1.push(xlabel2);
 		
 					var ylabels = [];
@@ -3156,11 +2311,11 @@ function loadChart()
 		
 					var data = [{
 						data : dc1,
-						label : nameVar1 + ":Yes",
+						label : nameVar1 + " Yes",
 						//color : "blue"
 					}, {
 						data : dc2,
-						label : nameVar1 + ":No",
+						label : nameVar1 + " No",
 						//color : "red"
 					}];
 		
@@ -3274,22 +2429,26 @@ function loadChart()
 				var count2 = 0;
 				var label2;
 	
-				if (typeVar1 == "binary") {
+				if (typeVar1 == "binary") 
+				{
 	
 					label2 = nameVar2;
 					ylabels[0] = nameVar1 + " Yes";
 					ylabels[1] = nameVar1 + " No";
 	
 					var xlabel1 = [];
-					xlabel1.push(0.2, nameVar1 + ":Yes");
+					xlabel1.push(0.2, nameVar1 + " Yes");
 					xlabels1.push(xlabel1);
 	
 					var xlabel2 = [];
-					xlabel2.push(1.2, nameVar1 + ":No");
+					xlabel2.push(1.2, nameVar1 + " No");
 					xlabels1.push(xlabel2);
 	
-					if (typeVar2 == "score") {
-						for (var i = 0; i < values2.length; ++i) {
+					if (typeVar2 == "score") 
+					{
+						//alert("first binary, second score");
+						for (var i = 0; i < values2.length; ++i) 
+						{
 							if (values1[i] == 1) {
 								count1++;
 								avgScore1 = parseInt(avgScore1) + parseInt(values2[i]);
@@ -3305,12 +2464,17 @@ function loadChart()
 	
 					}//end if(typeVar2=="score")
 	
-					if (typeVar2 == "count") {
-						for (var i = 0; i < values2.length; ++i) {
-							if (values1[i] == 1) {
+					if (typeVar2 == "count") 
+					{
+						//alert("first binary, second count");
+						for (var i = 0; i < values2.length; ++i) 
+						{
+							if (values1[i] == 1) 
+							{
 								totalCount1 = parseInt(totalCount1) + parseInt(values2[i]);
 							}
-							if (values1[i] == 0) {
+							if (values1[i] == 0) 
+							{
 								//alert("parseInt(values2[i]="+parseInt(values2[i]);
 								//alert("values2[i]="+values2[i]);
 								//alert("totalCount2="+totalCount2);
@@ -3320,26 +2484,26 @@ function loadChart()
 	
 						d1.push([0, totalCount1]);
 						d2.push([1, totalCount2]);
-	
 					}//end if(typeVar2=="count")
-	
 				}//end if(typeVar1 == "binary")
 			
-			else if (typeVar2 == "binary") {
+				else if (typeVar2 == "binary") 
+				{
 	
 					label2 = nameVar1;
 					ylabels[0] = nameVar2 + " Yes";
 					ylabels[1] = nameVar2 + " No";
 	
 					var xlabel1 = [];
-					xlabel1.push(0.2, nameVar2 + ":Yes");
+					xlabel1.push(0.2, nameVar2 + " Yes");
 					xlabels1.push(xlabel1);
 	
 					var xlabel2 = [];
-					xlabel2.push(1.2, nameVar2 + ":No");
+					xlabel2.push(1.2, nameVar2 + " No");
 					xlabels1.push(xlabel2);
 	
-					if (typeVar1 == "score") {
+					if (typeVar1 == "score") 
+					{
 						for (var i = 0; i < values1.length; ++i) {
 							if (values2[i] == 1) {
 								count1++;
@@ -3353,7 +2517,6 @@ function loadChart()
 	
 						d1.push([0, avgScore1 / count1]);
 						d2.push([1, avgScore2 / count2]);
-	
 					}//end if(typeVar1=="score")
 	
 					if (typeVar1 == "count") {
@@ -3514,7 +2677,35 @@ function loadChart()
 						xlabel.push(i, timesPP[i]);
 						xlabels.push(xlabel);
 					}
+						
+					var numDays = xlabels.length;
+					if(numDays<7)
+					{
+						//alert("numDays="+numDays);
+						var latestDate= xlabels[xlabels.length-1].toString();
+						var index = latestDate.indexOf(",")+1;
+						var latestDateString = latestDate.substr(index, latestDate.length-1);
+						var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
 		
+						for(var x=numDays; x<7; x++)
+						{
+							var difference = x-numDays;
+							parsedDate.setDate(parsedDate.getDate()+1);
+							//alert("parsedDate-new="+parsedDate); 
+							var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+							//alert("newDate="+newDate);
+							
+							var xlabel = [];
+							//xlabel.push(x, "Day"+ (x+1)+ " ");
+							xlabel.push(x+0.3, newDate);
+							xlabels.push(xlabel);
+							
+							d1.push([x, "nil"]);
+							d2.push([x, "nil"]);	
+						
+						}//end for
+					}//end if(xlabels.length<7)	
+						
 					var ylabels = [];
 					ylabels[0] = nameVar2 + " Yes";
 					ylabels[1] = nameVar2 + " No";
@@ -3529,6 +2720,7 @@ function loadChart()
 						//color : "red"
 					}];
 		
+
 					var placeholder = $("#placeholder-daily-pp");
 		
 					var plot = $.plot(placeholder, data, {
@@ -3543,7 +2735,8 @@ function loadChart()
 							//max: ticks.length+0.5,
 							ticks : xlabels,
 							rotateTicks : 90,
-							panRange: [0.0, timesPP.length],
+							panRange: [-0.1, xlabels.length],
+							axisLabel: ' ',
 						},
 						yaxis : {
 							ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -3621,15 +2814,16 @@ function loadChart()
 					});
 		
 				}//end if(typeVar1=='binary' && typeVar2=='binary')
-		
-		else if (typeVar1 == "binary" || typeVar2 == "binary") {
+				else if (typeVar1 == "binary" || typeVar2 == "binary") 
+				{
 	
 				var d1 = [];
 				var d2 = [];
 				var ylabels = [];
 				var label2;
 	
-				if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) {
+				if (typeVar1 == "binary" && (typeVar2 == "score" || typeVar2 == "count")) 
+				{
 					label2 = nameVar2;
 					ylabels[0] = nameVar1 + " Yes";
 					ylabels[1] = nameVar1 + " No";
@@ -3643,7 +2837,8 @@ function loadChart()
 	
 				}//end if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2== "count"))
 	
-				if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) {
+				if (typeVar2 == "binary" && (typeVar1 == "score" || typeVar1 == "count")) 
+				{
 					label2 = nameVar1;
 					ylabels[0] = nameVar2 + " Yes";
 					ylabels[1] = nameVar2 + " No";
@@ -3665,6 +2860,34 @@ function loadChart()
 					xlabel.push(i, timesPP[i]);
 					xlabels.push(xlabel);
 				}
+
+			var numDays = xlabels.length;
+			if(numDays<7)
+			{
+				//alert("numDays="+numDays);
+				var latestDate= xlabels[xlabels.length-1].toString();
+				var index = latestDate.indexOf(",")+1;
+				var latestDateString = latestDate.substr(index, latestDate.length-1);
+				var parsedDate = $.datepicker.parseDate("dd-mm-yy", latestDateString);		
+
+				for(var x=numDays; x<7; x++)
+				{
+					var difference = x-numDays;
+					parsedDate.setDate(parsedDate.getDate()+1);
+					//alert("parsedDate-new="+parsedDate); 
+					var newDate = parsedDate.getDate() + '-' + (parsedDate.getMonth() + 1) + '-' +  parsedDate.getFullYear();
+					//alert("newDate="+newDate);
+					
+					var xlabel = [];
+					//xlabel.push(x, "Day"+ (x+1)+ " ");
+					xlabel.push(x+0.3, newDate);
+					xlabels.push(xlabel);
+					
+					d1.push([x, "nil"]);
+					d2.push([x, "nil"]);	
+				
+				}//end for
+			}//end if(xlabels.length<7)
 	
 				var data = [{
 					data : d1,
@@ -3691,7 +2914,8 @@ function loadChart()
 						//max: ticks.length+0.5,
 						ticks : xlabels,
 						rotateTicks : 90,
-						panRange: [-0.1, timesPP.length],
+						panRange: [-0.1, xlabels.length],
+						axisLabel: ' ',
 	
 					},
 	
@@ -3781,7 +3005,8 @@ function loadChart()
 	
 				var xlabels = [];
 	
-				for (var i = 0; i < timesPP.length; ++i) {
+				for (var i = 0; i < timesPP.length; ++i) 
+				{
 					//alert("times[0]="+times[0]);
 					var xlabel = [];
 					xlabel.push(i, timesPP[i]);
@@ -3817,7 +3042,6 @@ function loadChart()
 						show : true
 					},
 					xaxis : //{ ticks: xlabels, autoscaleMargin: 1},
-	
 					{
 	
 						tickLength : 0,
@@ -3825,7 +3049,8 @@ function loadChart()
 						//max: ticks.length+0.5,
 						ticks : xlabels,
 						rotateTicks : 90,
-						panRange: [0.0, timesPP.length]
+						panRange: [-0.1, timesPP.length],
+						axisLabel: ' ',
 	
 					},
 					yaxes : [{
@@ -3941,11 +3166,11 @@ function loadChart()
 		
 					var xlabels1 = [];
 					var xlabel1 = [];
-					xlabel1.push(1, nameVar2 + ":Yes");
+					xlabel1.push(1, nameVar2 + " Yes");
 					xlabels1.push(xlabel1);
 		
 					var xlabel2 = [];
-					xlabel2.push(4, nameVar2 + ":No");
+					xlabel2.push(4, nameVar2 + " No");
 					xlabels1.push(xlabel2);
 		
 					var ylabels = [];
@@ -3954,11 +3179,11 @@ function loadChart()
 		
 					var data = [{
 						data : dc1,
-						label : nameVar1 + ":Yes",
+						label : nameVar1 + " Yes",
 						//color : "blue"
 					}, {
 						data : dc2,
-						label : nameVar1 + ":No",
+						label : nameVar1 + " No",
 						//color : "red"
 					}];
 		
@@ -4069,17 +3294,18 @@ function loadChart()
 					var count2 = 0;
 					var label2;
 		
-					if (typeVar1 == "binary") {
+					if (typeVar1 == "binary") 
+					{
 						label2 = nameVar2;
 						ylabels[0] = nameVar1 + " Yes";
 						ylabels[1] = nameVar1 + " No";
 		
 						var xlabel1 = [];
-						xlabel1.push(0.2, nameVar1 + ":Yes");
+						xlabel1.push(0.2, nameVar1 + " Yes");
 						xlabels1.push(xlabel1);
 		
 						var xlabel2 = [];
-						xlabel2.push(1.2, nameVar1 + ":No");
+						xlabel2.push(1.2, nameVar1 + " No");
 						xlabels1.push(xlabel2);
 		
 						if (typeVar2 == "score") {
@@ -4120,18 +3346,18 @@ function loadChart()
 		
 					}//end if(typeVar1 == "binary")
 				
-				else if (typeVar2 == "binary") 
-				{
+					else if (typeVar2 == "binary") 
+					{
 						label2 = nameVar1;
 						ylabels[0] = nameVar2 + " Yes";
 						ylabels[1] = nameVar2 + " No";
 		
 						var xlabel1 = [];
-						xlabel1.push(0.2, nameVar2 + ":Yes");
+						xlabel1.push(0.2, nameVar2 + " Yes");
 						xlabels1.push(xlabel1);
 		
 						var xlabel2 = [];
-						xlabel2.push(1.2, nameVar2 + ":No");
+						xlabel2.push(1.2, nameVar2 + " No");
 						xlabels1.push(xlabel2);
 		
 						if (typeVar1 == "score") {
@@ -4408,12 +3634,25 @@ function showComparison()
 				
  	//alert(<?php echo json_encode($variable1_index); ?>);
  	//alert(<?php echo json_encode($variable2_index); ?>);
-	/*
- 	alert(variable1_index);
- 	alert(variable2_index);
- 	alert(typeVar1);
-	alert(typeVar2);
-  */
+	
+ 	//alert("variable1_index="+variable1_index);
+ 	//alert("variable2_index="+variable2_index);
+ 	//alert("typeVar1="+typeVar1);
+	//alert("typeVar2="+typeVar2);
+ 
+    var user_variable1_values = valuesPP[variable1_index];
+    var user_variable2_values = valuesPP[variable2_index];
+ 	
+  	//alert("valuesPP.length="+valuesPP.length);	
+ 	//alert("valuesPP[0].length="+valuesPP[0].length);
+//  	alert("valuesPP_js[0].length="+valuesPP_js[0].length);
+//alert("valuesPP[1].length="+valuesPP[1].length);
+//alert("valuesPP[2].length="+valuesPP[2].length);
+ 	
+//alert("user_variable1_values.length="+user_variable1_values.length);
+//alert("user_variable2_values.length="+user_variable2_values.length);           	 
+ 
+ 
 	if(variable1=="-1")
   		variable1_id = -1;
   
@@ -4609,7 +3848,8 @@ function showComparison()
 							rotateTicks : 90,
 							
 							//zoomRange: [1, 1],
-							panRange: [-0.5, max_length]
+							panRange: [-0.5, max_length],
+							axisLabel: ' ',
 						},
 						yaxis : {
 							ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -4932,13 +4172,7 @@ function showComparison()
 								plot.highlight(item.series, item.datapoint);
 							}
 						});
-
-						
-						
-						
-					 
 				}//end if (typeVar1 == "binary" && typeVar2 == "binary")
-		
 				else if ( (typeVar1 == "binary" && typeVar2 != "binary") || (typeVar2 == "binary" && typeVar1 != "binary")   )
 				{
 					
@@ -4948,25 +4182,24 @@ function showComparison()
 					
 					var ylabels = [];
 					var label2;
+					var seriesLabel;
 					
-					//alert(user_variable1_values.length);
+					//alert("user_variable1_values.length="+user_variable1_values.length);
 					
 					if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2=="count"))
 					{
+						seriesLabel = nameVar1;
 		    			label2 = nameVar2;
 						ylabels[0] = nameVar1 + "=Yes";
 						ylabels[1] = nameVar1 + "=No";
 
 						for (var i = 0; i < user_variable1_values.length; ++i) 
 						{
-		
 							if (user_variable1_values[i] == 1)
 								d1.push([i, user_variable2_values[i]]);
 		
 							if (user_variable1_values[i] == 0)
 								d3.push([i, user_variable2_values[i]]);
-							
-							
 						}//end for
 						
 						for (var i = 0; i < friend_variable1_values.length; ++i) 
@@ -4979,14 +4212,12 @@ function showComparison()
 								d4.push([i+0.5, friend_variable2_values[i]]);
 							
 						}//end for
-						
-						
-						
-						
 					}//if(typeVar1 == "binary" && (typeVar2== "score" || typeVar2=="count"))
 					
 					if(typeVar2 == "binary" && (typeVar1== "score" || typeVar1=="count"))
 					{
+						seriesLabel = nameVar2;
+						
 						label2 = nameVar1;
 						ylabels[0] = nameVar2 + "=Yes";
 						ylabels[1] = nameVar2 + "=No";
@@ -5015,6 +4246,9 @@ function showComparison()
 					
 						var xlabels = [];
 						
+						//alert("user_variable1_values.length="+user_variable1_values.length);
+						//alert("friend_variable1_values.length="+friend_variable1_values.length);
+						
 						var max_length = user_variable1_values.length;
 						if(friend_variable1_values.length > max_length)
 							max_length = friend_variable1_values.length;
@@ -5027,33 +4261,31 @@ function showComparison()
 							xlabels.push(xlabel);
 						}
 
+
 						var data = [
 						{
 							data : d1,
-							label : nameVar1+"=Yes (you)",
+							label : seriesLabel+"=Yes (you)",
 							//color : "blue"
 						}, 
 						
 						{
 							data : d2,
-							label : nameVar1+"=Yes (friend)",
+							label : seriesLabel+"=Yes (friend)",
 							//color : "yellow"
-				
 						},
 						
 						{
 							data : d3,
-							label : nameVar1+"=No (you)",
+							label : seriesLabel+"=No (you)",
 							//color : "green"
-				
 						}
 						,
 			
 						{
 							data : d4,
-							label : nameVar1+"=No (friend)",
+							label : seriesLabel+"=No (friend)",
 							//color : "orange"
-				
 						}
 						];	
 			
@@ -5074,12 +4306,12 @@ function showComparison()
 									ticks : xlabels,
 									rotateTicks : 90,
 									panRange:[-0.5, max_length],
+									axisLabel: ' ',
 								},
 								yaxis : {
 									axisLabel : label2,
 									panRange: false,
 								},
-				
 								grid : {
 									hoverable : true,
 									clickable : true
@@ -5177,7 +4409,6 @@ function showComparison()
 							
 							if (typeVar1 == "binary") 
 							{
-
 								label2 = nameVar2;
 								ylabels[0] = nameVar1 + "=Yes";
 								ylabels[1] = nameVar1 + "=No";
@@ -5231,7 +4462,7 @@ function showComparison()
 				
 								if (typeVar2 == "count") 
 								{
-									for (var i = 0; i < user_variable2_values.length; ++i) 
+									for (var i = 0; i < user_variable1_values.length; ++i) 
 									{
 										if (user_variable1_values[i] == 1) {
 											totalCount1 = parseInt(totalCount1) + parseInt(user_variable2_values[i]);
@@ -5560,6 +4791,7 @@ function showComparison()
 					ticks : xlabels,
 					rotateTicks : 0,
 					panRange: [-0.2, max_length],
+					axisLabel: ' ',
 				},
 			
 				yaxes : [{
@@ -5753,6 +4985,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange: [-0.2, max_length],
+						axisLabel: ' ,'
 					},
 					yaxis : {
 						//ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -6045,6 +5278,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange:[-0.2, max_length],
+						axisLabel:' ',
 					},
 					
 					yaxis : {
@@ -6298,6 +5532,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange: [-0.2, max_length],
+						axisLabel: ' ',
 					},
 					
 					yaxis : {
@@ -6580,6 +5815,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange: [-0.2, max_length],
+						axisLabel: ' ',
 					},
 					yaxis : {
 						//ticks : [[0.5, "Yes"], [-0.5, "No"]],
@@ -6864,6 +6100,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange: [-0.2, max_length],
+						axisLabel: ' ',
 					},
 					
 					yaxis : {
@@ -7117,6 +6354,7 @@ function showComparison()
 						ticks : xlabels,
 						rotateTicks : 0,
 						panRange:[-0.2, max_length],
+						axisLabel: ' ',
 					},
 					
 					yaxis : {
@@ -7239,7 +6477,6 @@ function showComparison()
 						barWidth : 0.5,
 						fill : 0.9
 					},
-					
 					xaxis : {
 						tickLength : 0,
 						//min: 0.5,
@@ -7247,12 +6484,10 @@ function showComparison()
 						ticks : [[0, "You"], [1, "Friend"]],
 						rotateTicks : 0
 					},
-					
 					yaxis : {
 						//ticks : [[0.5, "Yes"], [-0.5, "No"]],
 						//axisLabel : nameVar2
 					},
-	
 					grid : {
 						hoverable : true,
 						clickable : true
@@ -7308,37 +6543,25 @@ function showComparison()
 						}).fadeIn(200);
 	
 						plot.highlight(item.series, item.datapoint);
-					}
-				});				
-			}//end if(typeVar1=="count")
-			
-		}//end if(variable2_id==-1)
-		
-		
-	}//end else if (variable1_id==-1 || variable2_id==-1)
-
+						}
+					});				
+				}//end if(typeVar1=="count")
+			}//end if(variable2_id==-1)
+		}//end else if (variable1_id==-1 || variable2_id==-1)
 
     }//end if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
   }//end xmlhttp.onreadystatechange = function()
  
-/*
- 	alert("times="+times.length);
- 	
- 	for(var i=0; i < times.length; i++)
- 	{
- 		alert("times["+i+"]="+times[i]);
- 	}
-*/
+
 
 /*
    	xmlhttp.open("GET", "http://localhost/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId+"&friendId="+friendId+
    	"&variable1="+variable1_id+"&variable2="+variable2_id+"&typeVar1="+typeVar1+"&typeVar2="+typeVar2+"&times[]="+times+"&timesPP[]="+timesPP, true);
 */
-   	xmlhttp.open("GET", "http://digitalbrain-test.lancs.ac.uk/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId+"&friendId="+friendId+
-   	"&variable1="+variable1_id+"&variable2="+variable2_id+"&typeVar1="+typeVar1+"&typeVar2="+typeVar2+"&times[]="+times+"&timesPP[]="+timesPP, true);
-   	   	
-   	//xmlhttp.open("GET", "http://digitalbrain-test.lancs.ac.uk/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId+"&friendId="+friendId+"&variable1="+variable1_id+"&variable2="+variable2_id, true);
-  	 	
+ 	xmlhttp.open("GET", "http://digitalbrain-test.lancs.ac.uk/ajaxfiles/getExperimentResultsComparison.php?experimentId="+experimentId+"&userId="+userId
+   	+"&friendId="+friendId+"&variable1="+variable1_id+"&variable2="+variable2_id+"&typeVar1="+typeVar1+"&typeVar2="+typeVar2+"&times[]="+times+"&timesPP[]="+timesPP, 
+   	true);
+  	   		 	
   	xmlhttp.send();
  }//end showComparison
   
