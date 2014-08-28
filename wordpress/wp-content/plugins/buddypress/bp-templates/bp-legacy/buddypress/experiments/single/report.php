@@ -37,6 +37,7 @@ include "$root/ajaxfiles/reportExperiment.php";
 <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<!--script type="text/javascript" src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.js"></script-->
 
 	<!-- flot -->
 <script language="javascript" type="text/javascript" src="http://digitalbrain-test.lancs.ac.uk/flot/jquery.flot.js"></script>
@@ -231,15 +232,19 @@ include "$root/ajaxfiles/reportExperiment.php";
 ?>
 					<div class='var'>
 					<h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
+                    <div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
 					<div class='score'><div class='big_white' id="sum<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Total</span></div>
-					<div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
 					</div>
 					<div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
-					<input type="text" name="variable[]" placeholder='0' id="<?php echo $row['id']?>" aria-required="true"  />
-					<input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
+                    <div class='row' style='margin-bottom:30px;'>
+                    <div class='col-md-10' style='padding:2px;'>
+					<input type="number" name="variable[]" id="<?php echo $row['id']?>" aria-required="true"  />
+					</div>
+                    <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
 					<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
-					<button style='margin-top:20px; width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, $("#entry_id<?php echo $row['id']?>").val(), $("#<?php echo $row['id']?>").val(), "new", "count"); $("#<?php echo $row['id']?>").val(0);$("#entry_id<?php echo $row['id']?>").val("null")'>Report <div data-icon="l" class="icon-small"></div></button>
-					
+					<div class='col-md-2' style='padding:2px'>
+                    <button class='reportButton' style='width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, $("#entry_id<?php echo $row['id']?>").val(), $("#<?php echo $row['id']?>").val(), "new", "count"); $("#<?php echo $row['id']?>").val(0);$("#entry_id<?php echo $row['id']?>").val("null")'><div data-icon="l" class="icon-small"></div></button>
+					</div></div>
 
 <script>
 $( document ).ready(function() {
@@ -273,12 +278,16 @@ $( document ).ready(function() {
 
 <div class='var'>
     <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
-    <div class='score'><div class='big_white' id="average<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Avg</span></div>
     <div class='edit-entries' id='edit-entries<?php echo $row['id']?>'><div data-icon="h" class="icon"></div></div>
+    <div class='score'><div class='big_white' id="average<?php echo $row['id']?>">0</div><span style='color:white; font-size:0.8em'>Today's Avg</span></div>
+    
 </div>
+ <div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
+<div class='row'style='padding-top:10px; margin-bottom:30px'>
+<div class='col-md-10' style='padding-top:10px;'>
     <div class="slider" id="scoreSlider<?php echo $row['id']?>"></div>
     <span style='color:white' id="<?php echo $row['id']?>">0</span><span style='color:white'>/10<span>
-     <div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
+    
         <input hidden type="text" name="variable[]" id="scoreText<?php echo $row['id']?>"></input>
     <script>
         var sliders = $("#scoreSlider<?php echo $row['id']?>");
@@ -322,9 +331,9 @@ $( document ).ready(function() {
     });
     </script>
     <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
-<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
-<button style='margin-top:20px; width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>,$("#entry_id<?php echo $row['id']?>").val(), $("#scoreSlider<?php echo $row['id']?>").val() ,"new","score"); $("#scoreSlider<?php echo $row['id']?>").val(0); $("#scoreText<?php echo $row['id']?>").val($("#<?php echo $row['id']?>").html("0"));$("#entry_id<?php echo $row['id']?>").val("null")'>Report <i data-icon="l" class="icon-small"></i></button>
-
+<input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null"></div><div class='col-md-2' style='padding:0px'>
+<button class='reportButton' style='width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>,$("#entry_id<?php echo $row['id']?>").val(), $("#scoreSlider<?php echo $row['id']?>").val() ,"new","score"); $("#scoreSlider<?php echo $row['id']?>").val(0); $("#scoreText<?php echo $row['id']?>").val($("#<?php echo $row['id']?>").html("0"));$("#entry_id<?php echo $row['id']?>").val("null")'><i data-icon="l" class="icon-small"></i></button>
+</div></div>
 
 <?php 
 			}//end if($row['type'] == 'score')
@@ -332,9 +341,11 @@ $( document ).ready(function() {
 			if($row['type'] == 'binary')
 			{
 ?>
-        <h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
+        <div class='var' style='padding-bottom:30px'><h3><?php _e( $row['name'], 'buddypress' ); ?></h3>
         <span id='binary-not-set<?php echo $row['id']?>'>No recorded entry, please choose yes or no.</br></span>
+        <div class='row'><div class='col-md-10'>
 <input id='<?php echo $row['id'];?>' type="checkbox" />
+</div>
 <div class='all-entries' id='dbs-entries<?php echo $row['id']?>'></div>
 <script>
     $( document ).ready(function() {
@@ -346,14 +357,11 @@ $( document ).ready(function() {
             console.log(state); // true | false
             if(state){
                 binary<?php echo $row['id'];?> = 'Yes';
-                console.log("YAY");
             }
             else{
                 binary<?php echo $row['id'];?> = 'No';
-                console.log("NAY");
             }
             entryid = $('#entry_id<?php echo $row["id"]; ?>').val();
-            reportSave(<?php echo $row['id']; ?>, entryid, binary<?php echo $row['id']?> ,"new","binary");
         }); 
     });
 
@@ -362,7 +370,12 @@ $( document ).ready(function() {
     });
 </script>
  <input type="hidden" name="variable_id[]" value="<?php echo $row['id']; ?>">
+
 <input type="hidden" id="entry_id<?php echo $row['id']; ?>" value="null">
+<div class='col-md-2' style='padding:0px'>
+<button  class='reportButton' style='width:100%; font-size:1.5em' onclick='reportSave(<?php echo $row['id']; ?>, entryid, binary<?php echo $row['id']?> ,"new","binary");'><i data-icon="l" class="icon-small"></i></button>
+</div></div>
+</div>
 <?php 
 				}//end if($row['type'] == 'binary')
 
@@ -426,8 +439,7 @@ $( document ).ready(function() {
 
 
 <!--/form--> <!-- end report-experiment-form-->
-
-
+<div class='var'><button onclick='$( ".reportButton" ).click();'style='width:100%'>SAVE ALL</button></div>
 </div> <!-- end div class-->
 </div>
 
@@ -795,11 +807,20 @@ for ($x = 0; $x < count($dateTimes); $x++)
 {
 	//echo $dateTimes[$x];
 	//echo "dateTimes[".$x."]=".$dateTimes[$x]." ";
+
 	/*
 	if($dateTimes[$x]==-1)
 		unset($dateTimes[$x]);
-	 */
-	unset( $dateTimes[array_search( -1, $dateTimes )] ); 
+	*/
+	
+	$key = array_search(-1,$dateTimes);
+	if($key!==false)
+	{
+    	unset($dateTimes[$key]);
+	}
+		
+		
+	//unset( $dateTimes[array_search( -1, $dateTimes )] ); 
 	 
 }//end for
 
@@ -2273,6 +2294,121 @@ for ($x=0; $x<count($variableNames); $x++)
 				//color : "red"
 			}];
 
+/*
+			$('#graph').bind('pageshow', function() {
+			    var plot = $.plot($("#chart"), [
+			        {
+			        label: "Oh hai",
+			        data: data,
+			        bars: {
+			            show: true
+			        }}
+			    ]);
+			});
+
+*/
+
+
+			//$('#content-daily-pp').bind('pageshow', function() {
+				
+					var placeholder = $("#placeholder-daily-pp");
+		
+					var plot = $.plot(placeholder, data, {
+						bars : {
+							show : true,
+							barWidth : 0.5,
+							fill : 0.9
+						},
+						xaxis : {
+							tickLength : 0,
+							//min: 0.5,
+							//max: ticks.length+0.5,
+							ticks : xlabels,
+							rotateTicks : 90,
+							panRange: [-0.05, xlabels.length],
+							axisLabel: ' '
+						},
+						yaxis : {
+							ticks : [[0.5, "Yes"], [-0.5, "No"]],
+							axisLabel : nameVar2,
+							panRange: false,
+						},
+						grid : {
+							hoverable : true,
+							clickable : true
+						},
+						legend : {
+							noColumns : 0,
+							container : $("#legendcontainer-daily-pp")
+						},
+						pan: {
+							interactive: true
+						},
+						
+					});
+		
+					$("<div id='tooltip'></div>").css({
+						position : "absolute",
+						display : "none",
+						border : "1px solid #fdd",
+						padding : "2px",
+						"background-color" : "#fee",
+						opacity : 0.80
+					}).appendTo("body");
+		
+					placeholder.bind("plothover", function(event, pos, item) {
+		
+						//    if ($("#enablePosition:checked").length > 0)
+						{
+							var str = "(" + pos.x.toFixed(2) + "," + pos.y.toFixed(2) + ")";
+							//$("#hoverdata").text(str);
+						}
+		
+						//if ($("#enableTooltip:checked").length > 0)
+						{
+							if (item) {
+								var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
+		
+								if (y == 1)
+									y = "Yes";
+								else if (y == -1)
+									y = "No";
+		
+								$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
+									top : item.pageY + 5,
+									left : item.pageX + 5
+								}).fadeIn(200);
+		
+							} else {
+								$("#tooltip").hide();
+							}
+						}
+					});
+		
+					placeholder.bind("plotclick", function(event, pos, item) {
+						if (item) {
+							//$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
+							var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
+		
+							if (y == 1)
+								y = "Yes";
+							else if (y == -1)
+								y = "No";
+		
+							$("#tooltip").html(item.series.label + " , " + nameVar2 + " = " + y).css({
+								top : item.pageY + 5,
+								left : item.pageX + 5
+							}).fadeIn(200);
+		
+							plot.highlight(item.series, item.datapoint);
+						}
+					});				
+						
+				
+				
+		//	}); //end pageshow
+			
+		/*	
 			var placeholder = $("#placeholder-daily-pp");
 
 			var plot = $.plot(placeholder, data, {
@@ -2365,7 +2501,7 @@ for ($x=0; $x<count($variableNames); $x++)
 					plot.highlight(item.series, item.datapoint);
 				}
 			});
-
+			*/
 		}//end if(typeVar1=='binary' && typeVar2=='binary')
 		
 		else if (typeVar1 == "binary" || typeVar2 == "binary") {
@@ -2700,7 +2836,7 @@ for ($x=0; $x<count($variableNames); $x++)
 
 
 
-<div id="content-daily-pp" name="content-daily-pp">
+<div id="content-daily-pp" name="content-daily-pp" data-role="page">
 	<div>Your results (daily)</div>
     <div class="demo-container">
         <div id="legendcontainer-daily-pp"></div>

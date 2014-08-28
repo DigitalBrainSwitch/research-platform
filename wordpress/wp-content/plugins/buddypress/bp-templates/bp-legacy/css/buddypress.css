@@ -34,21 +34,24 @@ Hello, this is the BuddyPress Legacy stylesheet.
 /*--------------------------------------------------------------
 1.1 - Pagination
 --------------------------------------------------------------*/
-  #experiments-order-select select, #experiment-dir-search input{
-	background-color: white;
-	border: 2px solid #bdc3c7;
-	color: #34495e;
-	font-family: "Lato", Helvetica, Arial, sans-serif;
-	font-size: 15px;
-	line-height: 1.467;
-	padding: 8px 12px;
-	height: 42px;
-	-webkit-appearance: none;
-	border-radius: 6px;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	-webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
-	transition: border .25s linear, color .25s linear, background-color .25s linear; 
+#item-nav div ul .selected{
+	background-color: #789c2b;
+}
+
+.selected a span{
+	color:white!important;
+}
+
+ #experiments-order-by{
+ 	margin-top: 26px;
+background: none;
+outline: none;
+border: 0px;
+color: #d0f87a;
+background-color:#789c2b;
+padding:10px;
+margin-left:5px;
+border-radius: 6px
 }
 
 #buddypress div.pagination {
@@ -73,7 +76,6 @@ Hello, this is the BuddyPress Legacy stylesheet.
 }
 #buddypress div.pagination .pagination-links span,
 #buddypress div.pagination .pagination-links a {
-	font-size: 90%;
 	padding: 0 5px;
 }
 #buddypress div.pagination .pagination-links a:hover {
@@ -1250,8 +1252,6 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 	border: none;
 }
 #buddypress ul.item-list li {
-	border-bottom: 1px solid #eaeaea;
-	padding: 15px 0;
 	margin: 0;
 	position: relative;
 	list-style: none;
@@ -1308,7 +1308,6 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 }
 #buddypress div.item-list-tabs ul li {
 	float: left;
-	margin: 2px;
 	list-style: none;
 }
 #buddypress div.item-list-tabs#subnav ul li {
@@ -1326,33 +1325,29 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 #dbs-item-nav div.item-list-tabs ul li a,
 #dbs-item-nav div.item-list-tabs ul li span,#exp-nav li a {
 	display: block;
-	font-size:12pt;
 	color:#789c2b;
 	text-decoration: none;
-	padding: 6px;
-	border-radius: 4px;
-}
-#dbs-item-nav div.item-list-tabs ul li a:hover, #exp-nav li a:hover{
-	color:#d0f87a;
-}
-#dbs-item-nav div.item-list-tabs ul li a span {
-	background: #eee;
-	border-radius: 50%;
-	color: #999;
-	display: inline;
-	font-size: 70%;
-	padding: 3px 7px;
+	padding: 10px;
+	line-height:26px;
 	text-align: center;
-	vertical-align: middle;
+}
+#member-item-nav div ul li{
+	margin:5px;
+}
+.generic-button a{
+	padding-top: 20px!important;
+	height:62px;
+}
+#dbs-item-nav div.item-list-tabs ul li span:hover, #dbs-item-nav div.item-list-tabs ul li a:hover, #exp-nav li a:hover{
+	color:#d0f87a;
+	background-color: #789c2b;
 }
 #dbs-item-nav div.item-list-tabs ul li.selected a,
 #dbs-item-nav div.item-list-tabs ul li.current a {
-	color: #fff;
-	padding-bottom: 0px;
-	font-weight: bold;
+	color:#d0f87a;
 }
 #buddypress div.item-list-tabs ul li.selected  a{
-	color:#555;
+	color:#d0f87a;
 }
 #buddypress div.item-list-tabs ul li.selected a span,
 #buddypress div.item-list-tabs ul li.current a span,
@@ -1375,7 +1370,7 @@ body.activity-permalink #buddypress ul.item-list li.activity-item {
 #buddypress #admins-list li,
 #buddypress #mods-list li,
 #buddypress #members-list li {
-	overflow: auto;
+	overflow: hidden;
 	list-style: none;
 }
 
@@ -1587,29 +1582,12 @@ body.register #buddypress div.page ul {
 
 .dbs-item{
 	padding:5px;
-	height:100px;
-	max-height: 100px;
-	background-color:#a3d140;
-	color:#789c2b;
-	text-transform:uppercase;
-	margin-bottom:10;
+	color: #aaa;
 }
-.dbs-item:hover{
-	background-color: #d0f87a;
-}
-.dbs-balloon{
-	padding:5px;
-	background-color:#a3d140;
-	color:white;
-	text-transform:uppercase;
-}
-.dbs-item-title a{
-	font-size:1.2em;
-	font-weight: 400;
-	line-height: 0.8em;
-	margin:0px;
-	color:#789c2b;
-	text-decoration: none;
+
+.dbs-item-title {
+	font-size: 1.5em;
+	line-height: 1.2em;
 }
 .dbs-item-title a:hover{
 	text-decoration: none;
@@ -1621,7 +1599,7 @@ body.register #buddypress div.page ul {
 .dbs-item-avatar {
     display: inline-block;
     background:black;
-    padding: 0;
+    padding: 0px;
     width:100%;
     height:250px;
     background-size: 100%;
@@ -1631,29 +1609,29 @@ body.register #buddypress div.page ul {
     -ms-transition-duration: 0.5s;
     -moz-transition-duration: 0.5s;
     -webkit-transition-duration: 0.5s;
-    
     transition-timing-function: ease-in-out;
     -o-transition-timing-function: ease-in-out;
     -ms-transition-timing-function: ease-in-out;
     -moz-transition-timing-function: ease-in-out;
     -webkit-transition-timing-function: ease-in-out;
-    
     transition-property: background-size, background-position, opacity;
     -o-transition-property: background-size, background-position, opacity;
     -ms-transition-property: background-size, background-position, opacity;
     -moz-transition-property: background-size, background-position, opacity;
     -webkit-transition-property: background-size, background-position;
+    border-bottom: 10px solid #a3d140;
 }
 .dbs-item-avatar div.dbs-item-desc{
 	overflow: hidden;
 	width:100%;
 	height:100%;
-	padding:5px;
+	padding:10px;
 	visibility:hidden;
 }
 .dbs-item-avatar:hover {
 	background-color:#222222;
     background-size: 110%;
+    border-bottom: 10px solid #789c2b;
 }
 .dbs-item-avatar:hover div.dbs-item-desc{
 	visibility:visible;
@@ -1661,29 +1639,42 @@ body.register #buddypress div.page ul {
 }
 .dbs-item-avatar:hover div.dbs-item-desc p{
 	color:#fff;
-	text-align: center;
+	margin: 0;
+	text-align: left;
 }
 .dbs-item-desc{
-	font-size: 1.3em;
+	font-size: 1em;
 }
 .dbs-meta{
 	font-size: 0.7em;
+	color: #d0f87a;
+	margin-bottom: 3px;
+}
+.dbs-members{
+	background-color: #a3d140;
+	padding:5px;
+	font-size: 1.8em;
+	color: white;
 }
 ul#experiments-list li a:hover + a div{ 
-	background-color: #8cb72f;
-	color: #d0f87a; 
+	color: #789c2b;
 }
-ul#experiments-list li{
-	border: 0px;
-	padding:0px !important;
-	list-style: none;
-	text-decoration: none;
+
+.dbs-item-title:hover{
+	color: #789c2b;
 }
+.ul#experiments-list li a div:hover - a {
+	background-color:#222222;
+    background-size: 110%;
+    border-bottom: 10px solid #789c2b;
+}
+
 ul#experiments-list li a {
 	text-decoration: none;
 }
 ul#experiments-list li a:hover{
 	text-decoration: none;
+	color: #789c2b;
 }
 
 @media (max-width: 1200px) {
@@ -1734,21 +1725,6 @@ ul#experiments-list li a:hover{
 #experiment-admins li,#experiment-mods li{
 	display: inline-block;
 	width:50px;
-}
-._button{
-height: 80px !important;
-background-repeat: no-repeat;
-padding-left: 76px !important;
-padding-top:30px !important;	
-}
-.all-experiments{
-background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/experiment.png')!important;
-}
-.my-experiments{
-background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/mine.png')!important;
-}
-.new-experiment{
-	background-image: url('http://digitalbrain-test.lancs.ac.uk/wp-content/plugins/buddypress/bp-templates/bp-legacy/buddypress/experiments/images/new.png')!important;
 }
 
 /*--------------------------------------------------------------
@@ -2035,7 +2011,7 @@ border-radius:4px;
   cursor: default !important;
 }
 .bootstrap-switch.bootstrap-switch-focused {
-  border-color: #66afe9;
+  border-color: #a3d140;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
@@ -2071,7 +2047,7 @@ border-radius:4px;
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
   color: #fff;
-  background: #428bca;
+  background: #a3d140;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
@@ -2160,7 +2136,7 @@ border-radius:4px;
 	}
 	.exp-avatar{
 		max-width:300px;
-		
+		border:3px solid #8cb72f;
 		border-radius: 50%;
 		width:100%;
 		height:100%;
@@ -2190,6 +2166,7 @@ color:#333333;
     padding:20px;
     color:#777;
     margin-top: -10px;
+    padding-top:0px;
     text-align: center;
     position:relative;
 }
@@ -2256,7 +2233,6 @@ color:#333333;
 	visibility:hidden;
 	position: absolute;
 	right:0;
-	bottom:0;
 	font-size: 0.7em;
 	padding:3px;
 	padding-top:1px;
@@ -2275,7 +2251,7 @@ color:#333333;
 		border: 0px!important;
 	}
 
-	@media (min-width: 768px) {
+
   .container {
     width: 100%!important;
   }
@@ -2295,4 +2271,124 @@ color:#333333;
 
 .icon-small{
 	vertical-align: middle!important;
+}
+
+.title_icons{
+	background-color: #98c634;
+	color: white;
+	padding: 18px;
+	padding-bottom: 7px;
+	padding-top: 19px;
+	border-radius: 51%;
+	font-size: 1.5em;
+}
+.titlespan{
+ margin-top:-50px;
+}
+#collapse{
+	display:none;
+}
+#request-membership-personal-li{
+	display:none;
+}
+
+#top-login-form{
+	max-width: 1200px;
+	text-align: right;
+	margin: 0 auto;
+	padding-right: 50px;
+	padding-bottom:20px;
+	color: #777;
+}
+
+#top-login-form form input{
+	border: 2px solid #bdc3c7;
+color: #34495e;
+font-family: "Lato", Helvetica, Arial, sans-serif;
+font-size: 15px;
+line-height: 1.467;
+padding: 8px 12px;
+height: 42px;
+-webkit-appearance: none;
+border-radius: 6px;
+-webkit-box-shadow: none;
+box-shadow: none;
+-webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+transition: border .25s linear, color .25s linear, background-color .25s linear;
+margin-bottom: 10px;
+}
+#experiments_search_submit{
+	padding:5px;
+}
+#experiments_search{
+background-color: white;
+border: 2px solid #bdc3c7;
+color: #34495e;
+font-family: "Lato", Helvetica, Arial, sans-serif;
+font-size: 15px;
+line-height: 1.467;
+padding: 8px 12px;
+height: 42px;
+-webkit-appearance: none;
+border-radius: 6px;
+}
+
+.page-numbers{
+	font-size:2em;
+}
+
+.var{
+	border-top: 1px solid #333;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#sidebar:last-child{
+	border-bottom: none;
+}
+#experiments-list{
+	list-style: none
+}
+
+.btn-hover{
+	color:white;
+	background-color: #a3d140;
+	border: none;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.4;
+	border-radius: 4px;
+	padding: 10px 15px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+	transition: border .25s linear, color .25s linear, background-color .25s linear;
+}
+
+.btn-hover:hover{
+	background-color: #8cb72f;
+	
+}
+.member-item-avatar{
+	text-align: center;
+}
+.member-item-avatar img{
+	margin:10px!important;
+	float: none!important;
+	border-radius: 50%;
+}
+.member-item{
+	text-align: center;
+}
+.member{
+	margin-bottom: 10px;
+}
+.member:hover{
+	background-color: #efefef;
+}
+
+.notification{
+	margin-bottom: 10px
+}
+#datepicker1:hover{
+	background-color: #789c2b;
+	 cursor: pointer;
 }

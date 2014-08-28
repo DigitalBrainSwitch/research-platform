@@ -83,7 +83,7 @@ function getAverages(data, var_id){
              variable_id: var_id
           }
         }).done(function(data) {
-            
+            console.log(data);
             if(type == 'score'){
                 getAverages(JSON.parse(data), var_id);
                 populateEntries(JSON.parse(data), var_id, type);
@@ -152,6 +152,9 @@ function getAverages(data, var_id){
     
 
 function reportSave(id, entry_id, value, date, type) {
+    if(value==''){
+        return false;
+    }
     if(date=='new'){
         if (today==$('#datepicker1').val()){
             d = new Date();
@@ -169,8 +172,7 @@ function reportSave(id, entry_id, value, date, type) {
      $.ajax({
           async:false,
           type: "POST",
-          //url: "http://digitalbrain-test.lancs.ac.uk/wp-includes/saveVars.php",
-          url: "http://localhost/wordpress/wp-includes/saveVars.php",
+          url: "http://digitalbrain-test.lancs.ac.uk/wp-includes/saveVars.php",
           data:{
              id:  entry_id, 
              user_id: _userid,
